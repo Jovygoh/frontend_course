@@ -1,0 +1,2251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI & Innovation Club - UTAR</title>
+    
+    <!-- Unified CDN Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Unified Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #0b0f19;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease;
+        }
+        body.light-theme-body {
+            background-color: #f8fafc;
+        }
+
+        /* Scoped overrides to improve dark theme readability */
+        #view-ml-projects.dark-theme .text-muted,
+        #view-resources.dark-theme .text-muted,
+        #view-challenge-detail.dark-theme .text-muted {
+            color: #cbd5e1 !important;
+        }
+        #view-ml-projects.dark-theme .text-secondary,
+        #view-resources.dark-theme .text-secondary {
+            color: #94a3b8 !important;
+        }
+        #view-ml-projects.dark-theme .card-title,
+        #view-resources.dark-theme .card-title {
+            color: #ffffff !important;
+        }
+        #view-ml-projects.dark-theme .card-text,
+        #view-resources.dark-theme .card-text {
+            color: #cbd5e1 !important;
+        }
+        #view-resources.dark-theme .idea-form-container span,
+        #view-resources.dark-theme #readingListOutput span {
+            color: #ffffff !important;
+        }
+        #view-resources.dark-theme .github-repo-card a {
+            color: #60a5fa !important;
+        }
+
+        /* ============================================================== */
+        /* GLOBAL SPA ROUTING STYLES                                      */
+        /* ============================================================== */
+        .app-view {
+            transition: opacity 0.3s ease;
+            min-height: 100vh;
+        }
+
+        /* Pad content of non-hero pages so they don't hide under the fixed navbar */
+        #view-ml-projects, #view-resources, #view-workshops, #view-challenges {
+            padding-top: 76px;
+        }
+
+        #view-workshop-detail, #view-challenge-detail {
+            padding-top: 30px; /* Subpages don't have navbars, so smaller padding */
+        }
+
+        /* ============================================================== */
+        /* SCOPED HOME VIEW STYLES (#view-home)                           */
+        /* ============================================================== */
+        #view-home {
+            background-color: #0b0f19;
+            color: #e5e7eb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #view-home .hero-section {
+            padding: 140px 0 100px 0;
+            background: linear-gradient(to right, rgba(11, 15, 25, 0.9), rgba(17, 24, 39, 0.7)), 
+                        url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+            border-bottom: 1px solid #1f2937;
+            position: relative;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        #view-home .floating-element {
+            animation: float 4s ease-in-out infinite;
+        }
+        #view-home .feature-card {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        #view-home .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        #view-home .feature-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        #view-home .api-quote-box {
+            background: linear-gradient(135deg, #1e3a8a 0%, #111827 100%);
+            border-left: 5px solid #60a5fa;
+            border-radius: 8px;
+        }
+        #view-home .video-jump-btn i {
+            transition: transform 0.3s ease;
+        }
+        #view-home .video-jump-btn:hover i {
+            transform: scale(1.15);
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+        }
+        #view-home .social-btn {
+            width: 42px; 
+            height: 42px; 
+            transition: all 0.3s ease;
+        }
+        #view-home .social-btn:hover {
+            transform: translateY(-3px);
+        }
+        #view-home .fade-in-scroll, #view-ai-guide .fade-in-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        #view-home .fade-in-scroll.visible, #view-ai-guide .fade-in-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================================== */
+        /* SCOPED AI GUIDE VIEW STYLES (#view-ai-guide)                   */
+        /* ============================================================== */
+        #view-ai-guide {
+            background-color: #0b0f19;
+            color: #d1d5db;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #view-ai-guide .sub-hero-section {
+            padding: 150px 0 80px 0;
+            background: linear-gradient(135deg, rgba(11, 15, 25, 0.95), rgba(30, 58, 138, 0.8)), 
+                        url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1920&auto=format&fit=crop') center/cover fixed;
+            border-bottom: 1px solid #1f2937;
+        }
+        #view-ai-guide .text-gradient {
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        #view-ai-guide .domain-card {
+            background-color: #111827;
+            border: 1px solid #374151;
+            border-radius: 15px;
+            padding: 30px;
+            height: 100%;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        #view-ai-guide .domain-card:hover {
+            transform: translateY(-10px);
+            border-color: #60a5fa;
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2);
+        }
+        #view-ai-guide .domain-icon {
+            font-size: 3rem;
+            color: #60a5fa;
+            margin-bottom: 20px;
+        }
+        #view-ai-guide .timeline {
+            border-left: 3px solid #3b82f6;
+            padding-left: 30px;
+            margin-left: 20px;
+            position: relative;
+        }
+        #view-ai-guide .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+        }
+        #view-ai-guide .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -39px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            background-color: #60a5fa;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #60a5fa;
+        }
+        #view-ai-guide .quiz-section {
+            background: linear-gradient(145deg, #1f2937 0%, #111827 100%);
+            border: 1px solid #3b82f6;
+            border-radius: 15px;
+            padding: 40px;
+        }
+
+        /* ============================================================== */
+        /* SCOPED USER SECTIONS: PROJECTS & RESOURCES (#view-ml-projects & #view-resources) */
+        /* ============================================================== */
+        #view-ml-projects, #view-resources {
+            --ml-bg: #f8f9fa; 
+            --ml-text: #212529;
+            --ml-card-bg: #ffffff;
+            --ml-primary: #3b82f6;
+            --ml-secondary: #2563eb;
+            --ml-border: rgba(0,0,0,0.1);
+            
+            --ml-theme-bg: var(--ml-bg);
+            --ml-theme-text: var(--ml-text);
+            --ml-theme-card: var(--ml-card-bg);
+            --ml-theme-border: var(--ml-border);
+
+            font-family: 'Inter', sans-serif;
+            background-color: var(--ml-theme-bg);
+            color: var(--ml-theme-text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #view-ml-projects.dark-theme, #view-resources.dark-theme {
+            --ml-bg-dark: #0b1121; 
+            --ml-text-dark: #e0e0e0;
+            --ml-card-bg-dark: #151c2f;
+            --ml-primary-dark: #3b82f6;
+            --ml-secondary-dark: #60a5fa;
+            --ml-border-dark: rgba(255,255,255,0.1);
+
+            --ml-theme-bg: var(--ml-bg-dark);
+            --ml-theme-text: var(--ml-text-dark);
+            --ml-theme-card: var(--ml-card-bg-dark);
+            --ml-primary: var(--ml-primary-dark);
+            --ml-secondary: var(--ml-secondary-dark);
+            --ml-theme-border: var(--ml-border-dark);
+        }
+
+        #view-ml-projects .hero-section, #view-resources .hero-section {
+            background: linear-gradient(135deg, var(--ml-primary) 0%, var(--ml-secondary) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        #view-ml-projects .hero-title, #view-resources .hero-title {
+            font-weight: 700;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        #view-ml-projects .ml-card, #view-resources .ml-card {
+            background-color: var(--ml-theme-card);
+            border: 1px solid var(--ml-theme-border) !important;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+            color: var(--ml-theme-text);
+        }
+
+        #view-ml-projects .ml-card:hover, #view-resources .ml-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: var(--ml-primary) !important;
+        }
+
+        #view-ml-projects .ml-card img {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        #view-ml-projects .idea-form-container, #view-resources .idea-form-container {
+            background-color: var(--ml-theme-card);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--ml-theme-border) !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            color: var(--ml-theme-text);
+        }
+
+        #view-ml-projects .form-control, #view-resources .form-control,
+        #view-ml-projects .form-select, #view-resources .form-select {
+            background-color: var(--ml-theme-card);
+            color: var(--ml-theme-text);
+            border: 1px solid rgba(0,0,0,0.15);
+        }
+        
+        #view-ml-projects.dark-theme .form-control, #view-resources.dark-theme .form-control,
+        #view-ml-projects.dark-theme .form-select, #view-resources.dark-theme .form-select {
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        #view-ml-projects .form-control::placeholder, #view-resources .form-control::placeholder {
+            color: rgba(128,128,128,0.7);
+        }
+
+        #view-ml-projects .btn-custom, #view-resources .btn-custom {
+            background: linear-gradient(135deg, var(--ml-primary) 0%, var(--ml-secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        #view-ml-projects .btn-custom:hover, #view-resources .btn-custom:hover {
+            opacity: 0.9;
+            color: white;
+        }
+
+        #view-ml-projects #quote-container, #view-resources #playground-quote-container {
+            font-style: italic;
+            font-weight: 300;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            color: white;
+        }
+
+        #view-resources .github-repo-card {
+            background-color: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--ml-primary);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: background 0.3s;
+        }
+
+        #view-resources .github-repo-card:hover {
+            background-color: rgba(255,255,255,0.08);
+        }
+
+        /* ============================================================== */
+        /* TEAMMATE CYBERPUNK THEMED SECTIONS: WORKSHOPS & CHALLENGES     */
+        /* ============================================================== */
+        .cyber-page-view {
+            --neon-blue: #0ea5e9;
+            --neon-purple: #8b5cf6;
+            --neon-pink: #ec4899;
+            
+            --bg-light: #f8fafc;
+            --card-light: #ffffff;
+            --text-light: #0f172a;
+            --border-light: #e2e8f0;
+
+            --bg-dark: #060911;
+            --card-dark: #0d1322;
+            --text-dark: #f1f5f9;
+            --border-dark: #1a243a;
+            
+            --cyber-bg: var(--bg-light);
+            --cyber-card: var(--card-light);
+            --cyber-text: var(--text-light);
+            --cyber-border: var(--border-light);
+
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--cyber-bg);
+            color: var(--cyber-text);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .cyber-page-view.dark-theme {
+            --cyber-bg: var(--bg-dark);
+            --cyber-card: var(--card-dark);
+            --cyber-text: var(--text-dark);
+            --cyber-border: var(--border-dark);
+        }
+
+        .cyber-page-view .card,
+        .cyber-page-view .table,
+        .cyber-page-view .accordion-item,
+        .cyber-page-view .form-control,
+        .cyber-page-view .form-select {
+            background-color: var(--cyber-card) !important;
+            color: var(--cyber-text) !important;
+            border-color: var(--cyber-border) !important;
+        }
+
+        .cyber-page-view .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .cyber-page-view .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        #view-challenges .hero-challenge, #view-challenge-detail .hero-challenge {
+            background: radial-gradient(circle at 50% 0%, #032b45 0%, #060911 100%);
+            color: white;
+            padding: 4.5rem 0 3.5rem 0;
+            border-radius: 0 0 2.5rem 2.5rem;
+            position: relative;
+        }
+
+        #view-workshops .hero-workshop, #view-workshop-detail .hero-workshop {
+            background: radial-gradient(circle at 50% 0%, #31103f 0%, #060911 100%);
+            color: white;
+            padding: 4.5rem 0 3.5rem 0;
+            border-radius: 0 0 2.5rem 2.5rem;
+            position: relative;
+        }
+        
+        #view-workshop-detail .hero-workshop {
+            padding: 4rem 0 3rem 0;
+            border-radius: 0 0 2rem 2rem;
+        }
+
+        .cyber-page-view .card-cyber {
+            border-radius: 1.25rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+        }
+
+        #view-workshops .card-cyber, #view-workshop-detail .card-cyber {
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        #view-workshops .card-cyber:hover, #view-workshop-detail .card-cyber:hover {
+            border-color: rgba(236, 72, 153, 0.4);
+            box-shadow: 0 12px 25px -8px rgba(139, 92, 246, 0.25);
+        }
+
+        .cyber-page-view .card-cyber:hover {
+            transform: translateY(-4px);
+            border-color: rgba(14, 165, 233, 0.5);
+            box-shadow: 0 12px 25px -8px rgba(14, 165, 233, 0.25);
+        }
+
+        .social-plugin-bar .social-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .social-plugin-bar .social-btn:hover {
+            transform: translateX(6px);
+            color: white;
+        }
+
+        .bg-fb {
+            background: rgba(24, 119, 242, 0.9);
+        }
+
+        .bg-tw {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #333;
+        }
+
+        .bg-li {
+            background: rgba(10, 102, 194, 0.9);
+        }
+
+        .bg-wa {
+            background: rgba(37, 211, 102, 0.9);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- UNIFIED GLOBAL NAVIGATION BAR              -->
+    <!-- ========================================== -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top global-navbar" style="background-color: rgba(17, 24, 39, 0.95) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #374151; z-index: 1040;">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#home">
+                <i class="bi bi-cpu-fill me-2"></i>AI & Innovation
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#globalNavbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="globalNavbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#ai-guide">What is AI?</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#ml-projects">ML Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#workshops">Workshops</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#challenges">Challenges</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <span id="welcomeMsg" class="badge bg-primary fs-6 p-2">Guest</span>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <button id="globalThemeToggle" class="btn btn-outline-light rounded-circle" style="width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="Toggle Light/Dark Mode">
+                            <i id="globalThemeIcon" class="bi bi-moon-fill text-warning"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- GLOBAL SOCIAL PLUGIN BAR (CONTACTS)        -->
+    <!-- ========================================== -->
+    <div class="social-plugin-bar" style="position: fixed; left: 16px; top: 35%; z-index: 1050; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s ease;">
+        <a href="#" class="social-btn bg-fb shareFbBtn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-btn bg-tw shareTwBtn" title="Share on X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="social-btn bg-li shareLiBtn" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-btn bg-wa shareWaBtn" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 1. HOME VIEW (#home)                        -->
+    <!-- ========================================== -->
+    <div id="view-home" class="app-view d-none">
+        <header class="hero-section text-center text-lg-start">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 fade-in-scroll visible">
+                        <h1 class="display-4 fw-bold text-white mb-3">Shape the Future with <span class="text-primary">AI</span></h1>
+                        <p class="lead text-gray-300 mb-4">
+                            Discover the fundamentals of Artificial Intelligence, explore cutting-edge machine learning models, and compete in our campus tech challenges at UTAR.
+                        </p>
+                        <a href="#intro-ai" class="btn btn-primary btn-lg px-4 me-3 rounded-pill">Start Learning</a>
+                        
+                        <div class="mt-4 pt-3">
+                            <p class="text-secondary small mb-2">Follow our community:</p>
+                            <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+                                <a href="https://www.facebook.com/UTARnet/" target="_blank" class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center social-btn">
+                                    <i class="bi bi-facebook fs-5"></i>
+                                </a>
+                                <a href="https://twitter.com/UTARnet" target="_blank" class="btn btn-outline-info rounded-circle d-flex align-items-center justify-content-center social-btn">
+                                    <i class="bi bi-twitter fs-5"></i>
+                                </a>
+                                <a href="https://www.instagram.com/utarnet1/" target="_blank" class="btn btn-outline-danger rounded-circle d-flex align-items-center justify-content-center social-btn">
+                                    <i class="bi bi-instagram fs-5"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 text-center d-none d-lg-block floating-element">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=600&auto=format&fit=crop" alt="AI Brain" class="img-fluid rounded-circle" style="border: 5px solid #1e3a8a; box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="container my-5 fade-in-scroll">
+            <div class="api-quote-box p-4 shadow-lg text-center">
+                <h6 class="text-info text-uppercase fw-bold mb-3"><i class="bi bi-cloud-arrow-down-fill me-2"></i>AI Quote of the Day (Fetched via REST API)</h6>
+                <h4 id="apiQuote" class="text-white fst-italic">"Loading inspiring tech quote..."</h4>
+                <p id="apiAuthor" class="text-secondary mt-2 mb-0"></p>
+            </div>
+        </section>
+
+        <section id="intro-ai" class="container my-5 py-4 fade-in-scroll">
+            <div class="row text-center mb-5">
+                <h2 class="fw-bold text-white display-5">What is Artificial Intelligence?</h2>
+                <p class="text-secondary">Understanding the core technology of the 21st century.</p>
+            </div>
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <div class="position-relative rounded-4 overflow-hidden shadow-lg border border-secondary" style="background: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=800&auto=format&fit=crop') center/cover; height: 320px;">
+                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(11, 15, 25, 0.75);"></div>
+                        <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+                            <a href="https://www.youtube.com/watch?v=ad79nYk2keg&t=144s" target="_blank" class="text-decoration-none video-jump-btn">
+                                <i class="bi bi-play-circle-fill text-primary" style="font-size: 5rem;"></i>
+                                <h4 class="text-white fw-bold mt-3">Watch AI Introduction</h4>
+                                <p class="text-info small mb-0"><i class="bi bi-box-arrow-up-right me-1"></i>Click to watch on YouTube</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-start">
+                    <h3 class="text-primary fw-bold mb-3">Simulating Human Intelligence</h3>
+                    <p class="text-gray-400" style="line-height: 1.8;">
+                        Artificial Intelligence (AI) refers to the development of computer systems capable of performing tasks that typically require human intelligence. These tasks include learning, reasoning, problem-solving, understanding natural language, and perceiving environments. 
+                    </p>
+                    <ul class="list-unstyled text-gray-400 mt-4">
+                        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Machine Learning:</strong> Systems that learn from data without being explicitly programmed.</li>
+                        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Neural Networks:</strong> Computing systems inspired by the biological neural networks of animal brains.</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Generative AI:</strong> Models like ChatGPT that create new text, images, and media.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="container my-5 py-5 border-top border-secondary fade-in-scroll">
+            <div class="text-center mb-5">
+                <h3 class="fw-bold text-white">Explore Club Activities</h3>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-5">
+                    <div class="feature-card text-center">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=400&auto=format&fit=crop" alt="Coding">
+                        <div class="p-4">
+                            <h5 class="fw-bold text-white">ML Projects</h5>
+                            <p class="text-secondary small">Explore student-built machine learning algorithms.</p>
+                            <a href="#ml-projects" class="btn btn-outline-primary w-100">View Projects</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="feature-card text-center">
+                        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=400&auto=format&fit=crop" alt="Hackathon">
+                        <div class="p-4">
+                            <h5 class="fw-bold text-white">Innovation Challenges</h5>
+                            <p class="text-secondary small">Compete in our campus AI hackathons.</p>
+                            <a href="#challenges" class="btn btn-outline-primary w-100">See Challenges</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container my-5 py-5 border-top border-secondary fade-in-scroll">
+            <div class="text-center mb-5">
+                <h3 class="fw-bold text-white">Development Team</h3>
+                <p class="text-secondary">The brilliant minds behind this website.</p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
+                        <div class="card-body">
+                            <i class="bi bi-person-workspace text-primary mb-3" style="font-size: 3rem;"></i>
+                            <h5 class="fw-bold text-white">Chen Zheng Hao</h5>
+                            <p class="text-secondary mb-2">Student ID: 23ACB05798</p>
+                            <span class="badge bg-primary px-3 py-2">Main page - Intro & AI Guide</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
+                        <div class="card-body">
+                            <i class="bi bi-code-slash text-info mb-3" style="font-size: 3rem;"></i>
+                            <h5 class="fw-bold text-white">Goh Xuan Hui</h5>
+                            <p class="text-secondary mb-2">Student ID: 23ACB01839</p>
+                            <span class="badge bg-info text-dark px-3 py-2">ML Projects & Resources</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
+                        <div class="card-body">
+                            <i class="bi bi-trophy text-warning mb-3" style="font-size: 3rem;"></i>
+                            <h5 class="fw-bold text-white">Ng Wei Ni</h5>
+                            <p class="text-secondary mb-2">Student ID: 22ACB06052</p>
+                            <span class="badge bg-warning text-dark px-3 py-2">Innovation Challenges</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal fade" id="nameModal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark text-white border-primary">
+                    <div class="modal-header border-secondary">
+                        <h5 class="modal-title text-primary"><i class="bi bi-person-bounding-box me-2"></i>Welcome to AI Club</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please enter your name to personalize your experience:</p>
+                        <input type="text" id="userNameInput" class="form-control bg-secondary text-white border-0" placeholder="e.g. John Doe">
+                    </div>
+                    <div class="modal-footer border-secondary">
+                        <button type="button" class="btn btn-primary w-100" id="saveNameBtn">Save & Enter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 2. AI GUIDE VIEW (#ai-guide)                -->
+    <!-- ========================================== -->
+    <div id="view-ai-guide" class="app-view d-none">
+        <header class="sub-hero-section text-center">
+            <div class="container fade-in-scroll visible">
+                <h1 class="display-4 fw-bold text-white mb-3">Comprehensive Guide to <span class="text-gradient">Artificial Intelligence</span></h1>
+                <p class="lead text-gray-300 mx-auto mb-4" style="max-width: 800px;">
+                    Dive deep into the mechanics, history, and profound impact of machine intelligence. From neural networks to large language models, explore how AI is reshaping humanity.
+                </p>
+                <a href="#home" class="btn btn-outline-light rounded-pill px-4">
+                    <i class="bi bi-arrow-left me-2"></i>Return to Home
+                </a>
+            </div>
+        </header>
+
+        <section class="container my-5 py-5 fade-in-scroll">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold text-white mb-4">Beyond the Hype: <span class="text-primary">What Exactly is AI?</span></h2>
+                    <p class="text-secondary" style="line-height: 1.8; font-size: 1.1rem;">
+                        At its core, <strong>Artificial Intelligence (AI)</strong> is a branch of computer science dedicated to creating systems capable of performing tasks that typically require human intelligence. This involves everything from recognizing speech and visual perception to decision-making and language translation.
+                    </p>
+                    <p class="text-secondary" style="line-height: 1.8; font-size: 1.1rem;">
+                        Unlike traditional software that follows strictly hard-coded rules (if-then logic), modern AI systems are designed to <em>learn</em> from vast amounts of data, identify patterns, and make autonomous predictions with minimal human intervention.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="p-4 bg-dark border border-secondary rounded-4 shadow">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop" alt="AI Circuit" class="img-fluid rounded-3 mb-3">
+                        <p class="text-center text-info small mb-0"><i class="bi bi-info-circle me-1"></i> Data processing is the foundation of all machine learning algorithms.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container my-5 fade-in-scroll">
+            <div class="p-5 rounded-4" style="background-color: #111827; border: 1px solid #1f2937;">
+                <h3 class="fw-bold text-white mb-5 text-center"><i class="bi bi-clock-history text-primary me-2"></i>The Evolution of Machine Intelligence</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h5 class="fw-bold text-primary">1950 - The Turing Test</h5>
+                        <p class="text-secondary mb-0">Alan Turing proposes a test to determine if a machine can exhibit intelligent behavior indistinguishable from that of a human.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="fw-bold text-primary">1956 - The Dartmouth Conference</h5>
+                        <p class="text-secondary mb-0">The term "Artificial Intelligence" is officially coined by John McCarthy. It marks the birth of AI as an academic discipline.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="fw-bold text-primary">1997 - Deep Blue Defeats Kasparov</h5>
+                        <p class="text-secondary mb-0">IBM's Deep Blue becomes the first computer system to defeat a reigning world chess champion under tournament conditions.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="fw-bold text-primary">2012 - The Deep Learning Boom</h5>
+                        <p class="text-secondary mb-0">A neural network architecture called AlexNet dominates a major image recognition competition, kicking off the modern deep learning revolution.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5 class="fw-bold text-primary">2022 & Beyond - Generative AI Era</h5>
+                        <p class="text-secondary mb-0">The public release of models like ChatGPT and Midjourney demonstrates AI's unprecedented ability to generate human-like text, code, and high-quality artwork.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container my-5 py-5 fade-in-scroll">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-white">The Four Pillars of AI</h2>
+                <p class="text-secondary">Understanding the specialized domains within artificial intelligence.</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="domain-card">
+                        <i class="bi bi-graph-up-arrow domain-icon"></i>
+                        <h5 class="fw-bold text-white">Machine Learning</h5>
+                        <p class="text-secondary small">Algorithms that allow software applications to become more accurate at predicting outcomes without being explicitly programmed.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="domain-card">
+                        <i class="bi bi-chat-left-text domain-icon"></i>
+                        <h5 class="fw-bold text-white">Natural Language (NLP)</h5>
+                        <p class="text-secondary small">The branch of AI concerned with giving computers the ability to understand text and spoken words in much the same way human beings can.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="domain-card">
+                        <i class="bi bi-eye domain-icon"></i>
+                        <h5 class="fw-bold text-white">Computer Vision</h5>
+                        <p class="text-secondary small">Enables computers and systems to derive meaningful information from digital images, videos, and other visual inputs.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="domain-card">
+                        <i class="bi bi-robot domain-icon"></i>
+                        <h5 class="fw-bold text-white">Robotics</h5>
+                        <p class="text-secondary small">Integrating AI into mechanical engineering to create machines that can perform complex, dangerous, or highly repetitive tasks autonomously.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container my-5 fade-in-scroll">
+            <div class="quiz-section shadow-lg">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <h3 class="fw-bold text-white mb-3"><i class="bi bi-patch-question-fill text-warning me-2"></i>Test Your AI Knowledge</h3>
+                        <p class="text-secondary mb-4">Let's see how much you've learned! Answer this quick question.</p>
+                        
+                        <div id="quizContainer">
+                            <div class="mb-3">
+                                <p class="text-white fw-bold">Question: Which of the following is a subset of AI that relies heavily on artificial neural networks?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="aiQuiz" id="q1" value="wrong">
+                                    <label class="form-check-label text-secondary" for="q1">A) Hard-coded If-Else Logic</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="aiQuiz" id="q2" value="correct">
+                                    <label class="form-check-label text-secondary" for="q2">B) Deep Learning</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="aiQuiz" id="q3" value="wrong">
+                                    <label class="form-check-label text-secondary" for="q3">C) Manual Data Entry</label>
+                                </div>
+                            </div>
+                            <button id="submitQuizBtn" class="btn btn-primary mt-2">Submit Answer</button>
+                        </div>
+                        
+                        <div id="quizResult" class="mt-4" style="display: none;"></div>
+                    </div>
+                    <div class="col-lg-5 text-center d-none d-lg-block">
+                        <i class="bi bi-lightbulb text-warning opacity-50" style="font-size: 10rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 3. ML PROJECTS VIEW (#ml-projects)          -->
+    <!-- ========================================== -->
+    <div id="view-ml-projects" class="app-view d-none">
+        <header class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Machine Learning Showcase</h1>
+                <p class="lead">Explore our cutting-edge AI models, datasets, and member-led innovations.</p>
+                <div id="quote-container">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Loading AI Wisdom via REST API...
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="row mb-5 g-4">
+                <div class="col-12 text-center mb-4">
+                    <h2 class="fw-bold"><i class="fa-solid fa-code-branch me-2 text-primary"></i>Current Projects</h2>
+                    <p class="text-muted">Check out what our members are currently developing.</p>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card ml-card">
+                        <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=400&auto=format&fit=crop" class="card-img-top" alt="CV Project">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">Traffic Flow Analyzer</h5>
+                            <p class="card-text flex-grow-1">A computer vision model using YOLOv8 to detect and classify vehicle types in real-time traffic camera feeds to optimize city light timings.</p>
+                            <button class="btn btn-custom w-100 mt-3" data-bs-toggle="modal" data-bs-target="#projectModal">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card ml-card">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=400&auto=format&fit=crop" class="card-img-top" alt="NLP Project">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">Campus Assistant Chatbot</h5>
+                            <p class="card-text flex-grow-1">An NLP-based conversational agent fine-tuned on university handbook data to answer student queries about courses and facilities.</p>
+                            <button class="btn btn-custom w-100 mt-3" data-bs-toggle="modal" data-bs-target="#projectModal">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card ml-card">
+                        <img src="https://images.unsplash.com/photo-1527474305487-b87b222841cc?q=80&w=400&auto=format&fit=crop" class="card-img-top" alt="Predictive Project">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">Energy Demand Predictor</h5>
+                            <p class="card-text flex-grow-1">A time-series forecasting model using LSTM neural networks to predict electricity consumption patterns on campus.</p>
+                            <button class="btn btn-custom w-100 mt-3" data-bs-toggle="modal" data-bs-target="#projectModal">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-5 opacity-25">
+
+            <div class="row mb-5">
+                <div class="col-lg-8 mb-4">
+                    <div class="idea-form-container">
+                        <h3 class="fw-bold mb-3"><i class="fa-solid fa-lightbulb text-warning me-2"></i>Pitch a New ML Project</h3>
+                        <p class="text-muted small">Have a great idea? Submit it below. (Your ideas are saved locally in your browser using <strong>Local Storage</strong>).</p>
+                        
+                        <form id="ideaForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="studentName" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="studentName" required placeholder="John Doe">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="projectTitle" class="form-label">Project Title</label>
+                                    <input type="text" class="form-control" id="projectTitle" required placeholder="e.g., DeepFake Detector">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="projectDesc" class="form-label">Short Description</label>
+                                <textarea class="form-control" id="projectDesc" rows="3" required placeholder="What does this model do?"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-custom"><i class="fa-solid fa-paper-plane me-2"></i>Submit Idea</button>
+                        </form>
+
+                        <div class="mt-5">
+                            <h4 class="fw-bold">Community Pitches</h4>
+                            <div id="ideasList" class="mt-3">
+                                <!-- Injected via JavaScript from Local Storage -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="idea-form-container h-100 text-center d-flex flex-column justify-content-center">
+                        <h4 class="fw-bold mb-4">Share our Club!</h4>
+                        <p class="text-muted mb-4">Help us grow the AI community by sharing our project showcase on social media.</p>
+                        <div>
+                            <a href="#" id="mlShareTw" class="btn btn-dark w-100 rounded-pill py-2 text-white border border-secondary shadow-sm">
+                                <i class="fa-brands fa-x-twitter me-2"></i>Share on X / Twitter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal details -->
+        <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="background-color: var(--ml-theme-card); color: var(--ml-theme-text);">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title fw-bold">Project Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>This project is currently in the model training phase. The repository will be made public on our GitHub organization page once validation accuracy reaches 90%.</p>
+                        <p><strong>Technologies used:</strong> Python, PyTorch, Pandas, Scikit-learn.</p>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-custom">View GitHub <i class="fa-brands fa-github ms-1"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Toast -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="welcomeToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="fa-solid fa-hand-wave me-2"></i> Welcome to the Machine Learning Portal!
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 4. RESOURCES VIEW (#resources)             -->
+    <!-- ========================================== -->
+    <div id="view-resources" class="app-view d-none">
+        <header class="hero-section">
+            <div class="container">
+                <h1 class="hero-title text-white">AI Resource Library</h1>
+                <p class="lead fw-light text-light text-opacity-90">Curated datasets, cheat sheets, and tools for club members.</p>
+                
+                <!-- Session Storage Counter Display -->
+                <div class="mt-4 p-2 rounded d-inline-block" style="background: rgba(0,0,0,0.5); border: 1px solid var(--ml-primary); font-size: 0.9rem;">
+                    <i class="fa-solid fa-stopwatch me-2 text-warning"></i>
+                    Resources opened this session: <strong id="sessionCounter" class="text-white">0</strong>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Container -->
+        <div class="container my-5">
+            <div class="row">
+                
+                <!-- Left Column: Resource Cards -->
+                <div class="col-lg-8 mb-4">
+                    <h3 class="fw-bold mb-4"><i class="fa-solid fa-folder-open text-primary me-2"></i>Study Materials</h3>
+                    
+                    <div class="row g-4">
+                        <!-- Resource 1 -->
+                        <div class="col-md-6">
+                            <div class="card ml-card p-4">
+                                <div class="card-body d-flex flex-column p-0">
+                                    <i class="fa-brands fa-python resource-icon mb-3" style="font-size: 2.5rem; color: var(--ml-primary);"></i>
+                                    <h5 class="fw-bold card-title">Python for Data Science</h5>
+                                    <p class="text-muted small card-text flex-grow-1">A comprehensive cheat sheet covering Pandas, NumPy, and Matplotlib for data manipulation.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top" style="border-color: var(--ml-theme-border) !important;">
+                                        <a href="#" class="btn btn-sm btn-outline-primary resource-link" data-title="Python Cheat Sheet"><i class="fa-solid fa-eye me-1"></i> View</a>
+                                        <button class="btn btn-sm btn-custom bookmark-btn" data-title="Python Cheat Sheet"><i class="fa-regular fa-bookmark me-1"></i> Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resource 2 -->
+                        <div class="col-md-6">
+                            <div class="card ml-card p-4">
+                                <div class="card-body d-flex flex-column p-0">
+                                    <i class="fa-solid fa-database resource-icon mb-3" style="font-size: 2.5rem; color: var(--ml-primary);"></i>
+                                    <h5 class="fw-bold card-title">Kaggle Datasets Hub</h5>
+                                    <p class="text-muted small card-text flex-grow-1">Direct links to the best open-source datasets for training your first computer vision and NLP models.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top" style="border-color: var(--ml-theme-border) !important;">
+                                        <a href="#" class="btn btn-sm btn-outline-primary resource-link" data-title="Kaggle Datasets"><i class="fa-solid fa-eye me-1"></i> View</a>
+                                        <button class="btn btn-sm btn-custom bookmark-btn" data-title="Kaggle Datasets"><i class="fa-regular fa-bookmark me-1"></i> Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resource 3 -->
+                        <div class="col-md-6">
+                            <div class="card ml-card p-4">
+                                <div class="card-body d-flex flex-column p-0">
+                                    <i class="fa-solid fa-robot resource-icon mb-3" style="font-size: 2.5rem; color: var(--ml-primary);"></i>
+                                    <h5 class="fw-bold card-title">PyTorch Fundamentals</h5>
+                                    <p class="text-muted small card-text flex-grow-1">Step-by-step interactive notebook to build your first neural network from scratch using PyTorch.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top" style="border-color: var(--ml-theme-border) !important;">
+                                        <a href="#" class="btn btn-sm btn-outline-primary resource-link" data-title="PyTorch Notebook"><i class="fa-solid fa-eye me-1"></i> View</a>
+                                        <button class="btn btn-sm btn-custom bookmark-btn" data-title="PyTorch Notebook"><i class="fa-regular fa-bookmark me-1"></i> Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resource 4 -->
+                        <div class="col-md-6">
+                            <div class="card ml-card p-4">
+                                <div class="card-body d-flex flex-column p-0">
+                                    <i class="fa-solid fa-wand-magic-sparkles resource-icon mb-3" style="font-size: 2.5rem; color: var(--ml-primary);"></i>
+                                    <h5 class="fw-bold card-title">Prompt Tuning Guide</h5>
+                                    <p class="text-muted small card-text flex-grow-1">Learn advanced techniques for communicating with LLMs like GPT-4 and Claude 3.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top" style="border-color: var(--ml-theme-border) !important;">
+                                        <a href="#" class="btn btn-sm btn-outline-primary resource-link" data-title="Prompt Tuning Guide"><i class="fa-solid fa-eye me-1"></i> View</a>
+                                        <button class="btn btn-sm btn-custom bookmark-btn" data-title="Prompt Tuning Guide"><i class="fa-regular fa-bookmark me-1"></i> Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-5 opacity-25">
+                    
+                    <!-- REST API Target Container -->
+                    <h3 class="fw-bold mb-4"><i class="fa-brands fa-github text-primary me-2"></i>Trending AI Repositories</h3>
+                    <p class="text-muted small">Fetched live from GitHub via RESTful API.</p>
+                    <div id="github-api-container" class="mb-4">
+                        <div class="text-center p-4">
+                            <i class="fa-solid fa-spinner fa-spin fa-2x text-primary mb-3"></i>
+                            <p class="text-muted">Contacting GitHub API...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Reading List (Local Storage) & Social Media -->
+                <div class="col-lg-4">
+                    <div class="idea-form-container mb-4">
+                        <h4 class="fw-bold mb-3"><i class="fa-solid fa-bookmark text-primary me-2"></i>My Reading List</h4>
+                        <p class="text-muted small">Items saved here are stored in your browser's Local Storage.</p>
+                        
+                        <!-- Container for saved items -->
+                        <div id="readingListOutput" class="mb-3">
+                            <!-- Injected via JavaScript -->
+                        </div>
+                        
+                        <button id="clearListBtn" class="btn btn-sm btn-outline-danger w-100 rounded-pill">
+                            <i class="fa-solid fa-trash me-2"></i>Clear List
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 5. WORKSHOPS VIEW (#workshops)              -->
+    <!-- ========================================== -->
+    <div id="view-workshops" class="app-view cyber-page-view d-none">
+        <header class="hero-workshop text-center">
+            <div class="container">
+                <span class="badge bg-warning text-dark rounded-pill px-3 py-2 mb-3 font-mono">
+                    <i class="fas fa-terminal me-1"></i> HANDS-ON LEARNING
+                </span>
+                <h1 class="heading-font display-4 fw-bold mb-3">Prompt Engineering Workshops</h1>
+                <p class="lead text-light text-opacity-75 max-w-2xl mx-auto mb-4">
+                    Explore zero-shot optimization, multi-agent frameworks, vector search, and advanced reasoning architectures.
+                </p>
+            </div>
+        </header>
+
+        <main class="container my-5">
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <h3 class="heading-font fw-bold mb-4"><i class="fas fa-graduation-cap text-warning me-2"></i>Available Workshop Tracks</h3>
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-6">
+                            <div class="card card-cyber h-100 p-4 shadow-sm">
+                                <span class="badge bg-primary bg-opacity-10 text-primary w-max mb-2 font-mono">TRACK 01</span>
+                                <h4 class="heading-font fw-bold">Zero-Shot & Few-Shot Masterclass</h4>
+                                <p class="text-secondary small mb-3">Learn structural template design, system role constraints, and context window optimization for LLMs.</p>
+                                <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                                    <small class="text-muted"><i class="far fa-clock me-1"></i> 2.5 Hours</small>
+                                    <button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn"
+                                        data-track="Zero-Shot & Few-Shot Masterclass" data-level="Beginner to Intermediate"
+                                        data-instructor="Dr. Alex Rivera">
+                                        Select Track
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card card-cyber h-100 p-4 shadow-sm">
+                                <span class="badge bg-danger bg-opacity-10 text-danger w-max mb-2 font-mono">TRACK 02</span>
+                                <h4 class="heading-font fw-bold">Chain-of-Thought Reasoning Sprint</h4>
+                                <p class="text-secondary small mb-3">Implement multi-step logic pipelines, self-consistency sampling, and tree-of-thought methods.</p>
+                                <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                                    <small class="text-muted"><i class="far fa-clock me-1"></i> 3.0 Hours</small>
+                                    <button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn"
+                                        data-track="Chain-of-Thought Reasoning Sprint" data-level="Advanced"
+                                        data-instructor="Prof. Elena Rostova">
+                                        Select Track
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card card-cyber h-100 p-4 shadow-sm">
+                                <span class="badge bg-success bg-opacity-10 text-success w-max mb-2 font-mono">TRACK 03</span>
+                                <h4 class="heading-font fw-bold">RAG & Vector Database Prompting</h4>
+                                <p class="text-secondary small mb-3">Connect LLMs to external data sources using semantic similarity embeddings, ChromaDB, and hybrid retrieval techniques.</p>
+                                <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                                    <small class="text-muted"><i class="far fa-clock me-1"></i> 3.5 Hours</small>
+                                    <button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn"
+                                        data-track="RAG & Vector Database Prompting" data-level="Intermediate"
+                                        data-instructor="Marcus Chen">
+                                        Select Track
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card card-cyber h-100 p-4 shadow-sm">
+                                <span class="badge bg-info bg-opacity-10 text-info w-max mb-2 font-mono">TRACK 04</span>
+                                <h4 class="heading-font fw-bold">Autonomous Multi-Agent Frameworks</h4>
+                                <p class="text-secondary small mb-3">Design collaborative AI agent teams (CrewAI / AutoGen) using task delegation prompts and tool utilization.</p>
+                                <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                                    <small class="text-muted"><i class="far fa-clock me-1"></i> 4.0 Hours</small>
+                                    <button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn"
+                                        data-track="Autonomous Multi-Agent Frameworks" data-level="Advanced"
+                                        data-instructor="Sarah Jenkins">
+                                        Select Track
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="heading-font fw-bold m-0"><i class="fas fa-question-circle text-warning me-2"></i>Frequently Asked Questions</h4>
+                        <div class="w-50">
+                            <input type="text" id="faqSearchInput" class="form-control form-control-sm font-mono" placeholder="Search FAQ keywords...">
+                        </div>
+                    </div>
+
+                    <div class="accordion" id="workshopFaq">
+                        <div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-bold heading-font" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    <i class="fas fa-laptop-code text-warning me-2"></i> What technical prerequisites are needed?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show">
+                                <div class="accordion-body text-secondary">
+                                    Basic familiarity with Python syntax and API concepts is recommended. Bring a laptop with Chrome/Edge installed for web-based Jupyter Notebook labs.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-bold heading-font" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    <i class="fas fa-certificate text-warning me-2"></i> Will participants receive a certificate?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse">
+                                <div class="accordion-body text-secondary">
+                                    Yes! All attendees who complete the hands-on lab assessment will receive a verified Digital Certificate of Completion issued by the AI & Innovation Club.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-bold heading-font" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    <i class="fas fa-key text-warning me-2"></i> Are API keys provided during the workshop?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse">
+                                <div class="accordion-body text-secondary">
+                                    Yes, temporary sandbox API keys for OpenAI, Anthropic, and Gemini models will be provided during the live coding sessions.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-bold heading-font" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    <i class="fas fa-video text-warning me-2"></i> Can I access session recordings if I miss live classes?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse">
+                                <div class="accordion-body text-secondary">
+                                    Registered participants get lifetime access to workshop video recordings, slide decks, and GitHub starter codes.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card card-cyber p-4 shadow-sm border-top border-4 border-warning sticky-lg-top" style="top: 90px;">
+                        <h4 class="heading-font fw-bold mb-3"><i class="fas fa-bookmark text-warning me-2"></i>Active Session</h4>
+                        <p class="small text-muted mb-3">Your selected track persists and updates the registration page automatically.</p>
+                        <div class="mb-3">
+                            <label class="form-label font-mono small fw-bold">SELECTED TRACK</label>
+                            <input type="text" id="selectedTrackDisplay" class="form-control font-mono bg-body-tertiary" value="None Selected" readonly>
+                        </div>
+                        <a href="#workshop-detail" id="proceedDetailBtn" class="btn btn-warning w-100 rounded-pill fw-bold disabled">
+                            View Syllabus & Register <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 6. WORKSHOP DETAILS VIEW (#workshop-detail) -->
+    <!-- ========================================== -->
+    <div id="view-workshop-detail" class="app-view cyber-page-view d-none">
+        <header class="hero-workshop text-center">
+            <div class="container">
+                <span id="detailLevelBadge" class="badge bg-warning text-dark rounded-pill px-3 py-2 mb-3 font-mono">
+                    <i class="fas fa-layer-group me-1"></i> Beginner to Intermediate
+                </span>
+                <h1 id="detailTitle" class="heading-font display-4 fw-bold mb-3">Zero-Shot & Few-Shot Masterclass</h1>
+                <p class="lead text-light text-opacity-75 max-w-2xl mx-auto mb-2">
+                    Instructor: <strong id="detailInstructor" class="text-warning">Dr. Alex Rivera</strong>
+                </p>
+            </div>
+        </header>
+
+        <main class="container my-5">
+            <div class="mb-4">
+                <a href="#workshops" class="btn btn-outline-warning rounded-pill px-3 heading-font btn-sm">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Workshops
+                </a>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="card card-cyber p-4 shadow-sm mb-4">
+                        <h3 class="heading-font fw-bold mb-3"><i class="fas fa-info-circle text-warning me-2"></i>Track Overview</h3>
+                        <p id="detailOverview" class="text-secondary fs-5">
+                            In this masterclass, you will learn the foundational mechanics of prompt architecture. We cover zero-shot system formatting, few-shot demonstration alignment, and context window optimization strategies.
+                        </p>
+                    </div>
+
+                    <div class="card card-cyber p-4 shadow-sm mb-4">
+                        <h3 class="heading-font fw-bold mb-3"><i class="fas fa-list-check text-warning me-2"></i>Hands-On Modules</h3>
+                        <ul id="detailModules" class="list-group list-group-flush bg-transparent">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card card-cyber p-4 shadow-sm border-top border-4 border-warning">
+                        <h4 class="heading-font fw-bold mb-3"><i class="fas fa-user-plus text-warning me-2"></i>Register Now</h4>
+                        <form id="registrationForm" onsubmit="return false;">
+                            <div class="mb-3">
+                                <label class="form-label font-mono small fw-bold">SELECTED WORKSHOP TRACK</label>
+                                <select id="regTrackSelect" class="form-select font-mono bg-body-tertiary">
+                                    <option value="Zero-Shot & Few-Shot Masterclass">Zero-Shot & Few-Shot Masterclass</option>
+                                    <option value="Chain-of-Thought Reasoning Sprint">Chain-of-Thought Reasoning Sprint</option>
+                                    <option value="RAG & Vector Database Prompting">RAG & Vector Database Prompting</option>
+                                    <option value="Autonomous Multi-Agent Frameworks">Autonomous Multi-Agent Frameworks</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label font-mono small fw-bold">FULL NAME</label>
+                                <input type="text" class="form-control" placeholder="John Doe" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label font-mono small fw-bold">STUDENT/PROFESSIONAL EMAIL</label>
+                                <input type="email" class="form-control" placeholder="student@university.edu" required>
+                            </div>
+                            <button type="submit" class="btn btn-warning w-100 rounded-pill fw-bold">
+                                Complete Registration <i class="fas fa-check-circle ms-1"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 7. CHALLENGES VIEW (#challenges)            -->
+    <!-- ========================================== -->
+    <div id="view-challenges" class="app-view cyber-page-view d-none">
+        <header class="hero-challenge text-center">
+            <div class="container">
+                <span class="badge bg-info text-dark rounded-pill px-3 py-2 mb-3 font-mono">
+                    <i class="fas fa-trophy me-1"></i> HACKATHON SERIES
+                </span>
+                <h1 class="heading-font display-4 fw-bold mb-3">AI Innovation Challenges</h1>
+                <p class="lead text-light text-opacity-75 max-w-2xl mx-auto mb-4">
+                    Choose from multiple active competitions, build novel solutions, and track your rank live.
+                </p>
+            </div>
+        </header>
+
+        <main class="container my-5">
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <h3 class="heading-font fw-bold mb-4"><i class="fas fa-fire text-info me-2"></i>Active Hackathon Options</h3>
+
+                    <!-- Option 1 -->
+                    <div class="card card-cyber p-4 mb-4 shadow-sm border-top border-4 border-info">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-info text-dark font-mono">VISION & EMBEDDED</span>
+                            <span class="text-muted small font-mono"><i class="far fa-calendar-alt me-1"></i> Ends Aug 31, 2026</span>
+                        </div>
+                        <h4 class="heading-font fw-bold">Edge AI & Gesture Control Sprint</h4>
+                        <p class="text-secondary small mb-3">Develop lightweight real-time hand gesture recognition models using OpenCV and MediaPipe for vehicle infotainment systems.</p>
+                        <div class="d-flex align-items-center justify-content-between pt-3 border-top">
+                            <div class="font-mono text-success fw-bold"><i class="fas fa-coins me-1"></i> Prize: RM 3,500</div>
+                            <a href="#challenge-detail" class="btn btn-sm btn-info rounded-pill fw-bold select-challenge-btn" data-challenge="Edge AI & Gesture Control Sprint">
+                                Enter & Submit Entry <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Option 2 -->
+                    <div class="card card-cyber p-4 mb-4 shadow-sm border-top border-4 border-primary">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-primary font-mono">RAG & VECTOR SEARCH</span>
+                            <span class="text-muted small font-mono"><i class="far fa-calendar-alt me-1"></i> Ends Sept 15, 2026</span>
+                        </div>
+                        <h4 class="heading-font fw-bold">Multimodal RAG Knowledge Base Challenge</h4>
+                        <p class="text-secondary small mb-3">Build an enterprise retrieval-augmented system that handles unstructured PDFs, images, and tabular charts using ChromaDB and open-source LLMs.</p>
+                        <div class="d-flex align-items-center justify-content-between pt-3 border-top">
+                            <div class="font-mono text-success fw-bold"><i class="fas fa-coins me-1"></i> Prize: RM 5,000</div>
+                            <a href="#challenge-detail" class="btn btn-sm btn-primary rounded-pill fw-bold select-challenge-btn" data-challenge="Multimodal RAG Knowledge Base Challenge">
+                                Enter & Submit Entry <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Option 3 -->
+                    <div class="card card-cyber p-4 mb-4 shadow-sm border-top border-4 border-warning">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-warning text-dark font-mono">CYBERSECURITY AI</span>
+                            <span class="text-muted small font-mono"><i class="far fa-calendar-alt me-1"></i> Ends Oct 05, 2026</span>
+                        </div>
+                        <h4 class="heading-font fw-bold">Cyber AI Network Anomaly Detector</h4>
+                        <p class="text-secondary small mb-3">Construct real-time machine learning classifiers to flag malware payloads, port scans, and zero-day intrusion patterns in Kali Linux network logs.</p>
+                        <div class="d-flex align-items-center justify-content-between pt-3 border-top">
+                            <div class="font-mono text-success fw-bold"><i class="fas fa-coins me-1"></i> Prize: RM 4,200</div>
+                            <a href="#challenge-detail" class="btn btn-sm btn-warning rounded-pill fw-bold text-dark select-challenge-btn" data-challenge="Cyber AI Network Anomaly Detector">
+                                Enter & Submit Entry <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="card card-cyber p-4 shadow-sm sticky-lg-top" style="top: 90px;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="heading-font fw-bold m-0"><i class="fas fa-chart-line text-info me-2"></i>Live Leaderboard</h4>
+                            <button id="refreshApiBtn" class="btn btn-sm btn-outline-info rounded-pill font-mono">
+                                <i class="fas fa-sync-alt me-1"></i> REST Sync
+                            </button>
+                        </div>
+                        <p class="small text-muted mb-3">Live rankings fetched dynamically via REST API integration.</p>
+                        <div id="leaderboardContainer">
+                            <!-- Streamed dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 8. CHALLENGE DETAILS VIEW (#challenge-detail) -->
+    <!-- ========================================== -->
+    <div id="view-challenge-detail" class="app-view cyber-page-view d-none">
+        <main class="container my-5">
+            <div class="mb-4">
+                <a href="#challenges" class="btn btn-outline-info rounded-pill px-3 heading-font btn-sm">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Challenges
+                </a>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card card-cyber p-4 mb-5 shadow-sm border-top border-4 border-info">
+                        <h3 class="heading-font fw-bold mb-3"><i class="fas fa-upload text-info me-2"></i>Submit Your Solution</h3>
+                        <p class="text-muted small mb-4" id="activeChallengeAlert">
+                            Submitting solution for: <strong class="text-info" id="selectedChallengeTitle">Edge AI & Gesture Control Sprint</strong>
+                        </p>
+
+                        <div id="submitAlert" class="alert alert-success d-none mb-3" role="alert">
+                            <i class="fas fa-check-circle me-2"></i> Your solution was successfully submitted and updated in the feed below!
+                        </div>
+
+                        <form id="submissionForm" onsubmit="return false;">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Team Name</label>
+                                <input type="text" class="form-control" id="teamName" placeholder="e.g. VisionCraft AI" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">GitHub Repository / Model Weights Link</label>
+                                <input type="url" class="form-control" id="repoLink" placeholder="https://github.com/username/project" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Model Architecture Summary</label>
+                                <textarea class="form-control" id="modelSummary" rows="3" placeholder="Describe frameworks used, training accuracy, and system specs..." required></textarea>
+                            </div>
+                            <button type="submit" id="submitSolutionBtn" class="btn btn-info text-white w-100 fw-bold py-2 rounded-pill">
+                                <i class="fas fa-paper-plane me-1"></i> Submit Solution Model
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="card card-cyber p-4 shadow-sm">
+                        <h4 class="heading-font fw-bold mb-1"><i class="fas fa-stream text-info me-2"></i>Live Global Submissions Feed</h4>
+                        <p class="small text-muted mb-4">Recent submissions updated live in real time.</p>
+                        <div id="submissionsList">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- UNIFIED GLOBAL FOOTER                      -->
+    <!-- ========================================== -->
+    <footer class="global-footer text-center py-4" style="background-color: #05080f; border-top: 1px solid #1f2937; margin-top: 60px;">
+        <div class="container">
+            <p class="text-secondary mb-1">&copy; 2026 AI & Innovation Club - Front-End Web Development.</p>
+            <p class="text-muted small mb-0"><i class="bi bi-clock-history me-1"></i><span id="cookieDisplay"></span></p>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- GLOBAL SCRIPTS AND CONTROLLERS            -->
+    <!-- ========================================== -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+
+            // ==========================================
+            // 1. COOKIE MANAGER UTILITIES
+            // ==========================================
+            function setCookie(cname, cvalue, exdays) {
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                let expires = "expires=" + d.toUTCString();
+                document.cookie = cname + "=" + encodeURIComponent(cvalue) + ";" + expires + ";path=/";
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+            // ==========================================
+            // 2. SPA ROUTER CONTROLLER
+            // ==========================================
+            function router() {
+                let hash = window.location.hash || '#home';
+                
+                // Hide/show global navbar on subpages (as per user request: "subpage will dont have menu at the top ya")
+                if (hash === '#workshop-detail' || hash === '#challenge-detail') {
+                    $('.global-navbar').addClass('d-none');
+                } else {
+                    $('.global-navbar').removeClass('d-none');
+                }
+
+                // Hide/show global social contacts bar (except Home page)
+                if (hash === '#home') {
+                    $('.social-plugin-bar').addClass('d-none');
+                } else {
+                    $('.social-plugin-bar').removeClass('d-none');
+                }
+                
+                // Synchronize body background dynamically based on hash and active theme state
+                if (hash === '#home' || hash === '#ai-guide') {
+                    $('body').removeClass('light-theme-body');
+                } else {
+                    let isDark = $('#view-ml-projects').hasClass('dark-theme') || $('.cyber-page-view').first().hasClass('dark-theme');
+                    if (isDark) {
+                        $('body').removeClass('light-theme-body');
+                    } else {
+                        $('body').addClass('light-theme-body');
+                    }
+                }
+                
+                // Hide all views first
+                $('.app-view').addClass('d-none').css('opacity', 0);
+                
+                // Find matching view container
+                let targetView = '#view-home';
+                if (hash === '#home') targetView = '#view-home';
+                else if (hash === '#ai-guide') targetView = '#view-ai-guide';
+                else if (hash === '#ml-projects') targetView = '#view-ml-projects';
+                else if (hash === '#resources') targetView = '#view-resources';
+                else if (hash === '#workshops') targetView = '#view-workshops';
+                else if (hash === '#workshop-detail') targetView = '#view-workshop-detail';
+                else if (hash === '#challenges') targetView = '#view-challenges';
+                else if (hash === '#challenge-detail') targetView = '#view-challenge-detail';
+                
+                // Show with transition
+                $(targetView).removeClass('d-none').animate({ opacity: 1 }, 250);
+                
+                // Trigger view initialization events
+                initPageView(hash);
+            }
+
+            function updateNavbarActiveStates(hash) {
+                $('.navbar-nav .nav-link').removeClass('active');
+                $(`.navbar-nav .nav-link[href="${hash}"]`).addClass('active');
+            }
+
+            function initPageView(hash) {
+                updateNavbarActiveStates(hash);
+                
+                // Restore shared user profile username badges
+                let storedName = localStorage.getItem('aiClubUser');
+                if (storedName) {
+                    $('#welcomeMsg').html('<i class="bi bi-person-fill me-1"></i> Welcome back, ' + storedName);
+                }
+
+                if (hash === '#home') {
+                    initHomeView();
+                } else if (hash === '#ai-guide') {
+                    initAiGuideView();
+                } else if (hash === '#ml-projects') {
+                    initMlProjectsView();
+                } else if (hash === '#resources') {
+                    initResourcesView();
+                } else if (hash === '#workshops') {
+                    initWorkshopsView();
+                } else if (hash === '#workshop-detail') {
+                    initWorkshopDetailView();
+                } else if (hash === '#challenges') {
+                    initChallengesView();
+                } else if (hash === '#challenge-detail') {
+                    initChallengeDetailView();
+                }
+            }
+
+            $(window).on('hashchange', router);
+            
+            // Auto-collapse mobile navbar menu when a link is clicked
+            $('.navbar-nav a').on('click', function(){
+                if ($('.navbar-toggler').is(':visible')) {
+                    $('.navbar-collapse').collapse('hide');
+                }
+            });
+
+            router(); // Bootstrap routing on first load
+
+            // ==========================================
+            // 3. HOME VIEW CONTROLLER
+            // ==========================================
+            function initHomeView() {
+                // Cookie: last visit date
+                let lastVisit = getCookie("lastVisitDate");
+                if (lastVisit != "") {
+                    $('#cookieDisplay').text("Your last visit was on: " + lastVisit);
+                } else {
+                    $('#cookieDisplay').text("This is your first visit to our site!");
+                }
+                let currentDate = new Date().toLocaleString();
+                setCookie("lastVisitDate", currentDate, 30);
+
+                // Fetch quote of the day via REST API
+                $.ajax({
+                    url: 'https://dummyjson.com/quotes/random',
+                    method: 'GET',
+                    success: function(response) {
+                        $('#apiQuote').text('"' + response.quote + '"');
+                        $('#apiAuthor').text("- " + response.author);
+                    },
+                    error: function() {
+                        $('#apiQuote').text('"AI will not replace you. A person using AI will."');
+                        $('#apiAuthor').text("- Tech Community");
+                    }
+                });
+
+                // Name personalization modal trigger
+                let storedName = localStorage.getItem('aiClubUser');
+                if (!storedName) {
+                    let nameModal = new bootstrap.Modal(document.getElementById('nameModal'));
+                    nameModal.show();
+                }
+
+                $('#saveNameBtn').click(function() {
+                    let inputName = $('#userNameInput').val();
+                    if(inputName.trim() !== "") {
+                        localStorage.setItem('aiClubUser', inputName);
+                        $('#welcomeMsg').html('<i class="bi bi-person-fill me-1"></i> Welcome, ' + inputName);
+                        let nameModal = bootstrap.Modal.getInstance(document.getElementById('nameModal'));
+                        if (nameModal) nameModal.hide();
+                    }
+                });
+            }
+
+            // Scroll trigger helper for fade-in animations (Home & Guide)
+            $(window).scroll(function() {
+                $('.fade-in-scroll').each(function() {
+                    let elementTop = $(this).offset().top;
+                    let windowBottom = $(window).scrollTop() + $(window).height();
+                    
+                    if (windowBottom > elementTop + 50) {
+                        $(this).addClass('visible');
+                    }
+                });
+            });
+
+            // ==========================================
+            // 4. AI GUIDE VIEW CONTROLLER
+            // ==========================================
+            function initAiGuideView() {
+                let previousAttempt = sessionStorage.getItem('aiQuizStatus');
+                if (previousAttempt === 'passed') {
+                    $('#quizContainer').hide();
+                    $('#quizResult').html('<div class="alert alert-success border-success text-dark"><i class="bi bi-check-circle-fill me-2"></i> You already passed the quiz in this session! Great job!</div>').show();
+                } else if (previousAttempt === 'failed') {
+                    $('#quizContainer').hide();
+                    $('#quizResult').html('<div class="alert alert-warning border-warning text-dark"><i class="bi bi-exclamation-triangle-fill me-2"></i> You attempted the quiz earlier but got it wrong. Refresh your knowledge and try in a new session.</div>').show();
+                }
+
+                $('#submitQuizBtn').off('click').click(function() {
+                    let selectedAnswer = $('input[name="aiQuiz"]:checked').val();
+                    if (!selectedAnswer) {
+                        alert("Please select an answer first!");
+                        return;
+                    }
+                    if (selectedAnswer === 'correct') {
+                        sessionStorage.setItem('aiQuizStatus', 'passed');
+                        $('#quizContainer').slideUp(300, function() {
+                            $('#quizResult').html('<div class="alert alert-success border-success text-dark"><i class="bi bi-check-circle-fill me-2"></i> Correct! Deep learning heavily relies on multi-layered neural networks.</div>').slideDown(300);
+                        });
+                    } else {
+                        sessionStorage.setItem('aiQuizStatus', 'failed');
+                        $('#quizContainer').slideUp(300, function() {
+                            $('#quizResult').html('<div class="alert alert-danger border-danger text-dark"><i class="bi bi-x-circle-fill me-2"></i> Incorrect. Hard-coded logic and manual entry are NOT related to neural networks.</div>').slideDown(300);
+                        });
+                    }
+                });
+            }
+
+            // ==========================================
+            // 5. GLOBAL UNIFIED THEME TOGGLE CONTROLLER
+            // ==========================================
+            function applyGlobalTheme(theme) {
+                if (theme === 'dark') {
+                    // Apply to compatible Cyberpunk views
+                    $('.cyber-page-view').addClass('dark-theme');
+                    // Apply to user's Projects & Resources views
+                    $('#view-ml-projects').addClass('dark-theme');
+                    $('#view-resources').addClass('dark-theme');
+                    // Update global toggle icon in the top navbar
+                    $('#globalThemeIcon').removeClass('bi-moon-fill').addClass('bi-sun-fill').addClass('text-warning');
+                    
+                    // Sync body background if not on Home or AI Guide (which are fixed dark)
+                    let hash = window.location.hash || '#home';
+                    if (hash !== '#home' && hash !== '#ai-guide') {
+                        $('body').removeClass('light-theme-body');
+                    }
+                } else {
+                    // Apply to compatible Cyberpunk views
+                    $('.cyber-page-view').removeClass('dark-theme');
+                    // Apply to user's Projects & Resources views
+                    $('#view-ml-projects').removeClass('dark-theme');
+                    $('#view-resources').removeClass('dark-theme');
+                    // Update global toggle icon in the top navbar
+                    $('#globalThemeIcon').removeClass('bi-sun-fill').addClass('bi-moon-fill').addClass('text-warning');
+                    
+                    // Sync body background if not on Home or AI Guide (which are fixed dark)
+                    let hash = window.location.hash || '#home';
+                    if (hash !== '#home' && hash !== '#ai-guide') {
+                        $('body').addClass('light-theme-body');
+                    }
+                }
+                
+                // Persist theme selection in both localStorage and cookies for assignment compliance
+                setCookie("site_theme", theme, 7);
+                localStorage.setItem('cyberTheme', theme);
+            }
+
+            // Click Handler
+            $('#globalThemeToggle').on('click', function() {
+                let isDark = $('#view-ml-projects').hasClass('dark-theme') || $('.cyber-page-view').first().hasClass('dark-theme');
+                applyGlobalTheme(isDark ? 'light' : 'dark');
+            });
+
+            // Initialize saved state on startup
+            let savedMLTheme = getCookie("site_theme");
+            let savedCyberTheme = localStorage.getItem('cyberTheme');
+            let initialTheme = savedMLTheme || savedCyberTheme || 'light';
+            applyGlobalTheme(initialTheme);
+
+            // ==========================================
+            // 6. ML PROJECTS VIEW CONTROLLER (YOUR PART 1)
+            // ==========================================
+            function initMlProjectsView() {
+                // Dynamic quotes
+                $.ajax({
+                    url: 'https://dummyjson.com/quotes/random',
+                    method: 'GET',
+                    success: function(response) {
+                        $('#quote-container').html(`
+                            <i class="fa-solid fa-quote-left text-light me-2 opacity-50"></i>
+                            "${response.quote}" 
+                            <br><span class="small fw-bold mt-2 d-inline-block">- ${response.author}</span>
+                        `);
+                    },
+                    error: function() {
+                        $('#quote-container').html('Empowering the future through Artificial Intelligence.');
+                    }
+                });
+
+                // Welcome Toast check (SessionStorage)
+                if (!sessionStorage.getItem('hasVisitedMLPage')) {
+                    const toastLive = document.getElementById('welcomeToast');
+                    const toast = new bootstrap.Toast(toastLive);
+                    toast.show();
+                    sessionStorage.setItem('hasVisitedMLPage', 'true');
+                }
+
+                // Initial render of local ideas
+                renderIdeas();
+            }
+
+            $('#ideaForm').off('submit').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Sanitize input to prevent HTML Injection/XSS (Improvement)
+                const safeName = $('<div>').text($('#studentName').val()).html();
+                const safeTitle = $('<div>').text($('#projectTitle').val()).html();
+                const safeDesc = $('<div>').text($('#projectDesc').val()).html();
+
+                const newIdea = {
+                    id: Date.now(),
+                    name: safeName,
+                    title: safeTitle,
+                    desc: safeDesc,
+                    date: new Date().toLocaleDateString()
+                };
+
+                let savedIdeas = JSON.parse(localStorage.getItem('mlProjectIdeas')) || [];
+                savedIdeas.push(newIdea);
+                localStorage.setItem('mlProjectIdeas', JSON.stringify(savedIdeas));
+                
+                this.reset();
+                renderIdeas();
+            });
+
+            function renderIdeas() {
+                const ideasContainer = $('#ideasList');
+                ideasContainer.empty();
+                let savedIdeas = JSON.parse(localStorage.getItem('mlProjectIdeas')) || [];
+
+                if (savedIdeas.length === 0) {
+                    ideasContainer.html('<p class="text-muted fst-italic">No ideas submitted yet. Be the first!</p>');
+                    return;
+                }
+
+                savedIdeas.forEach(function(idea) {
+                    const ideaCard = `
+                        <div class="card mb-3 shadow-sm border-0" style="background-color: var(--ml-theme-bg); border: 1px solid rgba(128,128,128,0.15) !important;">
+                            <div class="card-body">
+                                <h6 class="card-title fw-bold text-primary">${idea.title}</h6>
+                                <p class="card-text mb-1 small">${idea.desc}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="card-text mb-0"><small class="text-muted">Pitched by ${idea.name} on ${idea.date}</small></p>
+                                    <button class="btn btn-sm btn-outline-danger py-0 px-2 delete-idea-btn border-0" data-id="${idea.id}" title="Delete Pitch"><i class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    ideasContainer.prepend(ideaCard);
+                });
+
+                $('.delete-idea-btn').click(function() {
+                    const idToDelete = $(this).data('id');
+                    let currentPitches = JSON.parse(localStorage.getItem('mlProjectIdeas')) || [];
+                    currentPitches = currentPitches.filter(pitch => pitch.id !== idToDelete);
+                    localStorage.setItem('mlProjectIdeas', JSON.stringify(currentPitches));
+                    renderIdeas();
+                });
+            }
+
+            // Share dynamic logic
+            let currentUrl = window.location.href.split('#')[0];
+            if (window.location.protocol === 'file:') currentUrl = 'https://example.com';
+            $('#mlShareTw').attr('href', `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent("Explore the machine learning projects list at UTAR AI Club!")}`);
+            $('#mlShareTw').click(function(e) {
+                e.preventDefault();
+                window.open($(this).attr('href'), 'shareWindow', 'width=600,height=400');
+            });
+
+            // ==========================================
+            // 7. RESOURCES VIEW CONTROLLER (YOUR PART 2 - NEW RESOURCE LIBRARY)
+            // ==========================================
+            function initResourcesView() {
+                // Render list on load
+                renderReadingList();
+
+                // Restore session clicks count
+                let sessionClicks = sessionStorage.getItem('resourceClicks') || 0;
+                $('#sessionCounter').text(sessionClicks);
+
+                // Handle resource click counter
+                $('.resource-link').off('click').on('click', function(e) {
+                    e.preventDefault();
+                    sessionClicks++;
+                    sessionStorage.setItem('resourceClicks', sessionClicks);
+                    $('#sessionCounter').text(sessionClicks);
+                    
+                    const title = $(this).data('title');
+                    alert(`Opening resource: ${title}\n(This interaction was tracked in Session Storage)`);
+                });
+
+                // Handle Bookmarking
+                $('.bookmark-btn').off('click').on('click', function() {
+                    const title = $(this).data('title');
+                    let savedList = JSON.parse(localStorage.getItem('myReadingList')) || [];
+                    
+                    if (!savedList.includes(title)) {
+                        savedList.push(title);
+                        localStorage.setItem('myReadingList', JSON.stringify(savedList));
+                        
+                        $(this).removeClass('btn-custom').addClass('btn-success').html('<i class="fa-solid fa-check me-1"></i> Saved');
+                        renderReadingList();
+                    } else {
+                        alert('This resource is already in your reading list!');
+                    }
+                });
+
+                // Clear List Handler
+                $('#clearListBtn').off('click').on('click', function() {
+                    localStorage.removeItem('myReadingList');
+                    renderReadingList();
+                    
+                    // Reset save buttons inside cards
+                    $('.bookmark-btn').removeClass('btn-success').addClass('btn-custom').html('<i class="fa-regular fa-bookmark me-1"></i> Save');
+                });
+
+                // Fetch top trending AI repositories from GitHub API
+                $.ajax({
+                    url: 'https://api.github.com/search/repositories?q=topic:artificial-intelligence&sort=stars&order=desc&per_page=3',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        let htmlContent = '';
+                        response.items.forEach(function(repo) {
+                            htmlContent += `
+                                <div class="github-repo-card">
+                                    <h5 class="fw-bold mb-1">
+                                        <a href="${repo.html_url}" target="_blank" class="text-decoration-none" style="color: var(--ml-primary);">
+                                            <i class="fa-brands fa-github-alt me-2"></i>${repo.name}
+                                        </a>
+                                    </h5>
+                                    <p class="text-muted small mb-2">${repo.description || 'No description provided.'}</p>
+                                    <div class="d-flex align-items-center small fw-bold">
+                                        <span class="text-warning me-3"><i class="fa-solid fa-star me-1"></i>${repo.stargazers_count.toLocaleString()}</span>
+                                        <span class="text-secondary"><i class="fa-solid fa-code-branch me-1"></i>${repo.language || 'Multiple'}</span>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        $('#github-api-container').html(htmlContent);
+                    },
+                    error: function() {
+                        $('#github-api-container').html(`
+                            <div class="alert alert-warning border-0" style="background-color: rgba(255, 193, 7, 0.1); color: #ffc107;">
+                                <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                                Unable to fetch live data from GitHub at the moment. Please try again later.
+                            </div>
+                        `);
+                    }
+                });
+            }
+
+            function renderReadingList() {
+                const listContainer = $('#readingListOutput');
+                listContainer.empty(); 
+                let savedList = JSON.parse(localStorage.getItem('myReadingList')) || [];
+
+                if (savedList.length === 0) {
+                    listContainer.html('<p class="text-muted fst-italic small">No items saved yet. Click "Save" on a resource to add it here.</p>');
+                    return;
+                }
+
+                savedList.forEach(function(item) {
+                    listContainer.append(`
+                        <div class="d-flex justify-content-between align-items-center p-2 mb-2 rounded" style="background-color: rgba(128,128,128,0.1); border: 1px solid var(--ml-theme-border);">
+                            <span class="small fw-bold"><i class="fa-solid fa-file-lines text-muted me-2"></i>${item}</span>
+                        </div>
+                    `);
+                });
+            }
+
+            // ==========================================
+            // 8. WORKSHOPS VIEW CONTROLLER
+            // ==========================================
+            function initWorkshopsView() {
+                function updateSelectedUI(trackName) {
+                    $('#selectedTrackDisplay').val(trackName);
+                    if (trackName && trackName !== 'None Selected') {
+                        $('#proceedDetailBtn').removeClass('disabled');
+                    }
+                }
+
+                const activeTrack = sessionStorage.getItem('selectedWorkshop');
+                if (activeTrack) {
+                    updateSelectedUI(activeTrack);
+                    $(`.select-track-btn`).removeClass('btn-warning text-dark').addClass('btn-outline-warning').html('Select Track');
+                    $(`.select-track-btn[data-track="${activeTrack}"]`)
+                        .removeClass('btn-outline-warning')
+                        .addClass('btn-warning text-dark')
+                        .html('<i class="fas fa-check me-1"></i> Selected');
+                }
+
+                $('.select-track-btn').off('click').click(function () {
+                    const trackName = $(this).data('track');
+                    const trackLevel = $(this).data('level');
+                    const trackInstructor = $(this).data('instructor');
+
+                    sessionStorage.setItem('selectedWorkshop', trackName);
+                    sessionStorage.setItem('selectedWorkshopLevel', trackLevel);
+                    sessionStorage.setItem('selectedWorkshopInstructor', trackInstructor);
+
+                    $('.select-track-btn')
+                        .removeClass('btn-warning text-dark')
+                        .addClass('btn-outline-warning')
+                        .html('Select Track');
+
+                    $(this)
+                        .removeClass('btn-outline-warning')
+                        .addClass('btn-warning text-dark')
+                        .html('<i class="fas fa-check me-1"></i> Selected');
+
+                    updateSelectedUI(trackName);
+                });
+
+                // FAQ Search Filter
+                $('#faqSearchInput').off('keyup').on('keyup', function () {
+                    const term = $(this).val().toLowerCase();
+                    $('.faq-item').each(function () {
+                        const text = $(this).text().toLowerCase();
+                        $(this).toggle(text.indexOf(term) > -1);
+                    });
+                });
+            }
+
+            // Social Sharing logic for teammate pages
+            let baseDomain = window.location.href.split('#')[0];
+            if (window.location.protocol === 'file:') baseDomain = 'https://example.com';
+            
+            const encodedUrl = encodeURIComponent(baseDomain);
+            const encodedText = encodeURIComponent("Check out the prompt engineering and AI workshops!");
+
+            $('.shareFbBtn').attr('href', `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`);
+            $('.shareTwBtn').attr('href', `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`);
+            $('.shareLiBtn').attr('href', `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`);
+            $('.shareWaBtn').attr('href', `https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`);
+
+            $('.social-btn').off('click').click(function(e) {
+                e.preventDefault();
+                window.open($(this).attr('href'), 'shareWindow', 'width=600,height=500');
+            });
+
+            // ==========================================
+            // 9. WORKSHOP DETAILS VIEW CONTROLLER
+            // ==========================================
+            const trackDetailsMap = {
+                "Zero-Shot & Few-Shot Masterclass": {
+                    level: "Beginner to Intermediate",
+                    instructor: "Dr. Alex Rivera",
+                    overview: "Learn structural template design, system role constraints, and context window optimization for LLMs. Master how to frame zero-shot system instructions and craft precise few-shot examples for deterministic model responses.",
+                    modules: [
+                        "Module 1: System Prompt Formatting & Constraint Setting",
+                        "Module 2: Structural Few-Shot Example Design",
+                        "Module 3: Tokenization & Context Window Optimization",
+                        "Module 4: Live Sandbox Testing with OpenAI & Gemini APIs"
+                    ]
+                },
+                "Chain-of-Thought Reasoning Sprint": {
+                    level: "Advanced",
+                    instructor: "Prof. Elena Rostova",
+                    overview: "Dive into advanced prompt techniques for logical reasoning tasks. Implement step-by-step reasoning pipelines, self-consistency sampling, and tree-of-thought branching algorithms.",
+                    modules: [
+                        "Module 1: Chain-of-Thought (CoT) Prompt Construction",
+                        "Module 2: Self-Consistency & Majority Voting Strategies",
+                        "Module 3: Tree-of-Thought (ToT) Exploration Networks",
+                        "Module 4: Solving Complex Math & Logic Pipelines"
+                    ]
+                },
+                "RAG & Vector Database Prompting": {
+                    level: "Intermediate",
+                    instructor: "Marcus Chen",
+                    overview: "Connect LLMs to external data sources using semantic similarity embeddings, ChromaDB, and hybrid retrieval techniques to drastically decrease hallucinations.",
+                    modules: [
+                        "Module 1: Introduction to Vector Embeddings & Similarity Search",
+                        "Module 2: Setting up ChromaDB Vector Store",
+                        "Module 3: Context Retrieval Augmentation & Hybrid Search",
+                        "Module 4: Guardrailing Model Outputs against Hallucinations"
+                    ]
+                },
+                "Autonomous Multi-Agent Frameworks": {
+                    level: "Advanced",
+                    instructor: "Sarah Jenkins",
+                    overview: "Design collaborative AI agent teams (CrewAI / AutoGen) using task delegation prompts, tool utilization, and automated multi-agent coordination.",
+                    modules: [
+                        "Module 1: Multi-Agent Architecture & Role Delegation",
+                        "Module 2: Tool Integration (Web Search, Code Interpreter, APIs)",
+                        "Module 3: Inter-Agent Communication & Consensus Algorithms",
+                        "Module 4: Building an Autonomous Software Development Team"
+                    ]
+                }
+            };
+
+            function initWorkshopDetailView() {
+                const selectedTrack = sessionStorage.getItem('selectedWorkshop') || "Zero-Shot & Few-Shot Masterclass";
+                const data = trackDetailsMap[selectedTrack] || trackDetailsMap["Zero-Shot & Few-Shot Masterclass"];
+
+                $('#detailTitle').text(selectedTrack);
+                $('#detailInstructor').text(data.instructor);
+                $('#detailLevelBadge').html(`<i class="fas fa-layer-group me-1"></i> ${data.level}`);
+                $('#detailOverview').text(data.overview);
+                $('#regTrackSelect').val(selectedTrack);
+
+                const $modulesList = $('#detailModules');
+                $modulesList.empty();
+                data.modules.forEach(mod => {
+                    $modulesList.append(`
+                        <li class="list-group-item bg-transparent text-secondary d-flex align-items-center py-3" style="border-bottom: 1px solid var(--cyber-border) !important;">
+                            <i class="fas fa-check-circle text-warning me-3 fs-5"></i> ${mod}
+                        </li>
+                    `);
+                });
+
+                $('#regTrackSelect').off('change').change(function () {
+                    const newTrack = $(this).val();
+                    sessionStorage.setItem('selectedWorkshop', newTrack);
+                    initWorkshopDetailView();
+                });
+
+                $('#registrationForm').off('submit').submit(function (e) {
+                    e.preventDefault();
+                    alert(`Successfully registered for: ${$('#regTrackSelect').val()}`);
+                    this.reset();
+                });
+            }
+
+            // ==========================================
+            // 10. CHALLENGES VIEW CONTROLLER
+            // ==========================================
+            function initChallengesView() {
+                loadLeaderboard();
+
+                $('.select-challenge-btn').off('click').click(function () {
+                    const challengeTitle = $(this).data('challenge');
+                    sessionStorage.setItem('selectedChallenge', challengeTitle);
+                });
+            }
+
+            function loadLeaderboard() {
+                $('#leaderboardContainer').html(`
+                    <div class="text-center py-4">
+                        <div class="spinner-border text-info" role="status"></div>
+                        <p class="small text-muted mt-2 font-mono">Streaming Live Standings...</p>
+                    </div>
+                `);
+
+                // REST API Leaderboard Streaming via jQuery AJAX
+                $.ajax({
+                    url: 'https://jsonplaceholder.typicode.com/users?_limit=4',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        let html = '<div class="table-responsive"><table class="table align-middle table-hover small mb-0"><thead><tr><th>#</th><th>Team Name</th><th>Score</th></tr></thead><tbody>';
+                        const fakeScores = [98.4, 94.2, 89.7, 85.1];
+
+                        data.forEach((user, idx) => {
+                            html += `
+                                <tr>
+                                    <td class="fw-bold font-mono text-info">0${idx + 1}</td>
+                                    <td>
+                                        <div class="fw-bold">${user.company.name}</div>
+                                        <div class="text-muted extra-small"><i class="far fa-user me-1"></i>${user.name}</div>
+                                    </td>
+                                    <td><span class="badge bg-success bg-opacity-20 text-success font-mono">${fakeScores[idx]}%</span></td>
+                                </tr>
+                            `;
+                        });
+
+                        html += '</tbody></table></div>';
+                        $('#leaderboardContainer').html(html);
+                    },
+                    error: function () {
+                        $('#leaderboardContainer').html('<div class="alert alert-danger small">Failed to stream leaderboard data.</div>');
+                    }
+                });
+            }
+
+            $('#refreshApiBtn').off('click').click(loadLeaderboard);
+
+            // ==========================================
+            // 11. CHALLENGE DETAIL VIEW CONTROLLER
+            // ==========================================
+            function initChallengeDetailView() {
+                const savedChallenge = sessionStorage.getItem('selectedChallenge');
+                if (savedChallenge) {
+                    $('#selectedChallengeTitle').text(savedChallenge);
+                }
+
+                renderSubmissionsFeed();
+            }
+
+            function getLocalSubmissions() {
+                return JSON.parse(localStorage.getItem('userSubmissions') || '[]');
+            }
+
+            function renderSubmissionsFeed() {
+                const userSubs = getLocalSubmissions();
+                let html = '';
+
+                // User Submissions
+                userSubs.forEach((sub, i) => {
+                    html += `
+                        <div class="border-start border-3 border-info ps-3 pe-2 mb-3 py-2 bg-info bg-opacity-10 rounded-end position-relative">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div>
+                                    <span class="badge bg-info text-dark font-mono me-2">USER SUBMISSION #${100 + userSubs.length - i}</span>
+                                    <small class="text-info font-mono"><i class="far fa-clock me-1"></i>Just now</small>
+                                </div>
+                                <button class="btn btn-outline-danger btn-sm border-0 py-0 px-2 delete-sub-btn" data-index="${i}" title="Remove Submission">
+                                    <i class="fas fa-trash-alt me-1"></i>Delete
+                                </button>
+                            </div>
+                            <h6 class="fw-bold mb-1">${sub.team}</h6>
+                            <p class="text-muted extra-small mb-1">${sub.summary}</p>
+                            <a href="${sub.link}" target="_blank" class="small text-info text-decoration-none font-mono"><i class="fab fa-github me-1"></i>${sub.link}</a>
+                        </div>
+                    `;
+                });
+
+                // REST API Default Feed retrieval
+                $.ajax({
+                    url: 'https://jsonplaceholder.typicode.com/posts?_limit=3',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        data.forEach((post, idx) => {
+                            html += `
+                                <div class="border-start border-2 border-secondary border-opacity-50 ps-3 mb-3 py-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="badge bg-secondary font-mono mb-1">SUBMISSION #${101 + idx}</span>
+                                        <small class="text-muted font-mono"><i class="far fa-clock me-1"></i>2 hrs ago</small>
+                                    </div>
+                                    <h6 class="fw-bold mb-1 text-capitalize">${post.title.substring(0, 30)}</h6>
+                                    <p class="text-muted extra-small mb-0">${post.body.substring(0, 80)}...</p>
+                                </div>
+                            `;
+                        });
+                        $('#submissionsList').html(html);
+                        
+                        // Bind delete button event handlers
+                        $('.delete-sub-btn').off('click').click(function () {
+                            const indexToRemove = $(this).data('index');
+                            let subs = getLocalSubmissions();
+                            subs.splice(indexToRemove, 1);
+                            localStorage.setItem('userSubmissions', JSON.stringify(subs));
+                            renderSubmissionsFeed();
+                        });
+                    },
+                    error: function () {
+                        $('#submissionsList').html('<div class="alert alert-danger small">Failed to retrieve posts feed.</div>');
+                    }
+                });
+            }
+
+            $('#submissionForm').off('submit').submit(function (e) {
+                e.preventDefault();
+
+                const team = $('<div>').text($('#teamName').val()).html(); // Sanitized
+                const link = $('#repoLink').val();
+                const summary = $('<div>').text($('#modelSummary').val()).html(); // Sanitized
+
+                const newSub = { team, link, summary };
+                const userSubs = getLocalSubmissions();
+                userSubs.unshift(newSub);
+
+                localStorage.setItem('userSubmissions', JSON.stringify(userSubs));
+
+                $('#submitAlert').removeClass('d-none');
+                $('#submissionForm')[0].reset();
+
+                renderSubmissionsFeed();
+
+                setTimeout(() => {
+                    $('#submitAlert').addClass('d-none');
+                }, 4000);
+            });
+
+        });
+    </script>
+</body>
+</html>
