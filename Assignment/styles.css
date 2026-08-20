@@ -420,6 +420,19 @@
             box-shadow: inset 0 -1px 0 rgba(255,255,255,0.1) !important;
         }
 
+        /* Make input placeholder text in Cyberpunk pages light gray for readability */
+        .cyber-page-view .form-control::placeholder,
+        .cyber-page-view .form-select::placeholder {
+            color: #94a3b8 !important;
+            opacity: 1 !important;
+        }
+
+        /* Make leaderboard user name and icon black for contrast on white table rows */
+        .cyber-page-view .table .extra-small,
+        .cyber-page-view .table .extra-small i {
+            color: #212529 !important;
+        }
+
         .cyber-page-view .heading-font {
             font-family: 'Space Grotesk', sans-serif;
         }
