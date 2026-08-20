@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>AI &amp; Innovation Club - UTAR</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/><link href="styles.css" rel="stylesheet"/></head><body data-page="home"><nav class="navbar navbar-expand-lg navbar-dark fixed-top global-navbar" style="background-color: rgba(17, 24, 39, 0.95) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #374151; z-index: 1040;">
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>AI Resources | AI &amp; Innovation Club</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/><link href="styles.css" rel="stylesheet"/></head><body data-page="resources"><nav class="navbar navbar-expand-lg navbar-dark fixed-top global-navbar" style="background-color: rgba(17, 24, 39, 0.95) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #374151; z-index: 1040;">
 <div class="container">
 <a class="navbar-brand fw-bold text-primary" href="index.html">
 <i class="bi bi-cpu-fill me-2"></i>AI &amp; Innovation
@@ -31,150 +31,105 @@
 <a aria-label="Share this page on X" class="social-btn bg-tw shareTwBtn" href="#" title="Share on X (Twitter)"><i class="fab fa-x-twitter"></i></a>
 <a aria-label="Share this page on LinkedIn" class="social-btn bg-li shareLiBtn" href="#" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
 <a aria-label="Share this page on WhatsApp" class="social-btn bg-wa shareWaBtn" href="#" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-</div><div aria-hidden="false" class="app-view" id="view-home" style="opacity:1">
-<header class="hero-section text-center text-lg-start">
+</div><div aria-hidden="false" class="app-view" id="view-resources" style="opacity:1">
+<header class="hero-section">
 <div class="container">
-<div class="row align-items-center">
-<div class="col-lg-7 fade-in-scroll visible">
-<h1 class="display-4 fw-bold text-white mb-3">Shape the Future with <span class="text-primary">AI</span></h1>
-<p class="lead text-gray-300 mb-4">
-                            Discover the fundamentals of Artificial Intelligence, explore cutting-edge machine learning models, and compete in our campus tech challenges at UTAR.
-                        </p>
-<a class="btn btn-primary btn-lg px-4 me-3 rounded-pill" href="#intro-ai">Start Learning</a>
-<div class="mt-4 pt-3">
-<p class="text-secondary small mb-2">Follow our community:</p>
-<div class="d-flex gap-3 justify-content-center justify-content-lg-start">
-<a class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://www.facebook.com/UTARnet/" target="_blank">
-<i class="bi bi-facebook fs-5"></i>
-</a>
-<a class="btn btn-outline-info rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://twitter.com/UTARnet" target="_blank">
-<i class="bi bi-twitter fs-5"></i>
-</a>
-<a class="btn btn-outline-danger rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://www.instagram.com/utarnet1/" target="_blank">
-<i class="bi bi-instagram fs-5"></i>
-</a>
-</div>
-</div>
-</div>
-<div class="col-lg-5 text-center d-none d-lg-block floating-element">
-<img alt="AI Brain" class="img-fluid rounded-circle" loading="lazy" src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&amp;w=600&amp;auto=format&amp;fit=crop" style="border: 5px solid #1e3a8a; box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);"/>
-</div>
+<h1 class="hero-title text-white">AI Resource Library</h1>
+<p class="lead fw-light text-light text-opacity-90">Curated datasets, cheat sheets, and tools for club members.</p>
+<!-- Session Storage Counter Display -->
+<div class="mt-4 p-2 rounded d-inline-block" style="background: rgba(0,0,0,0.5); border: 1px solid var(--ml-primary); font-size: 0.9rem;">
+<i class="fa-solid fa-stopwatch me-2 text-warning"></i>
+                    Resources opened this session: <strong class="text-white" id="sessionCounter">0</strong>
 </div>
 </div>
 </header>
-<section class="container my-5 fade-in-scroll">
-<div class="api-quote-box p-4 shadow-lg text-center">
-<h6 class="text-info text-uppercase fw-bold mb-3"><i class="bi bi-cloud-arrow-down-fill me-2"></i>AI Quote of the Day (Fetched via REST API)</h6>
-<h4 class="text-white fst-italic" id="apiQuote">"Loading inspiring tech quote..."</h4>
-<p class="text-secondary mt-2 mb-0" id="apiAuthor"></p>
-</div>
-</section>
-<section class="container my-5 py-4 fade-in-scroll" id="intro-ai">
-<div class="row text-center mb-5">
-<h2 class="fw-bold text-white display-5">What is Artificial Intelligence?</h2>
-<p class="text-secondary">Understanding the core technology of the 21st century.</p>
-</div>
-<div class="row align-items-center g-5">
-<div class="col-lg-6">
-<div class="rounded-4 overflow-hidden shadow-lg border border-secondary">
-<div class="ratio ratio-16x9">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ad79nYk2keg?start=144" title="Introduction to Artificial Intelligence - YouTube embedded social media content"></iframe>
-</div>
-</div>
-<p class="text-secondary small mt-2 mb-0 text-center">
-<i class="bi bi-youtube text-danger me-1"></i>Embedded YouTube content for social media integration.
-                    </p>
-</div>
-<div class="col-lg-6 text-start">
-<h3 class="text-primary fw-bold mb-3">Simulating Human Intelligence</h3>
-<p class="text-gray-400" style="line-height: 1.8;">
-                        Artificial Intelligence (AI) refers to the development of computer systems capable of performing tasks that typically require human intelligence. These tasks include learning, reasoning, problem-solving, understanding natural language, and perceiving environments. 
-                    </p>
-<ul class="list-unstyled text-gray-400 mt-4">
-<li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Machine Learning:</strong> Systems that learn from data without being explicitly programmed.</li>
-<li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Neural Networks:</strong> Computing systems inspired by the biological neural networks of animal brains.</li>
-<li><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Generative AI:</strong> Models like ChatGPT that create new text, images, and media.</li>
-</ul>
-</div>
-</div>
-</section>
-<section class="container my-5 py-5 border-top border-secondary fade-in-scroll">
-<div class="text-center mb-5">
-<h3 class="fw-bold text-white">Explore Club Activities</h3>
-</div>
-<div class="row g-4 justify-content-center">
-<div class="col-md-5">
-<div class="feature-card text-center">
-<img alt="Coding" loading="lazy" src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&amp;w=400&amp;auto=format&amp;fit=crop"/>
-<div class="p-4">
-<h5 class="fw-bold text-white">ML Projects</h5>
-<p class="text-secondary small">Explore student-built machine learning algorithms.</p>
-<a class="btn btn-outline-primary w-100" href="MLprojects.html">View Projects</a>
-</div>
-</div>
-</div>
-<div class="col-md-5">
-<div class="feature-card text-center">
-<img alt="Hackathon" loading="lazy" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&amp;w=400&amp;auto=format&amp;fit=crop"/>
-<div class="p-4">
-<h5 class="fw-bold text-white">Innovation Challenges</h5>
-<p class="text-secondary small">Compete in our campus AI hackathons.</p>
-<a class="btn btn-outline-primary w-100" href="challenges.html">See Challenges</a>
+<!-- Main Content Container -->
+<div class="container my-5">
+<div class="row">
+<!-- Left Column: Resource Cards -->
+<div class="col-lg-8 mb-4">
+<h3 class="fw-bold mb-4"><i class="fa-solid fa-folder-open text-primary me-2"></i>Study Materials</h3>
+<div class="row g-4">
+<!-- Resource 1 -->
+<div class="col-md-6">
+<div class="card ml-card p-4">
+<div class="card-body d-flex flex-column p-0">
+<i class="fa-brands fa-python resource-icon mb-3" style="font-size: 2.5rem; color: var(--ml-primary);"></i>
+<h5 class="fw-bold card-title">Pandas for Data Science</h5>
+<p class="text-muted small card-text flex-grow-1">Official Pandas documentation for data cleaning, transformation, analysis, and tabular workflows.</p>
+<div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top" style="border-color: var(--ml-theme-border) !important;">
+<a class="btn btn-sm btn-outline-primary resource-link" data-title="Pandas Documentation" href="https://pandas.pydata.org/docs/" rel="noopener noreferrer" target="_blank"><i class="fa-solid fa-eye me-1"></i> View</a>
+<button class="btn btn-sm btn-custom bookmark-btn" data-title="Pandas Documentation"><i class="fa-regular fa-bookmark me-1"></i> Save</button>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section class="container my-5 py-5 border-top border-secondary fade-in-scroll">
-<div class="text-center mb-5">
-<h3 class="fw-bold text-white">Development Team</h3>
-<p class="text-secondary">The brilliant minds behind this website.</p>
-</div>
-<div class="row g-4 justify-content-center">
-<div class="col-md-4">
-<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
-<div class="card-body">
-<i class="bi bi-person-workspace text-primary mb-3" style="font-size: 3rem;"></i>
-<h5 class="fw-bold text-white">Chen Zheng Hao</h5>
-<p class="text-secondary mb-2">Student ID: 23ACB05798</p>
-<span class="badge bg-primary px-3 py-2">Main page - Intro &amp; AI Guide</span>
-</div>
-</div>
-</div>
-<div class="col-md-4">
-<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
-<div class="card-body">
-<i class="bi bi-code-slash text-info mb-3" style="font-size: 3rem;"></i>
-<h5 class="fw-bold text-white">Goh Xuan Hui</h5>
-<p class="text-secondary mb-2">Student ID: 23ACB01839</p>
-<span class="badge bg-info text-dark px-3 py-2">ML Projects &amp; Resources</span>
-</div>
-</div>
-</div>
-<div class="col-md-4">
-<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
-<div class="card-body">
-<i class="bi bi-trophy text-warning mb-3" style="font-size: 3rem;"></i>
-<h5 class="fw-bold text-white">Ng Wei Ni</h5>
-<p class="text-secondary mb-2">Student ID: 22ACB06052</p>
-<span class="badge bg-warning text-dark px-3 py-2">Innovation Challenges</span>
+<!-- Resource 2 -->
+<div class="col-md-6">
+<div class="card ml-card p-4">
+<div class="card-body d-flex flex-column p-0">
+<i class="fa-solid fa-database resource-icon mb-3" style="font-size: 2.5rem; color: var(--ml-primary);"></i>
+<h5 class="fw-bold card-title">Kaggle Datasets Hub</h5>
+<p class="text-muted small card-text flex-grow-1">Direct links to the best open-source datasets for training your first computer vision and NLP models.</p>
+<div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top" style="border-color: var(--ml-theme-border) !important;">
+<a class="btn btn-sm btn-outline-primary resource-link" data-title="Kaggle Datasets" href="https://www.kaggle.com/datasets" rel="noopener noreferrer" target="_blank"><i class="fa-solid fa-eye me-1"></i> View</a>
+<button class="btn btn-sm btn-custom bookmark-btn" data-title="Kaggle Datasets"><i class="fa-regular fa-bookmark me-1"></i> Save</button>
 </div>
 </div>
 </div>
 </div>
-</section>
-<div aria-hidden="true" class="modal fade" data-bs-backdrop="static" id="nameModal" tabindex="-1">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content bg-dark text-white border-primary">
-<div class="modal-header border-secondary">
-<h5 class="modal-title text-primary"><i class="bi bi-person-bounding-box me-2"></i>Welcome to AI Club</h5>
+<!-- Resource 3 -->
+<div class="col-md-6">
+<div class="card ml-card p-4">
+<div class="card-body d-flex flex-column p-0">
+<i class="fa-solid fa-robot resource-icon mb-3" style="font-size: 2.5rem; color: var(--ml-primary);"></i>
+<h5 class="fw-bold card-title">PyTorch Fundamentals</h5>
+<p class="text-muted small card-text flex-grow-1">Step-by-step interactive notebook to build your first neural network from scratch using PyTorch.</p>
+<div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top" style="border-color: var(--ml-theme-border) !important;">
+<a class="btn btn-sm btn-outline-primary resource-link" data-title="PyTorch Notebook" href="https://pytorch.org/tutorials/" rel="noopener noreferrer" target="_blank"><i class="fa-solid fa-eye me-1"></i> View</a>
+<button class="btn btn-sm btn-custom bookmark-btn" data-title="PyTorch Notebook"><i class="fa-regular fa-bookmark me-1"></i> Save</button>
 </div>
-<div class="modal-body">
-<p>Please enter your name to personalize your experience:</p>
-<input class="form-control bg-secondary text-white border-0" id="userNameInput" placeholder="e.g. John Doe" type="text"/>
 </div>
-<div class="modal-footer border-secondary">
-<button class="btn btn-primary w-100" id="saveNameBtn" type="button">Save &amp; Enter</button>
+</div>
+</div>
+<!-- Resource 4 -->
+<div class="col-md-6">
+<div class="card ml-card p-4">
+<div class="card-body d-flex flex-column p-0">
+<i class="fa-solid fa-wand-magic-sparkles resource-icon mb-3" style="font-size: 2.5rem; color: var(--ml-primary);"></i>
+<h5 class="fw-bold card-title">Prompt Tuning Guide</h5>
+<p class="text-muted small card-text flex-grow-1">Learn advanced techniques for communicating with LLMs like GPT-4 and Claude 3.</p>
+<div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top" style="border-color: var(--ml-theme-border) !important;">
+<a class="btn btn-sm btn-outline-primary resource-link" data-title="Prompt Tuning Guide" href="https://www.promptingguide.ai/" rel="noopener noreferrer" target="_blank"><i class="fa-solid fa-eye me-1"></i> View</a>
+<button class="btn btn-sm btn-custom bookmark-btn" data-title="Prompt Tuning Guide"><i class="fa-regular fa-bookmark me-1"></i> Save</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="my-5 opacity-25"/>
+<!-- REST API Target Container -->
+<h3 class="fw-bold mb-4"><i class="fa-brands fa-github text-primary me-2"></i>Trending AI Repositories</h3>
+<p class="text-muted small">Fetched live from GitHub via RESTful API.</p>
+<div class="mb-4" id="github-api-container">
+<div class="text-center p-4">
+<i class="fa-solid fa-spinner fa-spin fa-2x text-primary mb-3"></i>
+<p class="text-muted">Contacting GitHub API...</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Reading List (Local Storage) & Social Media -->
+<div class="col-lg-4">
+<div class="idea-form-container mb-4">
+<h4 class="fw-bold mb-3"><i class="fa-solid fa-bookmark text-primary me-2"></i>My Reading List</h4>
+<p class="text-muted small">Items saved here are stored in your browser's Local Storage.</p>
+<!-- Container for saved items -->
+<div class="mb-3" id="readingListOutput">
+<!-- Injected via JavaScript -->
+</div>
+<button class="btn btn-sm btn-outline-danger w-100 rounded-pill" id="clearListBtn">
+<i class="fa-solid fa-trash me-2"></i>Clear List
+                        </button>
 </div>
 </div>
 </div>

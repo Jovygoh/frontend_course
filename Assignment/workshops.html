@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>AI &amp; Innovation Club - UTAR</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/><link href="styles.css" rel="stylesheet"/></head><body data-page="home"><nav class="navbar navbar-expand-lg navbar-dark fixed-top global-navbar" style="background-color: rgba(17, 24, 39, 0.95) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #374151; z-index: 1040;">
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Prompt Workshops | AI &amp; Innovation Club</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/><link href="styles.css" rel="stylesheet"/></head><body data-page="workshops"><nav class="navbar navbar-expand-lg navbar-dark fixed-top global-navbar" style="background-color: rgba(17, 24, 39, 0.95) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #374151; z-index: 1040;">
 <div class="container">
 <a class="navbar-brand fw-bold text-primary" href="index.html">
 <i class="bi bi-cpu-fill me-2"></i>AI &amp; Innovation
@@ -31,154 +31,148 @@
 <a aria-label="Share this page on X" class="social-btn bg-tw shareTwBtn" href="#" title="Share on X (Twitter)"><i class="fab fa-x-twitter"></i></a>
 <a aria-label="Share this page on LinkedIn" class="social-btn bg-li shareLiBtn" href="#" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
 <a aria-label="Share this page on WhatsApp" class="social-btn bg-wa shareWaBtn" href="#" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-</div><div aria-hidden="false" class="app-view" id="view-home" style="opacity:1">
-<header class="hero-section text-center text-lg-start">
+</div><div aria-hidden="false" class="app-view cyber-page-view" id="view-workshops" style="opacity:1">
+<header class="hero-workshop text-center">
 <div class="container">
-<div class="row align-items-center">
-<div class="col-lg-7 fade-in-scroll visible">
-<h1 class="display-4 fw-bold text-white mb-3">Shape the Future with <span class="text-primary">AI</span></h1>
-<p class="lead text-gray-300 mb-4">
-                            Discover the fundamentals of Artificial Intelligence, explore cutting-edge machine learning models, and compete in our campus tech challenges at UTAR.
-                        </p>
-<a class="btn btn-primary btn-lg px-4 me-3 rounded-pill" href="#intro-ai">Start Learning</a>
-<div class="mt-4 pt-3">
-<p class="text-secondary small mb-2">Follow our community:</p>
-<div class="d-flex gap-3 justify-content-center justify-content-lg-start">
-<a class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://www.facebook.com/UTARnet/" target="_blank">
-<i class="bi bi-facebook fs-5"></i>
-</a>
-<a class="btn btn-outline-info rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://twitter.com/UTARnet" target="_blank">
-<i class="bi bi-twitter fs-5"></i>
-</a>
-<a class="btn btn-outline-danger rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://www.instagram.com/utarnet1/" target="_blank">
-<i class="bi bi-instagram fs-5"></i>
-</a>
-</div>
-</div>
-</div>
-<div class="col-lg-5 text-center d-none d-lg-block floating-element">
-<img alt="AI Brain" class="img-fluid rounded-circle" loading="lazy" src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&amp;w=600&amp;auto=format&amp;fit=crop" style="border: 5px solid #1e3a8a; box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);"/>
-</div>
-</div>
+<span class="badge bg-warning text-dark rounded-pill px-3 py-2 mb-3 font-mono">
+<i class="fas fa-terminal me-1"></i> HANDS-ON LEARNING
+                </span>
+<h1 class="heading-font display-4 fw-bold mb-3">Prompt Engineering Workshops</h1>
+<p class="lead text-light text-opacity-75 max-w-2xl mx-auto mb-4">
+                    Explore zero-shot optimization, multi-agent frameworks, vector search, and advanced reasoning architectures.
+                </p>
 </div>
 </header>
-<section class="container my-5 fade-in-scroll">
-<div class="api-quote-box p-4 shadow-lg text-center">
-<h6 class="text-info text-uppercase fw-bold mb-3"><i class="bi bi-cloud-arrow-down-fill me-2"></i>AI Quote of the Day (Fetched via REST API)</h6>
-<h4 class="text-white fst-italic" id="apiQuote">"Loading inspiring tech quote..."</h4>
-<p class="text-secondary mt-2 mb-0" id="apiAuthor"></p>
-</div>
-</section>
-<section class="container my-5 py-4 fade-in-scroll" id="intro-ai">
-<div class="row text-center mb-5">
-<h2 class="fw-bold text-white display-5">What is Artificial Intelligence?</h2>
-<p class="text-secondary">Understanding the core technology of the 21st century.</p>
-</div>
-<div class="row align-items-center g-5">
-<div class="col-lg-6">
-<div class="rounded-4 overflow-hidden shadow-lg border border-secondary">
-<div class="ratio ratio-16x9">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ad79nYk2keg?start=144" title="Introduction to Artificial Intelligence - YouTube embedded social media content"></iframe>
-</div>
-</div>
-<p class="text-secondary small mt-2 mb-0 text-center">
-<i class="bi bi-youtube text-danger me-1"></i>Embedded YouTube content for social media integration.
-                    </p>
-</div>
-<div class="col-lg-6 text-start">
-<h3 class="text-primary fw-bold mb-3">Simulating Human Intelligence</h3>
-<p class="text-gray-400" style="line-height: 1.8;">
-                        Artificial Intelligence (AI) refers to the development of computer systems capable of performing tasks that typically require human intelligence. These tasks include learning, reasoning, problem-solving, understanding natural language, and perceiving environments. 
-                    </p>
-<ul class="list-unstyled text-gray-400 mt-4">
-<li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Machine Learning:</strong> Systems that learn from data without being explicitly programmed.</li>
-<li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Neural Networks:</strong> Computing systems inspired by the biological neural networks of animal brains.</li>
-<li><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Generative AI:</strong> Models like ChatGPT that create new text, images, and media.</li>
-</ul>
-</div>
-</div>
-</section>
-<section class="container my-5 py-5 border-top border-secondary fade-in-scroll">
-<div class="text-center mb-5">
-<h3 class="fw-bold text-white">Explore Club Activities</h3>
-</div>
-<div class="row g-4 justify-content-center">
-<div class="col-md-5">
-<div class="feature-card text-center">
-<img alt="Coding" loading="lazy" src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&amp;w=400&amp;auto=format&amp;fit=crop"/>
-<div class="p-4">
-<h5 class="fw-bold text-white">ML Projects</h5>
-<p class="text-secondary small">Explore student-built machine learning algorithms.</p>
-<a class="btn btn-outline-primary w-100" href="MLprojects.html">View Projects</a>
+<main class="container my-5">
+<div class="row g-4">
+<div class="col-lg-8">
+<h3 class="heading-font fw-bold mb-4"><i class="fas fa-graduation-cap text-warning me-2"></i>Available Workshop Tracks</h3>
+<div class="row g-4 mb-5">
+<div class="col-md-6">
+<div class="card card-cyber h-100 p-4 shadow-sm">
+<span class="badge bg-primary bg-opacity-10 text-primary w-max mb-2 font-mono">TRACK 01</span>
+<h4 class="heading-font fw-bold">Zero-Shot &amp; Few-Shot Masterclass</h4>
+<p class="text-secondary small mb-3">Learn structural template design, system role constraints, and context window optimization for LLMs.</p>
+<div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+<small class="text-muted"><i class="far fa-clock me-1"></i> 2.5 Hours</small>
+<button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn" data-instructor="Dr. Alex Rivera" data-level="Beginner to Intermediate" data-track="Zero-Shot &amp; Few-Shot Masterclass">
+                                        Select Track
+                                    </button>
 </div>
 </div>
 </div>
-<div class="col-md-5">
-<div class="feature-card text-center">
-<img alt="Hackathon" loading="lazy" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&amp;w=400&amp;auto=format&amp;fit=crop"/>
-<div class="p-4">
-<h5 class="fw-bold text-white">Innovation Challenges</h5>
-<p class="text-secondary small">Compete in our campus AI hackathons.</p>
-<a class="btn btn-outline-primary w-100" href="challenges.html">See Challenges</a>
+<div class="col-md-6">
+<div class="card card-cyber h-100 p-4 shadow-sm">
+<span class="badge bg-danger bg-opacity-10 text-danger w-max mb-2 font-mono">TRACK 02</span>
+<h4 class="heading-font fw-bold">Chain-of-Thought Reasoning Sprint</h4>
+<p class="text-secondary small mb-3">Implement multi-step logic pipelines, self-consistency sampling, and tree-of-thought methods.</p>
+<div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+<small class="text-muted"><i class="far fa-clock me-1"></i> 3.0 Hours</small>
+<button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn" data-instructor="Prof. Elena Rostova" data-level="Advanced" data-track="Chain-of-Thought Reasoning Sprint">
+                                        Select Track
+                                    </button>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card card-cyber h-100 p-4 shadow-sm">
+<span class="badge bg-success bg-opacity-10 text-success w-max mb-2 font-mono">TRACK 03</span>
+<h4 class="heading-font fw-bold">RAG &amp; Vector Database Prompting</h4>
+<p class="text-secondary small mb-3">Connect LLMs to external data sources using semantic similarity embeddings, ChromaDB, and hybrid retrieval techniques.</p>
+<div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+<small class="text-muted"><i class="far fa-clock me-1"></i> 3.5 Hours</small>
+<button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn" data-instructor="Marcus Chen" data-level="Intermediate" data-track="RAG &amp; Vector Database Prompting">
+                                        Select Track
+                                    </button>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card card-cyber h-100 p-4 shadow-sm">
+<span class="badge bg-info bg-opacity-10 text-info w-max mb-2 font-mono">TRACK 04</span>
+<h4 class="heading-font fw-bold">Autonomous Multi-Agent Frameworks</h4>
+<p class="text-secondary small mb-3">Design collaborative AI agent teams (CrewAI / AutoGen) using task delegation prompts and tool utilization.</p>
+<div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+<small class="text-muted"><i class="far fa-clock me-1"></i> 4.0 Hours</small>
+<button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn" data-instructor="Sarah Jenkins" data-level="Advanced" data-track="Autonomous Multi-Agent Frameworks">
+                                        Select Track
+                                    </button>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section class="container my-5 py-5 border-top border-secondary fade-in-scroll">
-<div class="text-center mb-5">
-<h3 class="fw-bold text-white">Development Team</h3>
-<p class="text-secondary">The brilliant minds behind this website.</p>
-</div>
-<div class="row g-4 justify-content-center">
-<div class="col-md-4">
-<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
-<div class="card-body">
-<i class="bi bi-person-workspace text-primary mb-3" style="font-size: 3rem;"></i>
-<h5 class="fw-bold text-white">Chen Zheng Hao</h5>
-<p class="text-secondary mb-2">Student ID: 23ACB05798</p>
-<span class="badge bg-primary px-3 py-2">Main page - Intro &amp; AI Guide</span>
+<div class="d-flex justify-content-between align-items-center mb-3">
+<h4 class="heading-font fw-bold m-0"><i class="fas fa-question-circle text-warning me-2"></i>Frequently Asked Questions</h4>
+<div class="w-50">
+<input class="form-control form-control-sm font-mono" id="faqSearchInput" placeholder="Search FAQ keywords..." type="text"/>
 </div>
 </div>
-</div>
-<div class="col-md-4">
-<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
-<div class="card-body">
-<i class="bi bi-code-slash text-info mb-3" style="font-size: 3rem;"></i>
-<h5 class="fw-bold text-white">Goh Xuan Hui</h5>
-<p class="text-secondary mb-2">Student ID: 23ACB01839</p>
-<span class="badge bg-info text-dark px-3 py-2">ML Projects &amp; Resources</span>
-</div>
-</div>
-</div>
-<div class="col-md-4">
-<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
-<div class="card-body">
-<i class="bi bi-trophy text-warning mb-3" style="font-size: 3rem;"></i>
-<h5 class="fw-bold text-white">Ng Wei Ni</h5>
-<p class="text-secondary mb-2">Student ID: 22ACB06052</p>
-<span class="badge bg-warning text-dark px-3 py-2">Innovation Challenges</span>
+<div class="accordion" id="workshopFaq">
+<div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+<h2 class="accordion-header">
+<button class="accordion-button fw-bold heading-font" data-bs-target="#faq1" data-bs-toggle="collapse" type="button">
+<i class="fas fa-laptop-code text-warning me-2"></i> What technical prerequisites are needed?
+                                </button>
+</h2>
+<div class="accordion-collapse collapse show" id="faq1">
+<div class="accordion-body text-secondary">
+                                    Basic familiarity with Python syntax and API concepts is recommended. Bring a laptop with Chrome/Edge installed for web-based Jupyter Notebook labs.
+                                </div>
 </div>
 </div>
+<div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+<h2 class="accordion-header">
+<button class="accordion-button collapsed fw-bold heading-font" data-bs-target="#faq2" data-bs-toggle="collapse" type="button">
+<i class="fas fa-certificate text-warning me-2"></i> Will participants receive a certificate?
+                                </button>
+</h2>
+<div class="accordion-collapse collapse" id="faq2">
+<div class="accordion-body text-secondary">
+                                    Yes! All attendees who complete the hands-on lab assessment will receive a verified Digital Certificate of Completion issued by the AI &amp; Innovation Club.
+                                </div>
 </div>
 </div>
-</section>
-<div aria-hidden="true" class="modal fade" data-bs-backdrop="static" id="nameModal" tabindex="-1">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content bg-dark text-white border-primary">
-<div class="modal-header border-secondary">
-<h5 class="modal-title text-primary"><i class="bi bi-person-bounding-box me-2"></i>Welcome to AI Club</h5>
-</div>
-<div class="modal-body">
-<p>Please enter your name to personalize your experience:</p>
-<input class="form-control bg-secondary text-white border-0" id="userNameInput" placeholder="e.g. John Doe" type="text"/>
-</div>
-<div class="modal-footer border-secondary">
-<button class="btn btn-primary w-100" id="saveNameBtn" type="button">Save &amp; Enter</button>
+<div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+<h2 class="accordion-header">
+<button class="accordion-button collapsed fw-bold heading-font" data-bs-target="#faq3" data-bs-toggle="collapse" type="button">
+<i class="fas fa-key text-warning me-2"></i> Are API keys provided during the workshop?
+                                </button>
+</h2>
+<div class="accordion-collapse collapse" id="faq3">
+<div class="accordion-body text-secondary">
+                                    Yes, temporary sandbox API keys for OpenAI, Anthropic, and Gemini models will be provided during the live coding sessions.
+                                </div>
 </div>
 </div>
+<div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+<h2 class="accordion-header">
+<button class="accordion-button collapsed fw-bold heading-font" data-bs-target="#faq4" data-bs-toggle="collapse" type="button">
+<i class="fas fa-video text-warning me-2"></i> Can I access session recordings if I miss live classes?
+                                </button>
+</h2>
+<div class="accordion-collapse collapse" id="faq4">
+<div class="accordion-body text-secondary">
+                                    Registered participants get lifetime access to workshop video recordings, slide decks, and GitHub starter codes.
+                                </div>
 </div>
 </div>
+</div>
+</div>
+<div class="col-lg-4">
+<div class="card card-cyber p-4 shadow-sm border-top border-4 border-warning sticky-lg-top" style="top: 90px;">
+<h4 class="heading-font fw-bold mb-3"><i class="fas fa-bookmark text-warning me-2"></i>Active Session</h4>
+<p class="small text-muted mb-3">Your selected track persists and updates the registration page automatically.</p>
+<div class="mb-3">
+<label class="form-label font-mono small fw-bold">SELECTED TRACK</label>
+<input class="form-control font-mono bg-body-tertiary" id="selectedTrackDisplay" readonly="" type="text" value="None Selected"/>
+</div>
+<a class="btn btn-warning w-100 rounded-pill fw-bold disabled" href="workshop-detail.html" id="proceedDetailBtn">
+                            View Syllabus &amp; Register <i class="fas fa-arrow-right ms-1"></i>
+</a>
+</div>
+</div>
+</div>
+</main>
 </div><footer class="global-footer text-center py-4" style="background-color: #05080f; border-top: 1px solid #1f2937; margin-top: 60px;">
 <div class="container">
 <p class="text-secondary mb-1">© 2026 AI &amp; Innovation Club - Front-End Web Development.</p>
