@@ -1,0 +1,851 @@
+
+        $(document).ready(function() {
+
+            // ==========================================
+            // 1. COOKIE MANAGER UTILITIES
+            // ==========================================
+            function setCookie(cname, cvalue, exdays) {
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                let expires = "expires=" + d.toUTCString();
+                const secureFlag = window.location.protocol === 'https:' ? ';Secure' : '';
+                document.cookie = cname + "=" + encodeURIComponent(cvalue) + ";" + expires + ";path=/;SameSite=Lax" + secureFlag;
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+            // ==========================================
+            // SHARED SAFETY / STORAGE HELPERS
+            // ==========================================
+            function escapeHtml(value) {
+                return $('<div>').text(String(value ?? '')).html();
+            }
+
+            function readJsonLocal(key, fallback = []) {
+                try {
+                    const raw = localStorage.getItem(key);
+                    return raw ? JSON.parse(raw) : fallback;
+                } catch (error) {
+                    console.warn(`Invalid localStorage value for ${key}; resetting it.`, error);
+                    localStorage.removeItem(key);
+                    return fallback;
+                }
+            }
+
+            function setWelcomeName(name, returning = true) {
+                const $welcome = $('#welcomeMsg').empty();
+                $('<i>', { class: 'bi bi-person-fill me-1', 'aria-hidden': 'true' }).appendTo($welcome);
+                $welcome.append(document.createTextNode((returning ? ' Welcome back, ' : ' Welcome, ') + name));
+            }
+
+            function getShareableBaseUrl() {
+                if (window.location.protocol !== 'http:' && window.location.protocol !== 'https:') return '';
+                return window.location.href.split('#')[0];
+            }
+
+            // ==========================================
+            // 2. MULTI-PAGE INITIALIZATION
+            // ==========================================
+            const currentPage = document.body.dataset.page || 'home';
+
+            const pageTitles = {
+                'home': 'AI & Innovation Club - UTAR',
+                'ai-guide': 'What is AI? | AI & Innovation Club',
+                'ml-projects': 'ML Projects | AI & Innovation Club',
+                'resources': 'AI Resources | AI & Innovation Club',
+                'workshops': 'Prompt Workshops | AI & Innovation Club',
+                'workshop-detail': 'Workshop Details | AI & Innovation Club',
+                'challenges': 'Innovation Challenges | AI & Innovation Club',
+                'challenge-detail': 'Challenge Submission | AI & Innovation Club'
+            };
+
+            function updateNavbarActiveStates(page) {
+                $('.navbar-nav .nav-link').removeClass('active').removeAttr('aria-current');
+                const $active = $(`.navbar-nav .nav-link[data-page="${page}"]`);
+                $active.addClass('active').attr('aria-current', 'page');
+            }
+
+            function initCurrentPage() {
+                document.title = pageTitles[currentPage] || 'AI & Innovation Club';
+                updateNavbarActiveStates(currentPage);
+
+                // Restore shared user name badge.
+                const storedName = localStorage.getItem('aiClubUser');
+                if (storedName) setWelcomeName(storedName, true);
+
+                if (currentPage === 'home') {
+                    initHomeView();
+                } else if (currentPage === 'ai-guide') {
+                    initAiGuideView();
+                } else if (currentPage === 'ml-projects') {
+                    initMlProjectsView();
+                } else if (currentPage === 'resources') {
+                    initResourcesView();
+                } else if (currentPage === 'workshops') {
+                    initWorkshopsView();
+                } else if (currentPage === 'workshop-detail') {
+                    initWorkshopDetailView();
+                } else if (currentPage === 'challenges') {
+                    initChallengesView();
+                } else if (currentPage === 'challenge-detail') {
+                    initChallengeDetailView();
+                }
+            }
+
+            // Auto-collapse the Bootstrap mobile navbar after navigation.
+            $('.navbar-nav a').on('click', function(){
+                if ($('.navbar-toggler').is(':visible')) {
+                    $('.navbar-collapse').collapse('hide');
+                }
+            });
+
+            initCurrentPage();
+
+            // ==========================================
+            // 3. HOME VIEW CONTROLLER
+            // ==========================================
+            function initHomeView() {
+                // Cookie: last visit date
+                let lastVisit = getCookie("lastVisitDate");
+                if (lastVisit != "") {
+                    $('#cookieDisplay').text("Your last visit was on: " + lastVisit);
+                } else {
+                    $('#cookieDisplay').text("This is your first visit to our site!");
+                }
+                let currentDate = new Date().toLocaleString();
+                setCookie("lastVisitDate", currentDate, 30);
+
+                // Fetch quote of the day via REST API
+                $.ajax({
+                    url: 'https://dummyjson.com/quotes/random',
+                    method: 'GET',
+                    success: function(response) {
+                        $('#apiQuote').text('"' + response.quote + '"');
+                        $('#apiAuthor').text("- " + response.author);
+                    },
+                    error: function() {
+                        $('#apiQuote').text('"AI will not replace you. A person using AI will."');
+                        $('#apiAuthor').text("- Tech Community");
+                    }
+                });
+
+                // Name personalization modal trigger
+                let storedName = localStorage.getItem('aiClubUser');
+                if (!storedName) {
+                    let nameModal = new bootstrap.Modal(document.getElementById('nameModal'));
+                    nameModal.show();
+                }
+
+                $('#saveNameBtn').off('click').on('click', function() {
+                    const inputName = $('#userNameInput').val().trim().slice(0, 60);
+                    if (inputName !== '') {
+                        localStorage.setItem('aiClubUser', inputName);
+                        setWelcomeName(inputName, false);
+                        const nameModal = bootstrap.Modal.getInstance(document.getElementById('nameModal'));
+                        if (nameModal) nameModal.hide();
+                    }
+                });
+            }
+
+            // Scroll trigger helper for fade-in animations (Home & Guide)
+            $(window).scroll(function() {
+                $('.fade-in-scroll').each(function() {
+                    let elementTop = $(this).offset().top;
+                    let windowBottom = $(window).scrollTop() + $(window).height();
+                    
+                    if (windowBottom > elementTop + 50) {
+                        $(this).addClass('visible');
+                    }
+                });
+            });
+
+            // ==========================================
+            // 4. AI GUIDE VIEW CONTROLLER
+            // ==========================================
+            function initAiGuideView() {
+                let previousAttempt = sessionStorage.getItem('aiQuizStatus');
+                if (previousAttempt === 'passed') {
+                    $('#quizContainer').hide();
+                    $('#quizResult').html('<div class="alert alert-success border-success text-dark"><i class="bi bi-check-circle-fill me-2"></i> You already passed the quiz in this session! Great job!</div>').show();
+                } else if (previousAttempt === 'failed') {
+                    $('#quizContainer').hide();
+                    $('#quizResult').html('<div class="alert alert-warning border-warning text-dark"><i class="bi bi-exclamation-triangle-fill me-2"></i> You attempted the quiz earlier but got it wrong. Refresh your knowledge and try in a new session.</div>').show();
+                }
+
+                $('#submitQuizBtn').off('click').click(function() {
+                    let selectedAnswer = $('input[name="aiQuiz"]:checked').val();
+                    if (!selectedAnswer) {
+                        alert("Please select an answer first!");
+                        return;
+                    }
+                    if (selectedAnswer === 'correct') {
+                        sessionStorage.setItem('aiQuizStatus', 'passed');
+                        $('#quizContainer').slideUp(300, function() {
+                            $('#quizResult').html('<div class="alert alert-success border-success text-dark"><i class="bi bi-check-circle-fill me-2"></i> Correct! Deep learning heavily relies on multi-layered neural networks.</div>').slideDown(300);
+                        });
+                    } else {
+                        sessionStorage.setItem('aiQuizStatus', 'failed');
+                        $('#quizContainer').slideUp(300, function() {
+                            $('#quizResult').html('<div class="alert alert-danger border-danger text-dark"><i class="bi bi-x-circle-fill me-2"></i> Incorrect. Hard-coded logic and manual entry are NOT related to neural networks.</div>').slideDown(300);
+                        });
+                    }
+                });
+            }
+
+            // ==========================================
+            // 5. GLOBAL UNIFIED THEME TOGGLE CONTROLLER
+            // ==========================================
+            function applyGlobalTheme(theme) {
+                if (theme === 'dark') {
+                    // Apply to compatible Cyberpunk views
+                    $('.cyber-page-view').addClass('dark-theme');
+                    // Apply to user's Projects & Resources views
+                    $('#view-ml-projects').addClass('dark-theme');
+                    $('#view-resources').addClass('dark-theme');
+                    // Update global toggle icon in the top navbar
+                    $('#globalThemeIcon').removeClass('bi-moon-fill').addClass('bi-sun-fill').addClass('text-warning');
+                    
+                    // Sync body background if not on Home or AI Guide (which are fixed dark)
+                    if (currentPage !== 'home' && currentPage !== 'ai-guide') {
+                        $('body').removeClass('light-theme-body');
+                    }
+                } else {
+                    // Apply to compatible Cyberpunk views
+                    $('.cyber-page-view').removeClass('dark-theme');
+                    // Apply to user's Projects & Resources views
+                    $('#view-ml-projects').removeClass('dark-theme');
+                    $('#view-resources').removeClass('dark-theme');
+                    // Update global toggle icon in the top navbar
+                    $('#globalThemeIcon').removeClass('bi-sun-fill').addClass('bi-moon-fill').addClass('text-warning');
+                    
+                    // Sync body background if not on Home or AI Guide (which are fixed dark)
+                    if (currentPage !== 'home' && currentPage !== 'ai-guide') {
+                        $('body').addClass('light-theme-body');
+                    }
+                }
+                
+                // Persist theme selection in both localStorage and cookies for assignment compliance
+                setCookie("site_theme", theme, 7);
+                localStorage.setItem('cyberTheme', theme);
+            }
+
+            // Click Handler
+            $('#globalThemeToggle').on('click', function() {
+                let isDark = $('#view-ml-projects').hasClass('dark-theme') || $('.cyber-page-view').first().hasClass('dark-theme');
+                applyGlobalTheme(isDark ? 'light' : 'dark');
+            });
+
+            // Initialize saved state on startup
+            let savedMLTheme = getCookie("site_theme");
+            let savedCyberTheme = localStorage.getItem('cyberTheme');
+            let initialTheme = savedMLTheme || savedCyberTheme || 'light';
+            applyGlobalTheme(initialTheme);
+
+            // ==========================================
+            // 6. ML PROJECTS VIEW CONTROLLER (YOUR PART 1)
+            // ==========================================
+            const projectDetailsMap = {
+                traffic: {
+                    title: 'Traffic Flow Analyzer',
+                    description: 'This project applies real-time object detection and tracking to identify and count vehicles in traffic-camera footage. It demonstrates how computer vision can support traffic monitoring and smarter signal planning.',
+                    tech: 'Python, YOLOv8, OpenCV, PyTorch',
+                    status: 'Open-source technical reference: Ultralytics YOLO. The linked repository provides the object-detection framework used as a reference for this project concept.',
+                    repo: 'https://github.com/ultralytics/ultralytics'
+                },
+                chatbot: {
+                    title: 'Campus Assistant Chatbot',
+                    description: 'This project demonstrates a conversational AI assistant that can answer common student questions about courses, campus services, facilities, and frequently asked university information.',
+                    tech: 'Python, Rasa, NLP, NLU, Dialogue Management',
+                    status: 'Open-source technical reference: Rasa. The linked repository provides a framework for building contextual conversational assistants.',
+                    repo: 'https://github.com/RasaHQ/rasa'
+                },
+                energy: {
+                    title: 'Energy Demand Predictor',
+                    description: 'This project demonstrates time-series forecasting for campus electricity consumption. Historical usage patterns can be analysed to estimate future demand and support energy-planning decisions.',
+                    tech: 'Python, Pandas, Darts, PyTorch / Scikit-learn',
+                    status: 'Open-source technical reference: Darts. The linked repository provides forecasting models and utilities for time-series applications.',
+                    repo: 'https://github.com/unit8co/darts'
+                }
+            };
+
+            function initMlProjectsView() {
+                $('.project-detail-btn').off('click').on('click', function () {
+                    const project = projectDetailsMap[$(this).data('project')];
+                    if (!project) return;
+                    $('#projectModalTitle').text(project.title);
+                    $('#projectModalDescription').text(project.description);
+                    $('#projectModalTech').text(project.tech);
+                    $('#projectModalStatus').text(project.status);
+                    $('#projectRepoBtn').attr('href', project.repo);
+                });
+
+                // Dynamic quotes
+                $.ajax({
+                    url: 'https://dummyjson.com/quotes/random',
+                    method: 'GET',
+                    success: function(response) {
+                        $('#quote-container').html(`
+                            <i class="fa-solid fa-quote-left text-light me-2 opacity-50"></i>
+                            "${escapeHtml(response.quote)}" 
+                            <br><span class="small fw-bold mt-2 d-inline-block">- ${escapeHtml(response.author)}</span>
+                        `);
+                    },
+                    error: function() {
+                        $('#quote-container').html('Empowering the future through Artificial Intelligence.');
+                    }
+                });
+
+                // Welcome Toast check (SessionStorage)
+                if (!sessionStorage.getItem('hasVisitedMLPage')) {
+                    const toastLive = document.getElementById('welcomeToast');
+                    const toast = new bootstrap.Toast(toastLive);
+                    toast.show();
+                    sessionStorage.setItem('hasVisitedMLPage', 'true');
+                }
+
+                // Initial render of local ideas
+                renderIdeas();
+            }
+
+            $('#ideaForm').off('submit').on('submit', function(e) {
+                e.preventDefault();
+                
+                const newIdea = {
+                    id: Date.now(),
+                    name: $('#studentName').val().trim().slice(0, 60),
+                    title: $('#projectTitle').val().trim().slice(0, 100),
+                    desc: $('#projectDesc').val().trim().slice(0, 500),
+                    url: $('#projectUrl').val().trim().slice(0, 500),
+                    date: new Date().toLocaleDateString()
+                };
+
+                let savedIdeas = readJsonLocal('mlProjectIdeas', []);
+                savedIdeas.push(newIdea);
+                localStorage.setItem('mlProjectIdeas', JSON.stringify(savedIdeas));
+                
+                this.reset();
+                renderIdeas();
+            });
+
+            function renderIdeas() {
+                const ideasContainer = $('#ideasList');
+                ideasContainer.empty();
+                let savedIdeas = readJsonLocal('mlProjectIdeas', []);
+
+                if (savedIdeas.length === 0) {
+                    ideasContainer.html('<p class="text-muted fst-italic">No ideas submitted yet. Be the first!</p>');
+                    return;
+                }
+
+                savedIdeas.forEach(function(idea) {
+                    const safeUrl = /^https?:\/\/[^\s]+$/i.test(idea.url || '') ? idea.url : '';
+                    const projectLink = safeUrl
+                        ? `<a class="btn btn-sm btn-outline-primary mt-2" href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i>Open Project Link</a>`
+                        : '';
+                    const ideaCard = `
+                        <div class="card mb-3 shadow-sm border-0" style="background-color: var(--ml-theme-bg); border: 1px solid rgba(128,128,128,0.15) !important;">
+                            <div class="card-body">
+                                <h6 class="card-title fw-bold text-primary">${escapeHtml(idea.title)}</h6>
+                                <p class="card-text mb-1 small">${escapeHtml(idea.desc)}</p>
+                                ${projectLink}
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <p class="card-text mb-0"><small class="text-muted">Pitched by ${escapeHtml(idea.name)} on ${escapeHtml(idea.date)}</small></p>
+                                    <button class="btn btn-sm btn-outline-danger py-0 px-2 delete-idea-btn border-0" data-id="${idea.id}" title="Delete Pitch"><i class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    ideasContainer.prepend(ideaCard);
+                });
+
+                $('.delete-idea-btn').click(function() {
+                    const idToDelete = $(this).data('id');
+                    let currentPitches = readJsonLocal('mlProjectIdeas', []);
+                    currentPitches = currentPitches.filter(pitch => pitch.id !== idToDelete);
+                    localStorage.setItem('mlProjectIdeas', JSON.stringify(currentPitches));
+                    renderIdeas();
+                });
+            }
+
+            // ML project share link: only share a real deployed HTTP/HTTPS URL.
+            const mlShareBase = getShareableBaseUrl();
+            if (mlShareBase) {
+                $('#mlShareTw').attr('href', `https://twitter.com/intent/tweet?url=${encodeURIComponent(mlShareBase)}&text=${encodeURIComponent("Explore the machine learning projects at the UTAR AI & Innovation Club!")}`);
+            }
+            $('#mlShareTw').off('click').on('click', function(e) {
+                if (!mlShareBase) {
+                    e.preventDefault();
+                    alert('Social sharing should be tested from the deployed website URL, not a local file.');
+                    return;
+                }
+                e.preventDefault();
+                window.open($(this).attr('href'), 'shareWindow', 'width=600,height=400,noopener,noreferrer');
+            });
+
+            // ==========================================
+            // 7. RESOURCES VIEW CONTROLLER (YOUR PART 2 - NEW RESOURCE LIBRARY)
+            // ==========================================
+            function initResourcesView() {
+                // Render saved reading list and restore bookmark button states.
+                renderReadingList();
+                syncBookmarkButtons();
+
+                // Restore session clicks count
+                let sessionClicks = sessionStorage.getItem('resourceClicks') || 0;
+                $('#sessionCounter').text(sessionClicks);
+
+                // Handle resource click counter. Do not prevent the default link action:
+                // the selected resource should still open in a new browser tab.
+                $('.resource-link').off('click').on('click', function() {
+                    sessionClicks++;
+                    sessionStorage.setItem('resourceClicks', String(sessionClicks));
+                    $('#sessionCounter').text(sessionClicks);
+                });
+
+                // Handle Bookmarking
+                $('.bookmark-btn').off('click').on('click', function() {
+                    const title = $(this).data('title');
+                    let savedList = readJsonLocal('myReadingList', []);
+                    
+                    if (!savedList.includes(title)) {
+                        savedList.push(title);
+                        localStorage.setItem('myReadingList', JSON.stringify(savedList));
+                        
+                        $(this).removeClass('btn-custom').addClass('btn-success').html('<i class="fa-solid fa-check me-1"></i> Saved');
+                        renderReadingList();
+                        syncBookmarkButtons();
+                    } else {
+                        alert('This resource is already in your reading list!');
+                    }
+                });
+
+                // Clear List Handler
+                $('#clearListBtn').off('click').on('click', function() {
+                    localStorage.removeItem('myReadingList');
+                    renderReadingList();
+                    
+                    syncBookmarkButtons();
+                });
+
+                // Fetch top trending AI repositories from GitHub API
+                $.ajax({
+                    url: 'https://api.github.com/search/repositories?q=topic:artificial-intelligence&sort=stars&order=desc&per_page=3',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        let htmlContent = '';
+                        response.items.forEach(function(repo) {
+                            htmlContent += `
+                                <div class="github-repo-card">
+                                    <h5 class="fw-bold mb-1">
+                                        <a href="${escapeHtml(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="text-decoration-none" style="color: var(--ml-primary);">
+                                            <i class="fa-brands fa-github-alt me-2"></i>${escapeHtml(repo.name)}
+                                        </a>
+                                    </h5>
+                                    <p class="text-muted small mb-2">${escapeHtml(repo.description || 'No description provided.')}</p>
+                                    <div class="d-flex align-items-center small fw-bold">
+                                        <span class="text-warning me-3"><i class="fa-solid fa-star me-1"></i>${repo.stargazers_count.toLocaleString()}</span>
+                                        <span class="text-secondary"><i class="fa-solid fa-code-branch me-1"></i>${escapeHtml(repo.language || 'Multiple')}</span>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        $('#github-api-container').html(htmlContent);
+                    },
+                    error: function() {
+                        $('#github-api-container').html(`
+                            <div class="alert alert-warning border-0" style="background-color: rgba(255, 193, 7, 0.1); color: #ffc107;">
+                                <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                                Unable to fetch live data from GitHub at the moment. Please try again later.
+                            </div>
+                        `);
+                    }
+                });
+            }
+
+            function syncBookmarkButtons() {
+                const savedList = readJsonLocal('myReadingList', []);
+                $('.bookmark-btn').each(function () {
+                    const saved = savedList.includes($(this).data('title'));
+                    $(this)
+                        .toggleClass('btn-success', saved)
+                        .toggleClass('btn-custom', !saved)
+                        .html(saved ? '<i class="fa-solid fa-check me-1"></i> Saved' : '<i class="fa-regular fa-bookmark me-1"></i> Save');
+                });
+            }
+
+            function renderReadingList() {
+                const listContainer = $('#readingListOutput');
+                listContainer.empty(); 
+                let savedList = readJsonLocal('myReadingList', []);
+
+                if (savedList.length === 0) {
+                    listContainer.html('<p class="text-muted fst-italic small">No items saved yet. Click "Save" on a resource to add it here.</p>');
+                    return;
+                }
+
+                savedList.forEach(function(item) {
+                    listContainer.append(`
+                        <div class="d-flex justify-content-between align-items-center p-2 mb-2 rounded" style="background-color: rgba(128,128,128,0.1); border: 1px solid var(--ml-theme-border);">
+                            <span class="small fw-bold"><i class="fa-solid fa-file-lines text-muted me-2"></i>${escapeHtml(item)}</span>
+                        </div>
+                    `);
+                });
+            }
+
+            // ==========================================
+            // 8. WORKSHOPS VIEW CONTROLLER
+            // ==========================================
+            function initWorkshopsView() {
+                function updateSelectedUI(trackName) {
+                    $('#selectedTrackDisplay').val(trackName);
+                    if (trackName && trackName !== 'None Selected') {
+                        $('#proceedDetailBtn').removeClass('disabled');
+                    }
+                }
+
+                const activeTrack = sessionStorage.getItem('selectedWorkshop');
+                if (activeTrack) {
+                    updateSelectedUI(activeTrack);
+                    $(`.select-track-btn`).removeClass('btn-warning text-dark').addClass('btn-outline-warning').html('Select Track');
+                    $(`.select-track-btn[data-track="${activeTrack}"]`)
+                        .removeClass('btn-outline-warning')
+                        .addClass('btn-warning text-dark')
+                        .html('<i class="fas fa-check me-1"></i> Selected');
+                }
+
+                $('.select-track-btn').off('click').click(function () {
+                    const trackName = $(this).data('track');
+                    const trackLevel = $(this).data('level');
+                    const trackInstructor = $(this).data('instructor');
+
+                    sessionStorage.setItem('selectedWorkshop', trackName);
+                    sessionStorage.setItem('selectedWorkshopLevel', trackLevel);
+                    sessionStorage.setItem('selectedWorkshopInstructor', trackInstructor);
+
+                    $('.select-track-btn')
+                        .removeClass('btn-warning text-dark')
+                        .addClass('btn-outline-warning')
+                        .html('Select Track');
+
+                    $(this)
+                        .removeClass('btn-outline-warning')
+                        .addClass('btn-warning text-dark')
+                        .html('<i class="fas fa-check me-1"></i> Selected');
+
+                    updateSelectedUI(trackName);
+                });
+
+                // FAQ Search Filter
+                $('#faqSearchInput').off('keyup').on('keyup', function () {
+                    const term = $(this).val().toLowerCase();
+                    $('.faq-item').each(function () {
+                        const text = $(this).text().toLowerCase();
+                        $(this).toggle(text.indexOf(term) > -1);
+                    });
+                });
+            }
+
+            // Social sharing for the fixed plugin bar. Direct UTAR social links on Home remain normal links.
+            const baseDomain = getShareableBaseUrl();
+            const encodedText = encodeURIComponent("Check out the AI & Innovation Club workshops and challenges!");
+
+            if (baseDomain) {
+                const encodedUrl = encodeURIComponent(baseDomain);
+                $('.shareFbBtn').attr('href', `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`);
+                $('.shareTwBtn').attr('href', `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`);
+                $('.shareLiBtn').attr('href', `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`);
+                $('.shareWaBtn').attr('href', `https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`);
+            }
+
+            $('.social-plugin-bar .social-btn').off('click').on('click', function(e) {
+                if (!baseDomain) {
+                    e.preventDefault();
+                    alert('Social sharing should be tested after the website is deployed to an HTTP/HTTPS URL.');
+                    return;
+                }
+                e.preventDefault();
+                window.open($(this).attr('href'), 'shareWindow', 'width=600,height=500,noopener,noreferrer');
+            });
+
+            // ==========================================
+            // 9. WORKSHOP DETAILS VIEW CONTROLLER
+            // ==========================================
+            const trackDetailsMap = {
+                "Zero-Shot & Few-Shot Masterclass": {
+                    level: "Beginner to Intermediate",
+                    instructor: "Dr. Alex Rivera",
+                    overview: "Learn structural template design, system role constraints, and context window optimization for LLMs. Master how to frame zero-shot system instructions and craft precise few-shot examples for deterministic model responses.",
+                    modules: [
+                        "Module 1: System Prompt Formatting & Constraint Setting",
+                        "Module 2: Structural Few-Shot Example Design",
+                        "Module 3: Tokenization & Context Window Optimization",
+                        "Module 4: Live Sandbox Testing with OpenAI & Gemini APIs"
+                    ]
+                },
+                "Chain-of-Thought Reasoning Sprint": {
+                    level: "Advanced",
+                    instructor: "Prof. Elena Rostova",
+                    overview: "Dive into advanced prompt techniques for logical reasoning tasks. Implement step-by-step reasoning pipelines, self-consistency sampling, and tree-of-thought branching algorithms.",
+                    modules: [
+                        "Module 1: Chain-of-Thought (CoT) Prompt Construction",
+                        "Module 2: Self-Consistency & Majority Voting Strategies",
+                        "Module 3: Tree-of-Thought (ToT) Exploration Networks",
+                        "Module 4: Solving Complex Math & Logic Pipelines"
+                    ]
+                },
+                "RAG & Vector Database Prompting": {
+                    level: "Intermediate",
+                    instructor: "Marcus Chen",
+                    overview: "Connect LLMs to external data sources using semantic similarity embeddings, ChromaDB, and hybrid retrieval techniques to drastically decrease hallucinations.",
+                    modules: [
+                        "Module 1: Introduction to Vector Embeddings & Similarity Search",
+                        "Module 2: Setting up ChromaDB Vector Store",
+                        "Module 3: Context Retrieval Augmentation & Hybrid Search",
+                        "Module 4: Guardrailing Model Outputs against Hallucinations"
+                    ]
+                },
+                "Autonomous Multi-Agent Frameworks": {
+                    level: "Advanced",
+                    instructor: "Sarah Jenkins",
+                    overview: "Design collaborative AI agent teams (CrewAI / AutoGen) using task delegation prompts, tool utilization, and automated multi-agent coordination.",
+                    modules: [
+                        "Module 1: Multi-Agent Architecture & Role Delegation",
+                        "Module 2: Tool Integration (Web Search, Code Interpreter, APIs)",
+                        "Module 3: Inter-Agent Communication & Consensus Algorithms",
+                        "Module 4: Building an Autonomous Software Development Team"
+                    ]
+                }
+            };
+
+            function initWorkshopDetailView() {
+                const selectedTrack = sessionStorage.getItem('selectedWorkshop') || "Zero-Shot & Few-Shot Masterclass";
+                const data = trackDetailsMap[selectedTrack] || trackDetailsMap["Zero-Shot & Few-Shot Masterclass"];
+
+                $('#detailTitle').text(selectedTrack);
+                $('#detailInstructor').text(data.instructor);
+                $('#detailLevelBadge').html(`<i class="fas fa-layer-group me-1"></i> ${data.level}`);
+                $('#detailOverview').text(data.overview);
+                $('#regTrackSelect').val(selectedTrack);
+
+                const $modulesList = $('#detailModules');
+                $modulesList.empty();
+                data.modules.forEach(mod => {
+                    $modulesList.append(`
+                        <li class="list-group-item bg-transparent text-secondary d-flex align-items-center py-3" style="border-bottom: 1px solid var(--cyber-border) !important;">
+                            <i class="fas fa-check-circle text-warning me-3 fs-5"></i> ${mod}
+                        </li>
+                    `);
+                });
+
+                $('#regTrackSelect').off('change').change(function () {
+                    const newTrack = $(this).val();
+                    sessionStorage.setItem('selectedWorkshop', newTrack);
+                    initWorkshopDetailView();
+                });
+
+                $('#registrationForm').off('submit').on('submit', function (e) {
+                    e.preventDefault();
+                    if (!this.checkValidity()) {
+                        this.reportValidity();
+                        return;
+                    }
+
+                    const registration = {
+                        id: Date.now(),
+                        track: $('#regTrackSelect').val(),
+                        name: $('#regFullName').val().trim().slice(0, 80),
+                        email: $('#regEmail').val().trim().slice(0, 120),
+                        registeredAt: new Date().toISOString()
+                    };
+
+                    // Keep the completed registration in Local Storage.
+                    const registrations = readJsonLocal('workshopRegistrations', []);
+                    registrations.push(registration);
+                    localStorage.setItem('workshopRegistrations', JSON.stringify(registrations));
+
+                    // Preserve the original workshop interaction used by the team.
+                    alert(`Successfully registered for: ${registration.track}`);
+
+                    $('#regFullName, #regEmail').val('');
+                });
+            }
+
+            // ==========================================
+            // 10. CHALLENGES VIEW CONTROLLER
+            // ==========================================
+            function initChallengesView() {
+                loadLeaderboard();
+
+                $('.select-challenge-btn').off('click').click(function () {
+                    const challengeTitle = $(this).data('challenge');
+                    sessionStorage.setItem('selectedChallenge', challengeTitle);
+                });
+            }
+
+            function loadLeaderboard() {
+                $('#leaderboardContainer').html(`
+                    <div class="text-center py-4">
+                        <div class="spinner-border text-info" role="status"></div>
+                        <p class="small text-muted mt-2 font-mono">Loading demo standings from REST API...</p>
+                    </div>
+                `);
+
+                // REST API demo leaderboard via jQuery AJAX. Scores are illustrative, not real competition results.
+                $.ajax({
+                    url: 'https://jsonplaceholder.typicode.com/users?_limit=4',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        let html = '<div class="table-responsive"><table class="table align-middle table-hover small mb-0"><thead><tr><th>#</th><th>Team Name</th><th>Score</th></tr></thead><tbody>';
+                        const fakeScores = [98.4, 94.2, 89.7, 85.1];
+
+                        data.forEach((user, idx) => {
+                            html += `
+                                <tr>
+                                    <td class="fw-bold font-mono text-info">0${idx + 1}</td>
+                                    <td>
+                                        <div class="fw-bold">${escapeHtml(user.company.name)}</div>
+                                        <div class="text-muted extra-small"><i class="far fa-user me-1"></i>${escapeHtml(user.name)}</div>
+                                    </td>
+                                    <td><span class="badge bg-success bg-opacity-20 text-success font-mono">${fakeScores[idx]}%</span></td>
+                                </tr>
+                            `;
+                        });
+
+                        html += '</tbody></table></div>';
+                        $('#leaderboardContainer').html(html);
+                    },
+                    error: function () {
+                        $('#leaderboardContainer').html('<div class="alert alert-danger small">Failed to load demo leaderboard data.</div>');
+                    }
+                });
+            }
+
+            $('#refreshApiBtn').off('click').click(loadLeaderboard);
+
+            // ==========================================
+            // 11. CHALLENGE DETAIL VIEW CONTROLLER
+            // ==========================================
+            function initChallengeDetailView() {
+                const savedChallenge = sessionStorage.getItem('selectedChallenge');
+                if (savedChallenge) {
+                    $('#selectedChallengeTitle').text(savedChallenge);
+                }
+
+                renderSubmissionsFeed();
+            }
+
+            function getLocalSubmissions() {
+                return readJsonLocal('userSubmissions', []);
+            }
+
+            function renderSubmissionsFeed() {
+                const userSubs = getLocalSubmissions();
+                let html = '';
+
+                // User Submissions
+                userSubs.forEach((sub, i) => {
+                    html += `
+                        <div class="border-start border-3 border-info ps-3 pe-2 mb-3 py-2 bg-info bg-opacity-10 rounded-end position-relative">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div>
+                                    <span class="badge bg-info text-dark font-mono me-2">USER SUBMISSION #${100 + userSubs.length - i}</span>
+                                    <small class="text-info font-mono"><i class="far fa-clock me-1"></i>Just now</small>
+                                </div>
+                                <button class="btn btn-outline-danger btn-sm border-0 py-0 px-2 delete-sub-btn" data-index="${i}" title="Remove Submission">
+                                    <i class="fas fa-trash-alt me-1"></i>Delete
+                                </button>
+                            </div>
+                            <h6 class="fw-bold mb-1">${escapeHtml(sub.team)}</h6>
+                            <p class="text-muted extra-small mb-1">${escapeHtml(sub.summary)}</p>
+                            <a href="${escapeHtml(sub.link)}" target="_blank" rel="noopener noreferrer" class="small text-info text-decoration-none font-mono"><i class="fab fa-github me-1"></i>${escapeHtml(sub.link)}</a>
+                        </div>
+                    `;
+                });
+
+                // REST API Default Feed retrieval
+                $.ajax({
+                    url: 'https://jsonplaceholder.typicode.com/posts?_limit=3',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        data.forEach((post, idx) => {
+                            html += `
+                                <div class="border-start border-2 border-secondary border-opacity-50 ps-3 mb-3 py-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="badge bg-secondary font-mono mb-1">SUBMISSION #${101 + idx}</span>
+                                        <small class="text-muted font-mono"><i class="fas fa-plug me-1"></i>API sample</small>
+                                    </div>
+                                    <h6 class="fw-bold mb-1 text-capitalize">${escapeHtml(post.title.substring(0, 30))}</h6>
+                                    <p class="text-muted extra-small mb-0">${escapeHtml(post.body.substring(0, 80))}...</p>
+                                </div>
+                            `;
+                        });
+                        $('#submissionsList').html(html);
+                        
+                        // Bind delete button event handlers
+                        $('.delete-sub-btn').off('click').click(function () {
+                            const indexToRemove = $(this).data('index');
+                            let subs = getLocalSubmissions();
+                            subs.splice(indexToRemove, 1);
+                            localStorage.setItem('userSubmissions', JSON.stringify(subs));
+                            renderSubmissionsFeed();
+                        });
+                    },
+                    error: function () {
+                        $('#submissionsList').html('<div class="alert alert-danger small">Failed to retrieve posts feed.</div>');
+                    }
+                });
+            }
+
+            $('#submissionForm').off('submit').submit(function (e) {
+                e.preventDefault();
+
+                const team = $('#teamName').val().trim().slice(0, 80);
+                const link = $('#repoLink').val().trim();
+                const summary = $('#modelSummary').val().trim().slice(0, 600);
+
+                let parsedUrl;
+                try { parsedUrl = new URL(link); }
+                catch {
+                    alert('Please enter a valid repository URL.');
+                    return;
+                }
+                if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
+                    alert('Repository links must use http:// or https://.');
+                    return;
+                }
+
+                const newSub = { team, link: parsedUrl.href, summary };
+                const userSubs = getLocalSubmissions();
+                userSubs.unshift(newSub);
+
+                localStorage.setItem('userSubmissions', JSON.stringify(userSubs));
+
+                $('#submitAlert').removeClass('d-none');
+                $('#submissionForm')[0].reset();
+
+                renderSubmissionsFeed();
+
+                setTimeout(() => {
+                    $('#submitAlert').addClass('d-none');
+                }, 4000);
+            });
+
+        });
+    

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Prompt Workshops | AI &amp; Innovation Club</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/><link href="styles.css" rel="stylesheet"/></head><body data-page="workshops"><nav class="navbar navbar-expand-lg navbar-dark fixed-top global-navbar" style="background-color: rgba(17, 24, 39, 0.95) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #374151; z-index: 1040;">
+<div class="container">
+<a class="navbar-brand fw-bold text-primary" href="index.html">
+<i class="bi bi-cpu-fill me-2"></i>AI &amp; Innovation
+            </a>
+<button aria-controls="globalNavbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#globalNavbarNav" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="globalNavbarNav">
+<ul class="navbar-nav ms-auto align-items-center">
+<li class="nav-item"><a class="nav-link" data-page="home" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" data-page="ai-guide" href="ai-knowledge.html">What is AI?</a></li>
+<li class="nav-item"><a class="nav-link" data-page="ml-projects" href="MLprojects.html">ML Projects</a></li>
+<li class="nav-item"><a class="nav-link" data-page="resources" href="resources.html">Resources</a></li>
+<li class="nav-item"><a class="nav-link" data-page="workshops" href="workshops.html">Workshops</a></li>
+<li class="nav-item"><a class="nav-link" data-page="challenges" href="challenges.html">Challenges</a></li>
+<li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+<span class="badge bg-primary fs-6 p-2" id="welcomeMsg">Guest</span>
+</li>
+<li class="nav-item ms-lg-2 mt-2 mt-lg-0" id="themeToggleItem">
+<button class="btn btn-outline-light rounded-circle" id="globalThemeToggle" style="width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="Toggle Light/Dark Mode">
+<i class="bi bi-moon-fill text-warning" id="globalThemeIcon"></i>
+</button>
+</li>
+</ul>
+</div>
+</div>
+</nav><div class="social-plugin-bar" style="position: fixed; left: 16px; top: 35%; z-index: 1050; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s ease;">
+<a aria-label="Share this page on Facebook" class="social-btn bg-fb shareFbBtn" href="#" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+<a aria-label="Share this page on X" class="social-btn bg-tw shareTwBtn" href="#" title="Share on X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+<a aria-label="Share this page on LinkedIn" class="social-btn bg-li shareLiBtn" href="#" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+<a aria-label="Share this page on WhatsApp" class="social-btn bg-wa shareWaBtn" href="#" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+</div><div aria-hidden="false" class="app-view cyber-page-view" id="view-workshops" style="opacity:1">
+<header class="hero-workshop text-center">
+<div class="container">
+<span class="badge bg-warning text-dark rounded-pill px-3 py-2 mb-3 font-mono">
+<i class="fas fa-terminal me-1"></i> HANDS-ON LEARNING
+                </span>
+<h1 class="heading-font display-4 fw-bold mb-3">Prompt Engineering Workshops</h1>
+<p class="lead text-light text-opacity-75 max-w-2xl mx-auto mb-4">
+                    Explore zero-shot optimization, multi-agent frameworks, vector search, and advanced reasoning architectures.
+                </p>
+</div>
+</header>
+<main class="container my-5">
+<div class="row g-4">
+<div class="col-lg-8">
+<h3 class="heading-font fw-bold mb-4"><i class="fas fa-graduation-cap text-warning me-2"></i>Available Workshop Tracks</h3>
+<div class="row g-4 mb-5">
+<div class="col-md-6">
+<div class="card card-cyber h-100 p-4 shadow-sm">
+<span class="badge bg-primary bg-opacity-10 text-primary w-max mb-2 font-mono">TRACK 01</span>
+<h4 class="heading-font fw-bold">Zero-Shot &amp; Few-Shot Masterclass</h4>
+<p class="text-secondary small mb-3">Learn structural template design, system role constraints, and context window optimization for LLMs.</p>
+<div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+<small class="text-muted"><i class="far fa-clock me-1"></i> 2.5 Hours</small>
+<button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn" data-instructor="Dr. Alex Rivera" data-level="Beginner to Intermediate" data-track="Zero-Shot &amp; Few-Shot Masterclass">
+                                        Select Track
+                                    </button>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card card-cyber h-100 p-4 shadow-sm">
+<span class="badge bg-danger bg-opacity-10 text-danger w-max mb-2 font-mono">TRACK 02</span>
+<h4 class="heading-font fw-bold">Chain-of-Thought Reasoning Sprint</h4>
+<p class="text-secondary small mb-3">Implement multi-step logic pipelines, self-consistency sampling, and tree-of-thought methods.</p>
+<div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+<small class="text-muted"><i class="far fa-clock me-1"></i> 3.0 Hours</small>
+<button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn" data-instructor="Prof. Elena Rostova" data-level="Advanced" data-track="Chain-of-Thought Reasoning Sprint">
+                                        Select Track
+                                    </button>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card card-cyber h-100 p-4 shadow-sm">
+<span class="badge bg-success bg-opacity-10 text-success w-max mb-2 font-mono">TRACK 03</span>
+<h4 class="heading-font fw-bold">RAG &amp; Vector Database Prompting</h4>
+<p class="text-secondary small mb-3">Connect LLMs to external data sources using semantic similarity embeddings, ChromaDB, and hybrid retrieval techniques.</p>
+<div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+<small class="text-muted"><i class="far fa-clock me-1"></i> 3.5 Hours</small>
+<button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn" data-instructor="Marcus Chen" data-level="Intermediate" data-track="RAG &amp; Vector Database Prompting">
+                                        Select Track
+                                    </button>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card card-cyber h-100 p-4 shadow-sm">
+<span class="badge bg-info bg-opacity-10 text-info w-max mb-2 font-mono">TRACK 04</span>
+<h4 class="heading-font fw-bold">Autonomous Multi-Agent Frameworks</h4>
+<p class="text-secondary small mb-3">Design collaborative AI agent teams (CrewAI / AutoGen) using task delegation prompts and tool utilization.</p>
+<div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+<small class="text-muted"><i class="far fa-clock me-1"></i> 4.0 Hours</small>
+<button class="btn btn-sm btn-outline-warning rounded-pill select-track-btn" data-instructor="Sarah Jenkins" data-level="Advanced" data-track="Autonomous Multi-Agent Frameworks">
+                                        Select Track
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+<h4 class="heading-font fw-bold m-0"><i class="fas fa-question-circle text-warning me-2"></i>Frequently Asked Questions</h4>
+<div class="w-50">
+<input class="form-control form-control-sm font-mono" id="faqSearchInput" placeholder="Search FAQ keywords..." type="text"/>
+</div>
+</div>
+<div class="accordion" id="workshopFaq">
+<div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+<h2 class="accordion-header">
+<button class="accordion-button fw-bold heading-font" data-bs-target="#faq1" data-bs-toggle="collapse" type="button">
+<i class="fas fa-laptop-code text-warning me-2"></i> What technical prerequisites are needed?
+                                </button>
+</h2>
+<div class="accordion-collapse collapse show" id="faq1">
+<div class="accordion-body text-secondary">
+                                    Basic familiarity with Python syntax and API concepts is recommended. Bring a laptop with Chrome/Edge installed for web-based Jupyter Notebook labs.
+                                </div>
+</div>
+</div>
+<div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+<h2 class="accordion-header">
+<button class="accordion-button collapsed fw-bold heading-font" data-bs-target="#faq2" data-bs-toggle="collapse" type="button">
+<i class="fas fa-certificate text-warning me-2"></i> Will participants receive a certificate?
+                                </button>
+</h2>
+<div class="accordion-collapse collapse" id="faq2">
+<div class="accordion-body text-secondary">
+                                    Yes! All attendees who complete the hands-on lab assessment will receive a verified Digital Certificate of Completion issued by the AI &amp; Innovation Club.
+                                </div>
+</div>
+</div>
+<div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+<h2 class="accordion-header">
+<button class="accordion-button collapsed fw-bold heading-font" data-bs-target="#faq3" data-bs-toggle="collapse" type="button">
+<i class="fas fa-key text-warning me-2"></i> Are API keys provided during the workshop?
+                                </button>
+</h2>
+<div class="accordion-collapse collapse" id="faq3">
+<div class="accordion-body text-secondary">
+                                    Yes, temporary sandbox API keys for OpenAI, Anthropic, and Gemini models will be provided during the live coding sessions.
+                                </div>
+</div>
+</div>
+<div class="accordion-item card-cyber mb-3 border-0 overflow-hidden faq-item">
+<h2 class="accordion-header">
+<button class="accordion-button collapsed fw-bold heading-font" data-bs-target="#faq4" data-bs-toggle="collapse" type="button">
+<i class="fas fa-video text-warning me-2"></i> Can I access session recordings if I miss live classes?
+                                </button>
+</h2>
+<div class="accordion-collapse collapse" id="faq4">
+<div class="accordion-body text-secondary">
+                                    Registered participants get lifetime access to workshop video recordings, slide decks, and GitHub starter codes.
+                                </div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-4">
+<div class="card card-cyber p-4 shadow-sm border-top border-4 border-warning sticky-lg-top" style="top: 90px;">
+<h4 class="heading-font fw-bold mb-3"><i class="fas fa-bookmark text-warning me-2"></i>Active Session</h4>
+<p class="small text-muted mb-3">Your selected track persists and updates the registration page automatically.</p>
+<div class="mb-3">
+<label class="form-label font-mono small fw-bold">SELECTED TRACK</label>
+<input class="form-control font-mono bg-body-tertiary" id="selectedTrackDisplay" readonly="" type="text" value="None Selected"/>
+</div>
+<a class="btn btn-warning w-100 rounded-pill fw-bold disabled" href="workshop-detail.html" id="proceedDetailBtn">
+                            View Syllabus &amp; Register <i class="fas fa-arrow-right ms-1"></i>
+</a>
+</div>
+</div>
+</div>
+</main>
+</div><footer class="global-footer text-center py-4" style="background-color: #05080f; border-top: 1px solid #1f2937; margin-top: 60px;">
+<div class="container">
+<p class="text-secondary mb-1">© 2026 AI &amp; Innovation Club - Front-End Web Development.</p>
+<p class="text-muted small mb-0"><i class="bi bi-clock-history me-1"></i><span id="cookieDisplay"></span></p>
+</div>
+</footer><script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script><script src="script.js"></script></body></html>

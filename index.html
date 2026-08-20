@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>AI &amp; Innovation Club - UTAR</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/><link href="styles.css" rel="stylesheet"/></head><body data-page="home"><nav class="navbar navbar-expand-lg navbar-dark fixed-top global-navbar" style="background-color: rgba(17, 24, 39, 0.95) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #374151; z-index: 1040;">
+<div class="container">
+<a class="navbar-brand fw-bold text-primary" href="index.html">
+<i class="bi bi-cpu-fill me-2"></i>AI &amp; Innovation
+            </a>
+<button aria-controls="globalNavbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#globalNavbarNav" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="globalNavbarNav">
+<ul class="navbar-nav ms-auto align-items-center">
+<li class="nav-item"><a class="nav-link" data-page="home" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" data-page="ai-guide" href="ai-knowledge.html">What is AI?</a></li>
+<li class="nav-item"><a class="nav-link" data-page="ml-projects" href="MLprojects.html">ML Projects</a></li>
+<li class="nav-item"><a class="nav-link" data-page="resources" href="resources.html">Resources</a></li>
+<li class="nav-item"><a class="nav-link" data-page="workshops" href="workshops.html">Workshops</a></li>
+<li class="nav-item"><a class="nav-link" data-page="challenges" href="challenges.html">Challenges</a></li>
+<li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+<span class="badge bg-primary fs-6 p-2" id="welcomeMsg">Guest</span>
+</li>
+<li class="nav-item ms-lg-2 mt-2 mt-lg-0" id="themeToggleItem">
+<button class="btn btn-outline-light rounded-circle" id="globalThemeToggle" style="width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="Toggle Light/Dark Mode">
+<i class="bi bi-moon-fill text-warning" id="globalThemeIcon"></i>
+</button>
+</li>
+</ul>
+</div>
+</div>
+</nav><div class="social-plugin-bar" style="position: fixed; left: 16px; top: 35%; z-index: 1050; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s ease;">
+<a aria-label="Share this page on Facebook" class="social-btn bg-fb shareFbBtn" href="#" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+<a aria-label="Share this page on X" class="social-btn bg-tw shareTwBtn" href="#" title="Share on X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+<a aria-label="Share this page on LinkedIn" class="social-btn bg-li shareLiBtn" href="#" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+<a aria-label="Share this page on WhatsApp" class="social-btn bg-wa shareWaBtn" href="#" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+</div><div aria-hidden="false" class="app-view" id="view-home" style="opacity:1">
+<header class="hero-section text-center text-lg-start">
+<div class="container">
+<div class="row align-items-center">
+<div class="col-lg-7 fade-in-scroll visible">
+<h1 class="display-4 fw-bold text-white mb-3">Shape the Future with <span class="text-primary">AI</span></h1>
+<p class="lead text-gray-300 mb-4">
+                            Discover the fundamentals of Artificial Intelligence, explore cutting-edge machine learning models, and compete in our campus tech challenges at UTAR.
+                        </p>
+<a class="btn btn-primary btn-lg px-4 me-3 rounded-pill" href="#intro-ai">Start Learning</a>
+<div class="mt-4 pt-3">
+<p class="text-secondary small mb-2">Follow our community:</p>
+<div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+<a class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://www.facebook.com/UTARnet/" target="_blank">
+<i class="bi bi-facebook fs-5"></i>
+</a>
+<a class="btn btn-outline-info rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://twitter.com/UTARnet" target="_blank">
+<i class="bi bi-twitter fs-5"></i>
+</a>
+<a class="btn btn-outline-danger rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://www.instagram.com/utarnet1/" target="_blank">
+<i class="bi bi-instagram fs-5"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="col-lg-5 text-center d-none d-lg-block floating-element">
+<img alt="AI Brain" class="img-fluid rounded-circle" loading="lazy" src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&amp;w=600&amp;auto=format&amp;fit=crop" style="border: 5px solid #1e3a8a; box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);"/>
+</div>
+</div>
+</div>
+</header>
+<section class="container my-5 fade-in-scroll">
+<div class="api-quote-box p-4 shadow-lg text-center">
+<h6 class="text-info text-uppercase fw-bold mb-3"><i class="bi bi-cloud-arrow-down-fill me-2"></i>AI Quote of the Day (Fetched via REST API)</h6>
+<h4 class="text-white fst-italic" id="apiQuote">"Loading inspiring tech quote..."</h4>
+<p class="text-secondary mt-2 mb-0" id="apiAuthor"></p>
+</div>
+</section>
+<section class="container my-5 py-4 fade-in-scroll" id="intro-ai">
+<div class="row text-center mb-5">
+<h2 class="fw-bold text-white display-5">What is Artificial Intelligence?</h2>
+<p class="text-secondary">Understanding the core technology of the 21st century.</p>
+</div>
+<div class="row align-items-center g-5">
+<div class="col-lg-6">
+<div class="rounded-4 overflow-hidden shadow-lg border border-secondary">
+<div class="ratio ratio-16x9">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ad79nYk2keg?start=144" title="Introduction to Artificial Intelligence - YouTube embedded social media content"></iframe>
+</div>
+</div>
+<p class="text-secondary small mt-2 mb-0 text-center">
+<i class="bi bi-youtube text-danger me-1"></i>Embedded YouTube content for social media integration.
+                    </p>
+</div>
+<div class="col-lg-6 text-start">
+<h3 class="text-primary fw-bold mb-3">Simulating Human Intelligence</h3>
+<p class="text-gray-400" style="line-height: 1.8;">
+                        Artificial Intelligence (AI) refers to the development of computer systems capable of performing tasks that typically require human intelligence. These tasks include learning, reasoning, problem-solving, understanding natural language, and perceiving environments. 
+                    </p>
+<ul class="list-unstyled text-gray-400 mt-4">
+<li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Machine Learning:</strong> Systems that learn from data without being explicitly programmed.</li>
+<li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Neural Networks:</strong> Computing systems inspired by the biological neural networks of animal brains.</li>
+<li><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Generative AI:</strong> Models like ChatGPT that create new text, images, and media.</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="container my-5 py-5 border-top border-secondary fade-in-scroll">
+<div class="text-center mb-5">
+<h3 class="fw-bold text-white">Explore Club Activities</h3>
+</div>
+<div class="row g-4 justify-content-center">
+<div class="col-md-5">
+<div class="feature-card text-center">
+<img alt="Coding" loading="lazy" src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&amp;w=400&amp;auto=format&amp;fit=crop"/>
+<div class="p-4">
+<h5 class="fw-bold text-white">ML Projects</h5>
+<p class="text-secondary small">Explore student-built machine learning algorithms.</p>
+<a class="btn btn-outline-primary w-100" href="MLprojects.html">View Projects</a>
+</div>
+</div>
+</div>
+<div class="col-md-5">
+<div class="feature-card text-center">
+<img alt="Hackathon" loading="lazy" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&amp;w=400&amp;auto=format&amp;fit=crop"/>
+<div class="p-4">
+<h5 class="fw-bold text-white">Innovation Challenges</h5>
+<p class="text-secondary small">Compete in our campus AI hackathons.</p>
+<a class="btn btn-outline-primary w-100" href="challenges.html">See Challenges</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="container my-5 py-5 border-top border-secondary fade-in-scroll">
+<div class="text-center mb-5">
+<h3 class="fw-bold text-white">Development Team</h3>
+<p class="text-secondary">The brilliant minds behind this website.</p>
+</div>
+<div class="row g-4 justify-content-center">
+<div class="col-md-4">
+<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
+<div class="card-body">
+<i class="bi bi-person-workspace text-primary mb-3" style="font-size: 3rem;"></i>
+<h5 class="fw-bold text-white">Chen Zheng Hao</h5>
+<p class="text-secondary mb-2">Student ID: 23ACB05798</p>
+<span class="badge bg-primary px-3 py-2">Main page - Intro &amp; AI Guide</span>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
+<div class="card-body">
+<i class="bi bi-code-slash text-info mb-3" style="font-size: 3rem;"></i>
+<h5 class="fw-bold text-white">Goh Xuan Hui</h5>
+<p class="text-secondary mb-2">Student ID: 23ACB01839</p>
+<span class="badge bg-info text-dark px-3 py-2">ML Projects &amp; Resources</span>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
+<div class="card-body">
+<i class="bi bi-trophy text-warning mb-3" style="font-size: 3rem;"></i>
+<h5 class="fw-bold text-white">Ng Wei Ni</h5>
+<p class="text-secondary mb-2">Student ID: 22ACB06052</p>
+<span class="badge bg-warning text-dark px-3 py-2">Innovation Challenges</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div aria-hidden="true" class="modal fade" data-bs-backdrop="static" id="nameModal" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content bg-dark text-white border-primary">
+<div class="modal-header border-secondary">
+<h5 class="modal-title text-primary"><i class="bi bi-person-bounding-box me-2"></i>Welcome to AI Club</h5>
+</div>
+<div class="modal-body">
+<p>Please enter your name to personalize your experience:</p>
+<input class="form-control bg-secondary text-white border-0" id="userNameInput" placeholder="e.g. John Doe" type="text"/>
+</div>
+<div class="modal-footer border-secondary">
+<button class="btn btn-primary w-100" id="saveNameBtn" type="button">Save &amp; Enter</button>
+</div>
+</div>
+</div>
+</div>
+</div><footer class="global-footer text-center py-4" style="background-color: #05080f; border-top: 1px solid #1f2937; margin-top: 60px;">
+<div class="container">
+<p class="text-secondary mb-1">© 2026 AI &amp; Innovation Club - Front-End Web Development.</p>
+<p class="text-muted small mb-0"><i class="bi bi-clock-history me-1"></i><span id="cookieDisplay"></span></p>
+</div>
+</footer><script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script><script src="script.js"></script></body></html>
