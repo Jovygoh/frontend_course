@@ -1,187 +1,553 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>AI &amp; Innovation Club - UTAR</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/><link href="styles.css" rel="stylesheet"/></head><body data-page="home"><nav class="navbar navbar-expand-lg navbar-dark fixed-top global-navbar" style="background-color: rgba(17, 24, 39, 0.95) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #374151; z-index: 1040;">
-<div class="container">
-<a class="navbar-brand fw-bold text-primary" href="index.html">
-<i class="bi bi-cpu-fill me-2"></i>AI &amp; Innovation
-            </a>
-<button aria-controls="globalNavbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#globalNavbarNav" data-bs-toggle="collapse" type="button">
-<span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="globalNavbarNav">
-<ul class="navbar-nav ms-auto align-items-center">
-<li class="nav-item"><a class="nav-link" data-page="home" href="index.html">Home</a></li>
-<li class="nav-item"><a class="nav-link" data-page="ai-guide" href="ai-knowledge.html">What is AI?</a></li>
-<li class="nav-item"><a class="nav-link" data-page="ml-projects" href="MLprojects.html">ML Projects</a></li>
-<li class="nav-item"><a class="nav-link" data-page="resources" href="resources.html">Resources</a></li>
-<li class="nav-item"><a class="nav-link" data-page="workshops" href="workshops.html">Workshops</a></li>
-<li class="nav-item"><a class="nav-link" data-page="challenges" href="challenges.html">Challenges</a></li>
-<li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-<span class="badge bg-primary fs-6 p-2" id="welcomeMsg">Guest</span>
-</li>
-<li class="nav-item ms-lg-2 mt-2 mt-lg-0" id="themeToggleItem">
-<button class="btn btn-outline-light rounded-circle" id="globalThemeToggle" style="width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="Toggle Light/Dark Mode">
-<i class="bi bi-moon-fill text-warning" id="globalThemeIcon"></i>
-</button>
-</li>
-</ul>
-</div>
-</div>
-</nav><div class="social-plugin-bar" style="position: fixed; left: 16px; top: 35%; z-index: 1050; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s ease;">
-<a aria-label="Share this page on Facebook" class="social-btn bg-fb shareFbBtn" href="#" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
-<a aria-label="Share this page on X" class="social-btn bg-tw shareTwBtn" href="#" title="Share on X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-<a aria-label="Share this page on LinkedIn" class="social-btn bg-li shareLiBtn" href="#" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-<a aria-label="Share this page on WhatsApp" class="social-btn bg-wa shareWaBtn" href="#" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-</div><div aria-hidden="false" class="app-view" id="view-home" style="opacity:1">
-<header class="hero-section text-center text-lg-start">
-<div class="container">
-<div class="row align-items-center">
-<div class="col-lg-7 fade-in-scroll visible">
-<h1 class="display-4 fw-bold text-white mb-3">Shape the Future with <span class="text-primary">AI</span></h1>
-<p class="lead text-gray-300 mb-4">
-                            Discover the fundamentals of Artificial Intelligence, explore cutting-edge machine learning models, and compete in our campus tech challenges at UTAR.
-                        </p>
-<a class="btn btn-primary btn-lg px-4 me-3 rounded-pill" href="#intro-ai">Start Learning</a>
-<div class="mt-4 pt-3">
-<p class="text-secondary small mb-2">Follow our community:</p>
-<div class="d-flex gap-3 justify-content-center justify-content-lg-start">
-<a class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://www.facebook.com/UTARnet/" target="_blank">
-<i class="bi bi-facebook fs-5"></i>
-</a>
-<a class="btn btn-outline-info rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://twitter.com/UTARnet" target="_blank">
-<i class="bi bi-twitter fs-5"></i>
-</a>
-<a class="btn btn-outline-danger rounded-circle d-flex align-items-center justify-content-center social-btn" href="https://www.instagram.com/utarnet1/" target="_blank">
-<i class="bi bi-instagram fs-5"></i>
-</a>
-</div>
-</div>
-</div>
-<div class="col-lg-5 text-center d-none d-lg-block floating-element">
-<img alt="AI Brain" class="img-fluid rounded-circle" loading="lazy" src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&amp;w=600&amp;auto=format&amp;fit=crop" style="border: 5px solid #1e3a8a; box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);"/>
-</div>
-</div>
-</div>
-</header>
-<section class="container my-5 fade-in-scroll">
-<div class="api-quote-box p-4 shadow-lg text-center">
-<h6 class="text-info text-uppercase fw-bold mb-3"><i class="bi bi-cloud-arrow-down-fill me-2"></i>AI Quote of the Day (Fetched via REST API)</h6>
-<h4 class="text-white fst-italic" id="apiQuote">"Loading inspiring tech quote..."</h4>
-<p class="text-secondary mt-2 mb-0" id="apiAuthor"></p>
-</div>
-</section>
-<section class="container my-5 py-4 fade-in-scroll" id="intro-ai">
-<div class="row text-center mb-5">
-<h2 class="fw-bold text-white display-5">What is Artificial Intelligence?</h2>
-<p class="text-secondary">Understanding the core technology of the 21st century.</p>
-</div>
-<div class="row align-items-center g-5">
-<div class="col-lg-6">
-<div class="rounded-4 overflow-hidden shadow-lg border border-secondary">
-<div class="ratio ratio-16x9">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ad79nYk2keg?start=144" title="Introduction to Artificial Intelligence - YouTube embedded social media content"></iframe>
-</div>
-</div>
-<p class="text-secondary small mt-2 mb-0 text-center">
-<i class="bi bi-youtube text-danger me-1"></i>Embedded YouTube content for social media integration.
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BugHunters - Real-Time AI Governance Dashboard. Detects confidential file uploads to unapproved AI tools.">
+    <title>BugHunters | AI Governance Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="bg-glow bg-glow-primary"></div>
+    <div class="bg-glow bg-glow-secondary"></div>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <i data-lucide="shield-alert" class="logo-icon"></i>
+                <span class="logo-text">Bug<span>Hunters</span></span>
+            </div>
+
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <a href="#" class="nav-item active" data-nav="overview">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Overview</span>
+                </a>
+                <a href="manager.html" class="nav-item">
+                    <i data-lucide="user-check"></i>
+                    <span>Manager Approvals</span>
+                </a>
+                <a href="#" class="nav-item" data-nav="departments">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>Departments</span>
+                </a>
+                <a href="#" class="nav-item" data-nav="worker-monitor">
+                    <i data-lucide="users"></i>
+                    <span>Worker Monitor</span>
+                    <span class="badge badge-danger sidebar-alert-count hidden" id="sidebar-badge">0</span>
+                </a>
+                <a href="#" class="nav-item" data-nav="blocked-uploads">
+                    <i data-lucide="file-x"></i>
+                    <span>Blocked Uploads</span>
+                </a>
+                <a href="#" class="nav-item" data-nav="policies">
+                    <i data-lucide="shield"></i>
+                    <span>Policies</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <div class="status-indicator online"></div>
+                    <span>Detection Active</span>
+                </div>
+                <div class="sys-version">BugHunters v1.2.4</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h1>AI Governance Dashboard</h1>
+                    <p class="header-subtitle">Background detection system — monitors employee file uploads to AI tools for confidential data in real time</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="btn-open-agent-tester" style="background:linear-gradient(135deg,#00f0ff,#3b82f6);color:#06090e;font-weight:700;">
+                        <i data-lucide="scan"></i>
+                        <span>Test Live IP Scanner</span>
+                    </button>
+                    <button class="btn btn-outline" id="btn-reset-data">
+                        <i data-lucide="rotate-ccw"></i>
+                        <span>Reset Alerts</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- System Flow Banner -->
+            <div class="flow-banner">
+                <div class="flow-step">
+                    <div class="flow-icon"><i data-lucide="upload"></i></div>
+                    <div class="flow-label">Employee uploads file to AI tool</div>
+                </div>
+                <div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+                <div class="flow-step active">
+                    <div class="flow-icon"><i data-lucide="scan-search"></i></div>
+                    <div class="flow-label">System scans for confidential content</div>
+                </div>
+                <div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+                <div class="flow-step">
+                    <div class="flow-icon safe"><i data-lucide="check-circle"></i></div>
+                    <div class="flow-label">Safe — upload allowed</div>
+                </div>
+                <div class="flow-divider">or</div>
+                <div class="flow-step danger">
+                    <div class="flow-icon danger"><i data-lucide="shield-ban"></i></div>
+                    <div class="flow-label">Confidential detected — upload blocked</div>
+                </div>
+                <div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+                <div class="flow-step">
+                    <div class="flow-icon alert"><i data-lucide="bell-ring"></i></div>
+                    <div class="flow-label">Manager alerted on dashboard</div>
+                </div>
+            </div>
+
+            <!-- Metric Counters -->
+            <section class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon-wrapper cyan"><i data-lucide="laptop"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-label">Monitored Employees</span>
+                        <h2 class="metric-value" id="val-monitored">148</h2>
+                        <span class="metric-change positive"><i data-lucide="trending-up"></i> Active endpoints</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon-wrapper green"><i data-lucide="check-circle"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-label">Approved AI Tools</span>
+                        <h2 class="metric-value" id="val-approved-tools">7</h2>
+                        <span class="metric-change neutral">Whitelisted tools</span>
+                    </div>
+                </div>
+                <div class="metric-card metric-card-hoverable" id="card-blocked">
+                    <div class="metric-icon-wrapper orange"><i data-lucide="file-x"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-label">Uploads Blocked Today</span>
+                        <h2 class="metric-value" id="val-blocked">0</h2>
+                        <span class="metric-change neutral">Hover to see blocked files</span>
+                    </div>
+                </div>
+                <div class="metric-card alert-pulse-border" id="card-alerts">
+                    <div class="metric-icon-wrapper red"><i data-lucide="triangle-alert"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-label">Undefined AI Tool Alerts</span>
+                        <h2 class="metric-value text-danger" id="val-alerts">0</h2>
+                        <span class="metric-change negative" id="alert-delta-text">Workers require attention</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Dashboard Grid -->
+            <section class="dashboard-grid">
+
+                <!-- Left: Department Chart + Inspector -->
+                <div class="grid-col left-col">
+
+                    <!-- 7-Day Shadow AI Interception Surge Chart -->
+                    <div class="glass-card chart-card" style="margin-bottom:20px;">
+                        <div class="card-header">
+                            <div class="card-header-title">
+                                <i data-lucide="trending-up" class="text-danger"></i>
+                                <h2>7-Day Shadow AI Interception Surge</h2>
+                            </div>
+                            <span class="badge badge-danger">Surge Spike Detected</span>
+                        </div>
+                        <div class="chart-container" style="height:200px;">
+                            <canvas id="surgeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass-card chart-card">
+                        <div class="card-header">
+                            <div class="card-header-title">
+                                <i data-lucide="pie-chart"></i>
+                                <h2>AI Tool Usage by Department</h2>
+                            </div>
+                            <span class="header-hint">Hover to inspect</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="departmentChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Department Inspector Panel -->
+                    <div class="glass-card dept-inspector-card">
+                        <div class="card-header">
+                            <div class="card-header-title">
+                                <i data-lucide="info" class="text-primary"></i>
+                                <h2>Department Inspector</h2>
+                            </div>
+                        </div>
+
+                        <!-- Placeholder -->
+                        <div id="dept-placeholder" class="dept-placeholder">
+                            <div class="pulse-icon-large"><i data-lucide="mouse-pointer-click"></i></div>
+                            <h3>Hover a Department</h3>
+                            <p>Click or hover a chart segment to view which AI tools that department is using and any confidential upload violations.</p>
+                        </div>
+
+                        <!-- Content (hidden until hover) -->
+                        <div id="dept-content" class="dept-content hidden">
+                            <div class="dept-info-header">
+                                <h3 id="inspect-name">—</h3>
+                                <span class="badge" id="inspect-risk-badge">Low Risk</span>
+                            </div>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">Active Users</span>
+                                    <span class="info-value" id="inspect-users">0</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Files Uploaded Today</span>
+                                    <span class="info-value" id="inspect-uploads">0</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Blocked Uploads</span>
+                                    <span class="info-value text-danger" id="inspect-blocked">0</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Undefined AI Alerts</span>
+                                    <span class="info-value text-danger" id="inspect-alerts">0</span>
+                                </div>
+                            </div>
+
+                            <div class="tool-distribution">
+                                <h4>AI Tools in Use:</h4>
+                                <div class="tool-list" id="inspect-tools"></div>
+                            </div>
+
+                            <div class="policy-note" id="inspect-policy-note">
+                                <strong>Status:</strong>
+                                <p id="inspect-compliance">—</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Worker Risk Monitor + Live Feed -->
+                <div class="grid-col right-col">
+
+                    <!-- Worker Risk Monitor Table -->
+                    <div class="glass-card worker-card">
+                        <div class="card-header">
+                            <div class="card-header-title">
+                                <i data-lucide="shield-alert" class="text-danger"></i>
+                                <h2>Worker Risk Monitor</h2>
+                            </div>
+                            <div class="simulation-switch-container">
+                                <span class="sim-label">Live Simulation</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="toggle-simulation" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Info bar explaining the red rows -->
+                        <div class="table-info-bar">
+                            <i data-lucide="info"></i>
+                            <span>Rows highlighted in <strong class="text-danger">red</strong> indicate workers detected using <strong>undefined / unapproved AI tools</strong> while uploading company files — manager action required.</span>
+                        </div>
+
+                        <!-- Search & Filter -->
+                        <div class="search-filter-bar">
+                            <div class="search-input-wrapper">
+                                <i data-lucide="search" class="search-icon"></i>
+                                <input type="text" id="search-workers" placeholder="Search by name, department, or AI tool...">
+                            </div>
+                            <div class="filter-select-wrapper">
+                                <i data-lucide="filter" class="filter-icon"></i>
+                                <select id="filter-risk">
+                                    <option value="all">All Workers</option>
+                                    <option value="high">🔴 Undefined AI Tool (Alert)</option>
+                                    <option value="medium">🟡 Warning Issued</option>
+                                    <option value="low">🟢 Approved Tool (Safe)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Worker Table -->
+                        <div class="table-container">
+                            <table class="worker-table" id="worker-table">
+                                <thead>
+                                    <tr>
+                                        <th>Worker</th>
+                                        <th>Department</th>
+                                        <th>AI Tool Used</th>
+                                        <th>File / Activity</th>
+                                        <th>Upload Status</th>
+                                        <th>Date & Time</th>
+                                        <th>Risk Level</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="worker-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Live Detection Feed -->
+                    <div class="glass-card feed-card">
+                        <div class="card-header">
+                            <div class="card-header-title">
+                                <i data-lucide="terminal" class="text-primary"></i>
+                                <h2>Live Detection Feed</h2>
+                            </div>
+                            <div class="feed-pulse-indicator">
+                                <div class="pulse-dot"></div>
+                                <span>Scanning uploads in real-time</span>
+                            </div>
+                        </div>
+                        <div class="log-container" id="log-container">
+                            <div class="log-entry log-system">
+                                <span class="log-time">--:--:--</span>
+                                <span class="log-msg">AegisAI detection engine online. Monitoring all AI tool upload channels...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Worker Alert Modal -->
+    <div class="modal-overlay hidden" id="risk-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i data-lucide="triangle-alert" class="text-danger"></i>
+                    <h2>Undefined AI Tool — Upload Blocked</h2>
+                </div>
+                <button class="btn-close-modal" id="btn-close-modal"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Zero Bytes Banner -->
+                <div class="blocked-banner">
+                    <i data-lucide="shield-ban"></i>
+                    <div>
+                        <h3>Upload Intercepted — 0 Bytes Sent to AI</h3>
+                        <p>File was blocked before transmission. Confidential content was not exposed.</p>
+                    </div>
+                </div>
+
+                <!-- Worker Info -->
+                <div class="modal-worker-row">
+                    <div class="modal-avatar" id="modal-avatar">JD</div>
+                    <div class="modal-worker-info">
+                        <h3 id="modal-name">John Doe</h3>
+                        <p id="modal-dept">Engineering Department</p>
+                        <p class="modal-ip" id="modal-ip">Workstation: 10.0.12.84</p>
+                    </div>
+                    <span class="intercepted-badge">BLOCKED</span>
+                </div>
+
+                <!-- Violation Details -->
+                <div class="modal-details-grid">
+                    <div class="modal-detail-item">
+                        <label>Undefined AI Tool</label>
+                        <strong class="text-danger" id="modal-tool">—</strong>
+                    </div>
+                    <div class="modal-detail-item">
+                        <label>File Type Detected</label>
+                        <strong class="text-warning" id="modal-filetype">—</strong>
+                    </div>
+                    <div class="modal-detail-item">
+                        <label>Confidential Data Found</label>
+                        <strong id="modal-datatype">—</strong>
+                    </div>
+                    <div class="modal-detail-item">
+                        <label>Risk Score</label>
+                        <strong id="modal-risk-score" class="text-danger">—</strong>
+                    </div>
+                </div>
+
+                <!-- Detected Content Summary -->
+                <div class="detected-content-card">
+                    <h4><i data-lucide="file-search"></i> Detected Content (not stored — metadata only):</h4>
+                    <div class="detected-tags" id="modal-detected-tags"></div>
+                    <p class="privacy-note"><i data-lucide="eye-off"></i> File content permanently discarded after inspection. Only metadata is logged.</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="btn-modal-dismiss">Dismiss Alert</button>
+                <button class="btn btn-warning" id="btn-modal-warn">Send Warning to Worker</button>
+                <button class="btn btn-danger" id="btn-modal-block">Restrict Worker Access</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Company AI Security Policies Modal -->
+    <div class="modal-overlay hidden" id="policies-modal">
+        <div class="modal-card" style="max-width:640px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i data-lucide="shield-check" class="text-primary"></i>
+                    <h2>Enterprise AI Security Policies & Governance</h2>
+                </div>
+                <button class="btn-close-modal" id="btn-close-policies-modal"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body" style="gap:16px;">
+                <div class="policy-note" style="background:rgba(0,240,255,0.05);border-color:rgba(0,240,255,0.2);">
+                    <strong>Case Study 3 Compliance Framework:</strong>
+                    <p style="margin-top:4px;color:var(--muted);font-size:0.8rem;">Endpoint Agent AI intercepts files <strong>BEFORE transmission (0 Bytes sent)</strong> when unapproved AI tools or confidential data categories are detected.</p>
+                </div>
+
+                <div class="detected-content-card">
+                    <h4><i data-lucide="check-circle" style="color:var(--green)"></i> Whitelisted Approved AI Tools:</h4>
+                    <div class="detected-tags">
+                        <span class="detected-tag" style="color:var(--green);border-color:rgba(16,185,129,0.3);background:rgba(16,185,129,0.1)">GitHub Copilot (Enterprise)</span>
+                        <span class="detected-tag" style="color:var(--green);border-color:rgba(16,185,129,0.3);background:rgba(16,185,129,0.1)">ChatGPT Enterprise (Corporate)</span>
+                        <span class="detected-tag" style="color:var(--green);border-color:rgba(16,185,129,0.3);background:rgba(16,185,129,0.1)">Claude Team (Whitelisted)</span>
+                        <span class="detected-tag" style="color:var(--green);border-color:rgba(16,185,129,0.3);background:rgba(16,185,129,0.1)">Midjourney (Marketing Approved)</span>
+                    </div>
+                </div>
+
+                <div class="detected-content-card">
+                    <h4><i data-lucide="shield-alert" style="color:#ff3366"></i> Restricted Data Categories (Pre-Upload Blocking):</h4>
+                    <ul style="font-size:0.82rem;color:var(--muted);margin-left:18px;display:flex;flex-direction:column;gap:6px;">
+                        <li><strong>PII & Employee Data:</strong> Personal IC numbers, salary matrices, HR review records.</li>
+                        <li><strong>Financial Intelligence:</strong> Unreleased quarterly reports, revenue forecasts, banking info.</li>
+                        <li><strong>Proprietary IP:</strong> Source code repositories (`.zip`, `.js`, `.py`), API secret keys, database URIs.</li>
+                        <li><strong>Customer Records:</strong> Client CRM lists, deal valuations, contact databases.</li>
+                    </ul>
+                </div>
+
+                <div class="blocked-banner" style="background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.25);">
+                    <i data-lucide="shield-ban" style="color:#f59e0b;"></i>
+                    <div>
+                        <h3 style="color:#fff;font-size:0.9rem;">Automatic Pre-Upload Interception</h3>
+                        <p style="font-size:0.78rem;color:var(--muted);">Shadow AI (e.g., Phind, ChatPDF, Writesonic, PromptBase) is automatically blocked upon attempt.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="btn-close-policies-footer">Close Policy Viewer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Endpoint Agent Tester Simulation Modal -->
+    <div class="modal-overlay hidden" id="agent-tester-modal">
+        <div class="modal-card" style="max-width:580px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i data-lucide="cpu" class="text-primary"></i>
+                    <h2>Endpoint Agent AI — Pre-Upload Scanner</h2>
+                </div>
+                <button class="btn-close-modal" id="btn-close-agent-modal"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body" style="gap:16px;">
+                <p style="font-size:0.82rem;color:var(--muted)">Test the Endpoint Agent AI scanning a workstation attempt before transmission.</p>
+
+                <div class="modal-details-grid" style="grid-template-columns:1fr;">
+                    <div class="modal-detail-item">
+                        <label>Detected Workstation IP</label>
+                        <input type="text" id="agent-ip-input" readonly style="background:#06090e;border:1px solid var(--border);padding:8px 12px;border-radius:6px;color:#00f0ff;font-family:var(--mono);font-size:0.85rem;" value="Auto-detecting IP...">
+                    </div>
+                    <div class="modal-detail-item">
+                        <label>Target AI Application / Website</label>
+                        <select id="agent-tool-select" style="background:#06090e;border:1px solid var(--border);padding:8px 12px;border-radius:6px;color:var(--text);font-size:0.85rem;">
+                            <option value="Phind.com|unapproved">Phind.com (Unapproved Shadow AI)</option>
+                            <option value="ChatPDF.com|unapproved">ChatPDF.com (Unapproved Shadow AI)</option>
+                            <option value="Writesonic.com|unapproved">Writesonic.com (Unapproved Shadow AI)</option>
+                            <option value="ChatGPT Enterprise|approved">ChatGPT Enterprise (Whitelisted Approved AI)</option>
+                            <option value="GitHub Copilot|approved">GitHub Copilot (Whitelisted Approved AI)</option>
+                        </select>
+                    </div>
+                    <div class="modal-detail-item">
+                        <label>File Selected for Upload</label>
+                        <select id="agent-file-select" style="background:#06090e;border:1px solid var(--border);padding:8px 12px;border-radius:6px;color:var(--text);font-size:0.85rem;">
+                            <option value="employee_salary_matrix_2026.xlsx|Confidential Salary Data & PII|Spreadsheet (.xlsx)">employee_salary_matrix_2026.xlsx (Sensitive: Financials/PII)</option>
+                            <option value="auth_service_src.zip|Proprietary Source Code & Secrets|Archive (.zip)">auth_service_src.zip (Sensitive: Source Code & Secret Keys)</option>
+                            <option value="performance_reviews_Q2.docx|HR Performance Ratings|Document (.docx)">performance_reviews_Q2.docx (Sensitive: HR Records)</option>
+                            <option value="project_proposal.pdf|Safe Public Content|Document (.pdf)">project_proposal.pdf (Safe: General Document)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="agent-scan-result" class="dept-placeholder hidden" style="padding:12px;margin-top:4px;">
+                    <h4 id="agent-result-title" style="font-size:0.95rem;">-</h4>
+                    <p id="agent-result-desc" style="font-size:0.8rem;margin-top:4px;">-</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="btn-cancel-agent">Cancel</button>
+                <button class="btn btn-primary" id="btn-run-agent-scan" style="background:linear-gradient(135deg,#00f0ff,#3b82f6);color:#06090e;font-weight:700;">
+                    <i data-lucide="scan"></i>
+                    <span>Execute Pre-Upload Inspection</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Redressal Appeal Modal (Task 4) -->
+    <div class="modal-overlay hidden" id="appeal-modal">
+        <div class="modal-card" style="max-width:540px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i data-lucide="scale" class="text-primary"></i>
+                    <h2>Redressal Pathway — Submit Security Appeal</h2>
+                </div>
+                <button class="btn-close-modal" id="btn-close-appeal-modal"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body" style="gap:14px;">
+                <div class="policy-note" style="background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.25);">
+                    <strong style="color:#ef4444;">Plain Explanation of Interception:</strong>
+                    <p id="appeal-plain-explanation" style="font-size:0.82rem;color:var(--muted);margin-top:4px;">
+                        Your upload attempt was intercepted because the target tool is an unapproved Shadow AI service or contained sensitive PII matching NIST AI governance rules.
                     </p>
-</div>
-<div class="col-lg-6 text-start">
-<h3 class="text-primary fw-bold mb-3">Simulating Human Intelligence</h3>
-<p class="text-gray-400" style="line-height: 1.8;">
-                        Artificial Intelligence (AI) refers to the development of computer systems capable of performing tasks that typically require human intelligence. These tasks include learning, reasoning, problem-solving, understanding natural language, and perceiving environments. 
-                    </p>
-<ul class="list-unstyled text-gray-400 mt-4">
-<li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Machine Learning:</strong> Systems that learn from data without being explicitly programmed.</li>
-<li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Neural Networks:</strong> Computing systems inspired by the biological neural networks of animal brains.</li>
-<li><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Generative AI:</strong> Models like ChatGPT that create new text, images, and media.</li>
-</ul>
-</div>
-</div>
-</section>
-<section class="container my-5 py-5 border-top border-secondary fade-in-scroll">
-<div class="text-center mb-5">
-<h3 class="fw-bold text-white">Explore Club Activities</h3>
-</div>
-<div class="row g-4 justify-content-center">
-<div class="col-md-5">
-<div class="feature-card text-center">
-<img alt="Coding" loading="lazy" src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&amp;w=400&amp;auto=format&amp;fit=crop"/>
-<div class="p-4">
-<h5 class="fw-bold text-white">ML Projects</h5>
-<p class="text-secondary small">Explore student-built machine learning algorithms.</p>
-<a class="btn btn-outline-primary w-100" href="MLprojects.html">View Projects</a>
-</div>
-</div>
-</div>
-<div class="col-md-5">
-<div class="feature-card text-center">
-<img alt="Hackathon" loading="lazy" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&amp;w=400&amp;auto=format&amp;fit=crop"/>
-<div class="p-4">
-<h5 class="fw-bold text-white">Innovation Challenges</h5>
-<p class="text-secondary small">Compete in our campus AI hackathons.</p>
-<a class="btn btn-outline-primary w-100" href="challenges.html">See Challenges</a>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="container my-5 py-5 border-top border-secondary fade-in-scroll">
-<div class="text-center mb-5">
-<h3 class="fw-bold text-white">Development Team</h3>
-<p class="text-secondary">The brilliant minds behind this website.</p>
-</div>
-<div class="row g-4 justify-content-center">
-<div class="col-md-4">
-<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
-<div class="card-body">
-<i class="bi bi-person-workspace text-primary mb-3" style="font-size: 3rem;"></i>
-<h5 class="fw-bold text-white">Chen Zheng Hao</h5>
-<p class="text-secondary mb-2">Student ID: 23ACB05798</p>
-<span class="badge bg-primary px-3 py-2">Main page - Intro &amp; AI Guide</span>
-</div>
-</div>
-</div>
-<div class="col-md-4">
-<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
-<div class="card-body">
-<i class="bi bi-code-slash text-info mb-3" style="font-size: 3rem;"></i>
-<h5 class="fw-bold text-white">Goh Xuan Hui</h5>
-<p class="text-secondary mb-2">Student ID: 23ACB01839</p>
-<span class="badge bg-info text-dark px-3 py-2">ML Projects &amp; Resources</span>
-</div>
-</div>
-</div>
-<div class="col-md-4">
-<div class="card bg-dark border-secondary h-100 p-3 text-center shadow">
-<div class="card-body">
-<i class="bi bi-trophy text-warning mb-3" style="font-size: 3rem;"></i>
-<h5 class="fw-bold text-white">Ng Wei Ni</h5>
-<p class="text-secondary mb-2">Student ID: 22ACB06052</p>
-<span class="badge bg-warning text-dark px-3 py-2">Innovation Challenges</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-<div aria-hidden="true" class="modal fade" data-bs-backdrop="static" id="nameModal" tabindex="-1">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content bg-dark text-white border-primary">
-<div class="modal-header border-secondary">
-<h5 class="modal-title text-primary"><i class="bi bi-person-bounding-box me-2"></i>Welcome to AI Club</h5>
-</div>
-<div class="modal-body">
-<p>Please enter your name to personalize your experience:</p>
-<input class="form-control bg-secondary text-white border-0" id="userNameInput" placeholder="e.g. John Doe" type="text"/>
-</div>
-<div class="modal-footer border-secondary">
-<button class="btn btn-primary w-100" id="saveNameBtn" type="button">Save &amp; Enter</button>
-</div>
-</div>
-</div>
-</div>
-</div><footer class="global-footer text-center py-4" style="background-color: #05080f; border-top: 1px solid #1f2937; margin-top: 60px;">
-<div class="container">
-<p class="text-secondary mb-1">© 2026 AI &amp; Innovation Club - Front-End Web Development.</p>
-<p class="text-muted small mb-0"><i class="bi bi-clock-history me-1"></i><span id="cookieDisplay"></span></p>
-</div>
-</footer><script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script><script src="script.js"></script></body></html>
+                </div>
+
+                <div class="modal-detail-item">
+                    <label>Employee Name</label>
+                    <input type="text" id="appeal-emp-name" placeholder="Your Name..." style="background:#06090e;border:1px solid var(--border);padding:8px 12px;border-radius:6px;color:#fff;font-size:0.85rem;">
+                </div>
+                <div class="modal-detail-item">
+                    <label>Blocked AI Tool / Model</label>
+                    <input type="text" id="appeal-tool-name" readonly style="background:#06090e;border:1px solid var(--border);padding:8px 12px;border-radius:6px;color:#00f0ff;font-family:var(--mono);font-size:0.85rem;">
+                </div>
+                <div class="modal-detail-item">
+                    <label>Business Justification / Reason for Exception</label>
+                    <textarea id="appeal-justification" rows="3" placeholder="Provide details on why access is required for your legitimate business workflow..." style="background:#06090e;border:1px solid var(--border);padding:8px 12px;border-radius:6px;color:#fff;font-size:0.85rem;resize:vertical;"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="btn-cancel-appeal">Cancel</button>
+                <button class="btn btn-primary" id="btn-submit-appeal" style="background:linear-gradient(135deg,#00f0ff,#3b82f6);color:#06090e;font-weight:700;">
+                    <i data-lucide="send"></i>
+                    <span>Submit Appeal to Security Team</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blocked Files Tooltip — rendered at body level to avoid overflow clipping -->
+    <div class="blocked-files-tooltip" id="blocked-files-tooltip">
+        <div class="tooltip-header">
+            <i data-lucide="file-x"></i>
+            <span>Blocked Files</span>
+        </div>
+        <ul class="tooltip-file-list" id="blocked-files-list">
+            <li class="tooltip-empty">No files blocked yet</li>
+        </ul>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
