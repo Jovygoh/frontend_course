@@ -196,9 +196,7 @@
                     $('.navbar-collapse').collapse('hide');
                 }
             });
-
-            initCurrentPage();
-
+            // Page initialization is delayed until all controllers/data maps are defined.
             // ==========================================
             // 3. HOME VIEW CONTROLLER
             // ==========================================
@@ -336,7 +334,18 @@
             // Initialize saved state on startup
             let savedMLTheme = getCookie("site_theme");
             let savedCyberTheme = localStorage.getItem('cyberTheme');
-            let initialTheme = savedMLTheme || savedCyberTheme || 'light';
+
+            // One-time correction for the final build:
+            // older builds automatically saved light mode on first load.
+            if (!localStorage.getItem('finalDarkThemeMigration')) {
+                savedMLTheme = 'dark';
+                savedCyberTheme = 'dark';
+                setCookie("site_theme", "dark", 7);
+                localStorage.setItem('cyberTheme', 'dark');
+                localStorage.setItem('finalDarkThemeMigration', '1');
+            }
+
+            let initialTheme = savedMLTheme || savedCyberTheme || 'dark';
             applyGlobalTheme(initialTheme);
 
             // ==========================================
@@ -930,6 +939,9 @@
                     $('#submitAlert').addClass('d-none');
                 }, 4000);
             });
+
+        // Initialize current page only after all page-specific code is defined.
+            initCurrentPage();
 
         });
     
