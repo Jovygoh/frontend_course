@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>What is AI? | AI &amp; Innovation Club</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/><link href="styles.css" rel="stylesheet"/></head><body data-page="ai-guide"><nav class="navbar navbar-expand-lg navbar-dark fixed-top global-navbar" style="background-color: rgba(17, 24, 39, 0.95) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #374151; z-index: 1040;">
+<div class="container">
+<a class="navbar-brand fw-bold text-primary" href="index.html">
+<i class="bi bi-cpu-fill me-2"></i>AI &amp; Innovation
+            </a>
+<button aria-controls="globalNavbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#globalNavbarNav" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="globalNavbarNav">
+<ul class="navbar-nav ms-auto align-items-center">
+<li class="nav-item"><a class="nav-link" data-page="home" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" data-page="ai-guide" href="ai-knowledge.html">What is AI?</a></li>
+<li class="nav-item"><a class="nav-link" data-page="ml-projects" href="MLprojects.html">ML Projects</a></li>
+<li class="nav-item"><a class="nav-link" data-page="resources" href="resources.html">Resources</a></li>
+<li class="nav-item"><a class="nav-link" data-page="workshops" href="workshops.html">Workshops</a></li>
+<li class="nav-item"><a class="nav-link" data-page="challenges" href="challenges.html">Challenges</a></li>
+<li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+<span class="badge bg-primary fs-6 p-2" id="welcomeMsg">Guest</span>
+</li>
+<li class="nav-item ms-lg-2 mt-2 mt-lg-0" id="themeToggleItem">
+<button class="btn btn-outline-light rounded-circle" id="globalThemeToggle" style="width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="Toggle Light/Dark Mode">
+<i class="bi bi-moon-fill text-warning" id="globalThemeIcon"></i>
+</button>
+</li>
+</ul>
+</div>
+</div>
+</nav><div class="social-plugin-bar" style="position: fixed; left: 16px; top: 35%; z-index: 1050; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.3s ease;">
+<a aria-label="Share this page on Facebook" class="social-btn bg-fb shareFbBtn" href="#" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+<a aria-label="Share this page on X" class="social-btn bg-tw shareTwBtn" href="#" title="Share on X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+<a aria-label="Share this page on LinkedIn" class="social-btn bg-li shareLiBtn" href="#" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+<a aria-label="Share this page on WhatsApp" class="social-btn bg-wa shareWaBtn" href="#" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+</div><div aria-hidden="false" class="app-view" id="view-ai-guide" style="opacity:1">
+<header class="sub-hero-section text-center">
+<div class="container fade-in-scroll visible">
+<h1 class="display-4 fw-bold text-white mb-3">Comprehensive Guide to <span class="text-gradient">Artificial Intelligence</span></h1>
+<p class="lead text-gray-300 mx-auto mb-4" style="max-width: 800px;">
+                    Dive deep into the mechanics, history, and profound impact of machine intelligence. From neural networks to large language models, explore how AI is reshaping humanity.
+                </p>
+<a class="btn btn-outline-light rounded-pill px-4" href="index.html">
+<i class="bi bi-arrow-left me-2"></i>Return to Home
+                </a>
+</div>
+</header>
+<section class="container my-5 py-5 fade-in-scroll">
+<div class="row align-items-center g-5">
+<div class="col-lg-6">
+<h2 class="fw-bold text-white mb-4">Beyond the Hype: <span class="text-primary">What Exactly is AI?</span></h2>
+<p class="text-secondary" style="line-height: 1.8; font-size: 1.1rem;">
+                        At its core, <strong>Artificial Intelligence (AI)</strong> is a branch of computer science dedicated to creating systems capable of performing tasks that typically require human intelligence. This involves everything from recognizing speech and visual perception to decision-making and language translation.
+                    </p>
+<p class="text-secondary" style="line-height: 1.8; font-size: 1.1rem;">
+                        Unlike traditional software that follows strictly hard-coded rules (if-then logic), modern AI systems are designed to <em>learn</em> from vast amounts of data, identify patterns, and make autonomous predictions with minimal human intervention.
+                    </p>
+</div>
+<div class="col-lg-6">
+<div class="p-4 bg-dark border border-secondary rounded-4 shadow">
+<img alt="AI Circuit" class="img-fluid rounded-3 mb-3" loading="lazy" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&amp;w=800&amp;auto=format&amp;fit=crop"/>
+<p class="text-center text-info small mb-0"><i class="bi bi-info-circle me-1"></i> Data processing is the foundation of all machine learning algorithms.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="container my-5 fade-in-scroll">
+<div class="p-5 rounded-4" style="background-color: #111827; border: 1px solid #1f2937;">
+<h3 class="fw-bold text-white mb-5 text-center"><i class="bi bi-clock-history text-primary me-2"></i>The Evolution of Machine Intelligence</h3>
+<div class="timeline">
+<div class="timeline-item">
+<h5 class="fw-bold text-primary">1950 - The Turing Test</h5>
+<p class="text-secondary mb-0">Alan Turing proposes a test to determine if a machine can exhibit intelligent behavior indistinguishable from that of a human.</p>
+</div>
+<div class="timeline-item">
+<h5 class="fw-bold text-primary">1956 - The Dartmouth Conference</h5>
+<p class="text-secondary mb-0">The term "Artificial Intelligence" is officially coined by John McCarthy. It marks the birth of AI as an academic discipline.</p>
+</div>
+<div class="timeline-item">
+<h5 class="fw-bold text-primary">1997 - Deep Blue Defeats Kasparov</h5>
+<p class="text-secondary mb-0">IBM's Deep Blue becomes the first computer system to defeat a reigning world chess champion under tournament conditions.</p>
+</div>
+<div class="timeline-item">
+<h5 class="fw-bold text-primary">2012 - The Deep Learning Boom</h5>
+<p class="text-secondary mb-0">A neural network architecture called AlexNet dominates a major image recognition competition, kicking off the modern deep learning revolution.</p>
+</div>
+<div class="timeline-item">
+<h5 class="fw-bold text-primary">2022 &amp; Beyond - Generative AI Era</h5>
+<p class="text-secondary mb-0">The public release of models like ChatGPT and Midjourney demonstrates AI's unprecedented ability to generate human-like text, code, and high-quality artwork.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="container my-5 py-5 fade-in-scroll">
+<div class="text-center mb-5">
+<h2 class="fw-bold text-white">The Four Pillars of AI</h2>
+<p class="text-secondary">Understanding the specialized domains within artificial intelligence.</p>
+</div>
+<div class="row g-4">
+<div class="col-md-6 col-lg-3">
+<div class="domain-card">
+<i class="bi bi-graph-up-arrow domain-icon"></i>
+<h5 class="fw-bold text-white">Machine Learning</h5>
+<p class="text-secondary small">Algorithms that allow software applications to become more accurate at predicting outcomes without being explicitly programmed.</p>
+</div>
+</div>
+<div class="col-md-6 col-lg-3">
+<div class="domain-card">
+<i class="bi bi-chat-left-text domain-icon"></i>
+<h5 class="fw-bold text-white">Natural Language (NLP)</h5>
+<p class="text-secondary small">The branch of AI concerned with giving computers the ability to understand text and spoken words in much the same way human beings can.</p>
+</div>
+</div>
+<div class="col-md-6 col-lg-3">
+<div class="domain-card">
+<i class="bi bi-eye domain-icon"></i>
+<h5 class="fw-bold text-white">Computer Vision</h5>
+<p class="text-secondary small">Enables computers and systems to derive meaningful information from digital images, videos, and other visual inputs.</p>
+</div>
+</div>
+<div class="col-md-6 col-lg-3">
+<div class="domain-card">
+<i class="bi bi-robot domain-icon"></i>
+<h5 class="fw-bold text-white">Robotics</h5>
+<p class="text-secondary small">Integrating AI into mechanical engineering to create machines that can perform complex, dangerous, or highly repetitive tasks autonomously.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="container my-5 fade-in-scroll">
+<div class="quiz-section shadow-lg">
+<div class="row align-items-center">
+<div class="col-lg-7">
+<h3 class="fw-bold text-white mb-3"><i class="bi bi-patch-question-fill text-warning me-2"></i>Test Your AI Knowledge</h3>
+<p class="text-secondary mb-4">Let's see how much you've learned! Answer this quick question.</p>
+<div id="quizContainer">
+<div class="mb-3">
+<p class="text-white fw-bold">Question: Which of the following is a subset of AI that relies heavily on artificial neural networks?</p>
+<div class="form-check mb-2">
+<input class="form-check-input" id="q1" name="aiQuiz" type="radio" value="wrong"/>
+<label class="form-check-label text-secondary" for="q1">A) Hard-coded If-Else Logic</label>
+</div>
+<div class="form-check mb-2">
+<input class="form-check-input" id="q2" name="aiQuiz" type="radio" value="correct"/>
+<label class="form-check-label text-secondary" for="q2">B) Deep Learning</label>
+</div>
+<div class="form-check mb-2">
+<input class="form-check-input" id="q3" name="aiQuiz" type="radio" value="wrong"/>
+<label class="form-check-label text-secondary" for="q3">C) Manual Data Entry</label>
+</div>
+</div>
+<button class="btn btn-primary mt-2" id="submitQuizBtn">Submit Answer</button>
+</div>
+<div class="mt-4" id="quizResult" style="display: none;"></div>
+</div>
+<div class="col-lg-5 text-center d-none d-lg-block">
+<i class="bi bi-lightbulb text-warning opacity-50" style="font-size: 10rem;"></i>
+</div>
+</div>
+</div>
+</section>
+</div><footer class="global-footer text-center py-4" style="background-color: #05080f; border-top: 1px solid #1f2937; margin-top: 60px;">
+<div class="container">
+<p class="text-secondary mb-1">© 2026 AI &amp; Innovation Club - Front-End Web Development.</p>
+<p class="text-muted small mb-0"><i class="bi bi-clock-history me-1"></i><span id="cookieDisplay"></span></p>
+</div>
+</footer><script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script><script src="script.js"></script></body></html>
